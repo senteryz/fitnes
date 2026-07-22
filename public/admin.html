@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Административная панель — Аура Fitness</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="login-screen">
+  <div class="login-box">
+    <div class="login-logo">Аура</div>
+    <div class="login-sub">Admin Panel · Fitness</div>
+    <div class="login-form">
+      <div class="form-group">
+        <label class="form-label">Пароль</label>
+        <input type="password" class="form-control" id="login-password" placeholder="Введите пароль" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary btn-lg" style="width:100%; margin-top:0.5rem; justify-content:center;" id="login-btn">Войти</button>
+      <div class="login-error" id="login-error">Неверный пароль</div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN LAYOUT -->
+<div id="admin-app" style="display:none; width:100%;">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar" id="admin-sidebar">
+    <div class="sidebar-logo">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="47" stroke="#c4a96a" stroke-width="1.5"/>
+        <text x="50" y="68" text-anchor="middle" font-size="28" fill="#c4a96a" font-family="serif" font-style="italic">Аура</text>
+      </svg>
+      <div class="sidebar-logo-text">
+        <div class="sidebar-logo-main">Аура</div>
+        <div class="sidebar-logo-sub">Admin Panel</div>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Управление</div>
+      <div class="nav-item active" data-panel="dashboard" id="nav-dashboard">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Дашборд
+      </div>
+      <div class="nav-section-title">Контент</div>
+      <div class="nav-item" data-panel="trainers" id="nav-trainers">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Тренеры
+      </div>
+      <div class="nav-item" data-panel="prices" id="nav-prices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Цены
+      </div>
+      <div class="nav-item" data-panel="news" id="nav-news">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        Новости
+      </div>
+      <div class="nav-item" data-panel="reviews" id="nav-reviews">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Отзывы
+      </div>
+      <div class="nav-item" data-panel="gallery" id="nav-gallery">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+        Галерея
+      </div>
+      <div class="nav-item" data-panel="schedule" id="nav-schedule">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Расписание
+      </div>
+      <div class="nav-section-title">Система</div>
+      <div class="nav-item" data-panel="database" id="nav-database">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        База данных
+      </div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-logout" id="logout-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16,17 21,12 16,7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Выйти
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <div class="topbar-title" id="topbar-title">Дашборд</div>
+      </div>
+      <div class="topbar-actions">
+        <a href="/" target="_blank" class="topbar-site-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15,3 21,3 21,9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Открыть сайт
+        </a>
+      </div>
+    </div>
+
+    <div class="admin-content">
+
+      <!-- ═══ DASHBOARD ═══ -->
+      <div class="panel active" id="panel-dashboard">
+        <div class="stats-grid" id="stats-grid">
+          <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-value" id="stat-trainers">0</div><div class="stat-label">Тренеров</div></div>
+          <div class="stat-card"><div class="stat-icon">📰</div><div class="stat-value" id="stat-news">0</div><div class="stat-label">Новостей</div></div>
+          <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-value" id="stat-reviews">0</div><div class="stat-label">Отзывов</div></div>
+          <div class="stat-card"><div class="stat-icon">🖼️</div><div class="stat-value" id="stat-gallery">0</div><div class="stat-label">Фото в галерее</div></div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+          <div class="card">
+            <div class="card-title">Быстрые действия</div>
+            <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem;">
+              <button class="btn btn-ghost" onclick="switchPanel('trainers')">→ Добавить тренера</button>
+              <button class="btn btn-ghost" onclick="switchPanel('news')">→ Новая новость</button>
+              <button class="btn btn-ghost" onclick="switchPanel('gallery')">→ Добавить фото</button>
+              <button class="btn btn-ghost" onclick="switchPanel('prices')">→ Изменить цены</button>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Информация</div>
+            <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Адрес:</span> ул. Колпакова, 24А, Мытищи</div>
+              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Телефон:</span> +7 (903) 797-77-39</div>
+              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Работа:</span> Ежедневно 09:00–22:00</div>
+              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Рейтинг:</span> 4.8 ★ (145 отзывов)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═══ TRAINERS ═══ -->
+      <div class="panel" id="panel-trainers">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Тренеры</div>
+            <div class="panel-subtitle">Управление составом тренерского состава</div>
+          </div>
+          <button class="btn btn-primary" onclick="openTrainerModal()" id="add-trainer-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить тренера
+          </button>
+        </div>
+        <div class="table-container">
+          <table id="trainers-table">
+            <thead><tr><th>Фото</th><th>Имя</th><th>Специализация</th><th>Опыт</th><th>Образование</th><th>Действия</th></tr></thead>
+            <tbody id="trainers-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ PRICES ═══ -->
+      <div class="panel" id="panel-prices">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Цены</div>
+            <div class="panel-subtitle">Редактирование цен на услуги</div>
+          </div>
+          <button class="btn btn-primary" onclick="savePrices()" id="save-prices-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/><polyline points="7,3 7,8 15,8"/></svg>
+            Сохранить
+          </button>
+        </div>
+        <div id="prices-editor"></div>
+      </div>
+
+      <!-- ═══ NEWS ═══ -->
+      <div class="panel" id="panel-news">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Новости и акции</div>
+            <div class="panel-subtitle">Управление публикациями</div>
+          </div>
+          <button class="btn btn-primary" onclick="openNewsModal()" id="add-news-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить новость
+          </button>
+        </div>
+        <div class="table-container">
+          <table id="news-table">
+            <thead><tr><th>Дата</th><th>Категория</th><th>Заголовок</th><th>Отрывок</th><th>Действия</th></tr></thead>
+            <tbody id="news-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ═══ REVIEWS ═══ -->
+      <div class="panel" id="panel-reviews">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Отзывы</div>
+            <div class="panel-subtitle">Модерация отзывов</div>
+          </div>
+          <button class="btn btn-primary" onclick="openReviewModal()" id="add-review-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить отзыв
+          </button>
+        </div>
+        <div id="reviews-list"></div>
+      </div>
+
+      <!-- ═══ GALLERY ═══ -->
+      <div class="panel" id="panel-gallery">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Галерея</div>
+            <div class="panel-subtitle">Управление фотографиями</div>
+          </div>
+          <button class="btn btn-primary" onclick="openGalleryModal()" id="add-gallery-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Добавить фото
+          </button>
+        </div>
+        <div class="admin-gallery-grid" id="admin-gallery-grid"></div>
+      </div>
+
+      <!-- ═══ SCHEDULE ═══ -->
+      <div class="panel" id="panel-schedule">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Расписание</div>
+            <div class="panel-subtitle">Расписание групповых занятий</div>
+          </div>
+          <button class="btn btn-primary" onclick="saveSchedule()" id="save-schedule-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/></svg>
+            Сохранить
+          </button>
+        </div>
+        <div class="schedule-grid" id="schedule-grid"></div>
+      </div>
+
+      <!-- ═══ DATABASE ═══ -->
+      <div class="panel" id="panel-database">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">База данных</div>
+            <div class="panel-subtitle">Экспорт и импорт db.json</div>
+          </div>
+        </div>
+        <div class="db-actions">
+          <div class="db-action-card">
+            <div class="db-action-icon">⬇️</div>
+            <div class="db-action-title">Скачать базу</div>
+            <div class="db-action-desc">Скачайте текущую базу данных (db.json) для резервной копии. Содержит все данные: тренеров, цены, новости, отзывы, галерею.</div>
+            <button class="btn btn-primary" onclick="exportDB()" id="export-db-btn">↓ Скачать db.json</button>
+          </div>
+          <div class="db-action-card">
+            <div class="db-action-icon">⬆️</div>
+            <div class="db-action-title">Загрузить базу</div>
+            <div class="db-action-desc">Загрузите ранее сохранённую базу данных. <strong style="color:var(--warning)">Внимание!</strong> Текущие данные будут заменены.</div>
+            <label class="btn btn-ghost" style="cursor:pointer;" id="import-db-label">
+              ↑ Загрузить db.json
+              <input type="file" accept=".json" style="display:none" id="import-db-file" onchange="importDB(event)">
+            </label>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-title">Предпросмотр структуры</div>
+          <pre id="db-preview" style="font-size:0.7rem; color:var(--gray); overflow:auto; max-height:300px; margin-top:1rem; background:var(--black-3); padding:1rem; border-radius:2px; line-height:1.4;"></pre>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-main -->
+</div><!-- /admin-app -->
+
+<!-- TOAST -->
+<div id="toast-container"></div>
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- Trainer Modal -->
+<div class="modal-overlay" id="trainer-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="trainer-modal-title">Добавить тренера</div>
+      <button class="modal-close" onclick="closeModal('trainer-modal')">×</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Имя *</label>
+        <input class="form-control" id="t-name" placeholder="Полное имя">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Специализация *</label>
+        <input class="form-control" id="t-spec" placeholder="например, силовой тренер">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Опыт работы</label>
+        <input class="form-control" id="t-exp" placeholder="например, 5 лет">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Образование</label>
+        <input class="form-control" id="t-edu" placeholder="ВУз, специальность">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Достижения</label>
+        <input class="form-control" id="t-ach" placeholder="Спортивные титулы">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Сертификаты</label>
+        <input class="form-control" id="t-cert" placeholder="Названия сертификатов">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Фото (URL)</label>
+        <input class="form-control" id="t-photo" placeholder="https://example.com/photo.jpg">
+        <div class="form-hint">Ссылка на фотографию тренера</div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('trainer-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveTrainer()" id="save-trainer-btn">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- News Modal -->
+<div class="modal-overlay" id="news-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="news-modal-title">Добавить новость</div>
+      <button class="modal-close" onclick="closeModal('news-modal')">×</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <label class="form-label">Заголовок *</label>
+        <input class="form-control" id="n-title" placeholder="Заголовок новости">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Категория</label>
+        <select class="form-control" id="n-cat">
+          <option>Новость</option>
+          <option>Акция</option>
+          <option>Скидка</option>
+          <option>Мероприятие</option>
+          <option>Тренировка</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Дата</label>
+        <input class="form-control" type="date" id="n-date">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Текст *</label>
+        <textarea class="form-control" id="n-content" rows="5" placeholder="Текст новости"></textarea>
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Фото (URL)</label>
+        <input class="form-control" id="n-image" placeholder="https://example.com/img.jpg">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('news-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveNews()" id="save-news-btn">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Review Modal -->
+<div class="modal-overlay" id="review-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Добавить отзыв</div>
+      <button class="modal-close" onclick="closeModal('review-modal')">×</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label class="form-label">Имя</label>
+        <input class="form-control" id="r-name" placeholder="Имя клиента">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Дата</label>
+        <input class="form-control" id="r-date" placeholder="Дата">
+      </div>
+      <div class="form-group form-full">
+        <label class="form-label">Текст отзыва</label>
+        <textarea class="form-control" id="r-text" rows="4" placeholder="Текст отзыва"></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Оценка</label>
+        <select class="form-control" id="r-rating">
+          <option value="5">5 ★</option>
+          <option value="4">4 ★</option>
+          <option value="3">3 ★</option>
+          <option value="2">2 ★</option>
+          <option value="1">1 ★</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('review-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveReview()" id="save-review-btn">Сохранить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Gallery Modal -->
+<div class="modal-overlay" id="gallery-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Добавить фото</div>
+      <button class="modal-close" onclick="closeModal('gallery-modal')">×</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group form-full">
+        <label class="form-label">URL фото *</label>
+        <input class="form-control" id="g-url" placeholder="https://example.com/photo.jpg">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Категория</label>
+        <select class="form-control" id="g-cat">
+          <option>Тренажёрный зал</option>
+          <option>Групповые занятия</option>
+          <option>Массаж</option>
+          <option>Лазерная эпиляция</option>
+          <option>Солярий</option>
+          <option>Залы</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Подпись</label>
+        <input class="form-control" id="g-caption" placeholder="Описание фото">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('gallery-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveGalleryItem()" id="save-gallery-btn">Добавить</button>
+    </div>
+  </div>
+</div>
+
+<!-- Schedule Class Modal -->
+<div class="modal-overlay" id="schedule-modal">
+  <div class="modal" style="max-width:400px;">
+    <div class="modal-header">
+      <div class="modal-title">Добавить занятие</div>
+      <button class="modal-close" onclick="closeModal('schedule-modal')">×</button>
+    </div>
+    <input type="hidden" id="sched-day-id">
+    <div class="form-group">
+      <label class="form-label">Время</label>
+      <input class="form-control" id="sched-time" placeholder="09:00" type="time">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Название тренировки</label>
+      <input class="form-control" id="sched-name" placeholder="Групповое занятие">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Тренер</label>
+      <input class="form-control" id="sched-trainer" placeholder="Имя тренера">
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeModal('schedule-modal')">Отмена</button>
+      <button class="btn btn-primary" onclick="saveScheduleClass()" id="save-sched-btn">Добавить</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

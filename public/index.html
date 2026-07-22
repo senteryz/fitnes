@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Аура Фитнес — Главная · Премиальный фитнес-клуб в Мытищах</title>
+  <meta name="description" content="Аура Фитнес — премиальный камерный фитнес-клуб в Мытищах (ул. Колпакова, 24А). Профессиональные тренеры, финская сауна, залы 90 м² и 50 м², персональный подход. Первое посещение — бесплатно!">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/main.css?v=11">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%2354663d' stroke-width='2'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-size='40' fill='%2354663d' font-family='serif'%3EА%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ХЕДЕР И НАВИГАЦИЯ -->
+<nav id="navbar">
+  <div class="header-top-bar">
+    <div class="container">
+      <div class="header-top-inner">
+        <div class="header-top-left">
+          <span>Мытищи, ул. Колпакова, 24А, этаж 2</span>
+          <span>Ежедневно: 09:00 – 22:00</span>
+        </div>
+        <div class="header-top-right">
+          <a href="tel:+79037977739" class="header-phone-link">+7 (903) 797-77-39</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-main-bar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="/" class="nav-logo">
+          <svg viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="47" stroke="#54663d" stroke-width="2"/>
+            <path d="M28 72 Q32 55 38 40 Q42 30 45 22" stroke="#54663d" stroke-width="1.8" fill="none"/>
+            <text x="50" y="68" text-anchor="middle" font-size="28" fill="#54663d" font-family="serif" font-style="italic">Аура</text>
+          </svg>
+          <div class="nav-logo-text">
+            <span class="nav-logo-main">Аура</span>
+            <span class="nav-logo-sub">ФИТНЕС</span>
+          </div>
+        </a>
+        <ul class="nav-links">
+          <li><a href="/" class="active">Главная</a></li>
+          <li><a href="/about">О клубе</a></li>
+          <li><a href="/services">Услуги</a></li>
+          <li><a href="/trainers">Тренеры</a></li>
+          <li><a href="/prices">Цены</a></li>
+          <li><a href="/gallery">Галерея</a></li>
+          <li><a href="/reviews">Отзывы</a></li>
+          <li><a href="/news">Новости</a></li>
+          <li><a href="/contacts">Контакты</a></li>
+        </ul>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%9C%D0%B5%D0%BD%D1%8F+%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82+%D0%B2%D0%B0%D1%88+%D1%84%D0%B8%D1%82%D0%BD%D0%B5%D1%81-%D0%BA%D0%BB%D1%83%D0%B1" target="_blank" class="btn btn-gold" style="padding:0.7rem 1.6rem; font-size:0.75rem;">Записаться</a>
+        <button class="burger" id="burger" aria-label="Меню">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- МОБИЛЬНОЕ МЕНЮ -->
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-menu-close" id="mobile-menu-close">✕</button>
+  <a href="/" onclick="closeMobileMenu()">Главная</a>
+  <a href="/about" onclick="closeMobileMenu()">О клубе</a>
+  <a href="/services" onclick="closeMobileMenu()">Услуги</a>
+  <a href="/trainers" onclick="closeMobileMenu()">Тренеры</a>
+  <a href="/prices" onclick="closeMobileMenu()">Цены</a>
+  <a href="/gallery" onclick="closeMobileMenu()">Галерея</a>
+  <a href="/reviews" onclick="closeMobileMenu()">Отзывы</a>
+  <a href="/news" onclick="closeMobileMenu()">Новости</a>
+  <a href="/contacts" onclick="closeMobileMenu()">Контакты</a>
+  <a href="https://api.whatsapp.com/send/?phone=79037977739" class="btn btn-gold" target="_blank">Записаться</a>
+</div>
+
+<!-- ПОЛНОЭКРАННЫЙ БАННЕР (HERO 100vw) -->
+<section id="hero">
+  <div class="hero-fullbleed-banner">
+    <div class="hero-fullbleed-content reveal">
+      <h1 class="hero-giant-title">АУРА ФИТНЕС</h1>
+      <p class="hero-subtitle-text">
+        Премиальный камерный фитнес-клуб в Мытищах.<br>Индивидуальный подход, квалифицированные тренеры, просторные залы 90 м² и 50 м², финская сауна, солярий и массаж.
+      </p>
+      <div class="hero-btn-row">
+        <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%AF+%D0%BD%D0%B0%D1%81%D1%87%D1%91%D1%82+%D0%BF%D0%B5%D1%80%D0%B2%D0%BE%D0%B3%D0%BE+%D0%B1%D0%B5%D1%81%D0%BF%D0%BB%D0%B0%D1%82%D0%BD%D0%BE%D0%B3%D0%BE+%D0%BF%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D1%8F" target="_blank" class="btn btn-gold">
+          Попробовать бесплатно
+        </a>
+        <a href="/prices" class="btn btn-outline" style="border-color:#ffffff; color:#ffffff;">
+          Узнать цены
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ПРЕИМУЩЕСТВА (UI/UX PRO MAX SPLIT С ИКОНКАМИ) -->
+<section class="section">
+  <div class="container">
+    <div class="pro-reasons-split">
+      <div class="pro-reasons-sticky-header reveal-left">
+        <span class="label">Почему выбирают нас</span>
+        <h2 class="section-title">АТМОСФЕРА И СЕРВИС ВЫСОКОГО УРОВНЯ</h2>
+        <p class="section-subtitle">Всё продумано до мелочей для ваших комфортных и безопасных тренировок.</p>
+        <div style="margin-top:2.2rem;">
+          <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="btn btn-gold">Записаться в клуб</a>
+        </div>
+      </div>
+
+      <div class="pro-reasons-list">
+        <div class="pro-reason-card reveal delay-1">
+          <div class="pro-reason-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <h3 class="pro-reason-title">Уютная атмосфера</h3>
+            <p class="pro-reason-desc">Камерный клуб без очередей и переполненности. Чистый комфортный зал, где приятно заниматься каждый день.</p>
+          </div>
+          <div class="pro-reason-num">01</div>
+        </div>
+
+        <div class="pro-reason-card reveal delay-2">
+          <div class="pro-reason-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+          </div>
+          <div>
+            <h3 class="pro-reason-title">Опытные тренеры</h3>
+            <p class="pro-reason-desc">Дипломированные специалисты с многолетним стажем. Составят грамотный план нагрузки под ваши цели.</p>
+          </div>
+          <div class="pro-reason-num">02</div>
+        </div>
+
+        <div class="pro-reason-card reveal delay-3">
+          <div class="pro-reason-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+          </div>
+          <div>
+            <h3 class="pro-reason-title">Индивидуальный подход</h3>
+            <p class="pro-reason-desc">Персональное внимание к каждому клиенту, контроль техники безопасности и постоянная поддержка.</p>
+          </div>
+          <div class="pro-reason-num">03</div>
+        </div>
+
+        <div class="pro-reason-card reveal delay-1">
+          <div class="pro-reason-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <h3 class="pro-reason-title">Удобное расположение</h3>
+            <p class="pro-reason-desc">Мытищи, ул. Колпакова 24А (2 этаж бизнес-центра). Удобный доступ на транспорте и автомобиле.</p>
+          </div>
+          <div class="pro-reason-num">04</div>
+        </div>
+
+        <div class="pro-reason-card reveal delay-2">
+          <div class="pro-reason-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+          <div>
+            <h3 class="pro-reason-title">Собственная парковка</h3>
+            <p class="pro-reason-desc">Бесплатная вместительная парковка прямо возле здания клуба. Вы всегда найдете место.</p>
+          </div>
+          <div class="pro-reason-num">05</div>
+        </div>
+
+        <div class="pro-reason-card reveal delay-3">
+          <div class="pro-reason-icon-wrapper">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+          </div>
+          <div>
+            <h3 class="pro-reason-title">Финская сауна</h3>
+            <p class="pro-reason-desc">Горячая финская сауна для глубокого расслабления и восстановления мышц после каждой тренировки.</p>
+          </div>
+          <div class="pro-reason-num">06</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- БАННЕР ПАРАЛЛАКСА -->
+<section class="parallax-quote-banner">
+  <div class="parallax-quote-content reveal">
+    <div class="parallax-quote-tag">АУРА ФИТНЕС · МЫТИЩИ</div>
+    <blockquote class="parallax-quote-text">
+      «Каждая тренировка — это шаг к лучшей версии себя в атмосфере премиального уюта»
+    </blockquote>
+    <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="btn btn-gold">
+      Записаться на бесплатный визит
+    </a>
+  </div>
+</section>
+
+<!-- УСЛУГИ — EQUINOX-STYLE РАСШИРЯЮЩИЕСЯ ПАНЕЛИ -->
+<section class="eq-services-section reveal">
+  <div class="container">
+    <div class="eq-header">
+      <div>
+        <span class="label">Направления</span>
+        <h2 class="section-title">УСЛУГИ КЛУБА</h2>
+      </div>
+      <a href="/services" class="btn btn-outline">Все услуги</a>
+    </div>
+  </div>
+
+  <div class="eq-panels-wrap">
+    <!-- Тренажёрный зал -->
+    <div class="eq-panel">
+      <div class="eq-panel-bg" style="background-image:url('/images/hero.jpg')"></div>
+      <div class="eq-panel-overlay"></div>
+      <div class="eq-panel-idle">
+        <span class="eq-panel-num">01</span>
+        <span class="eq-panel-idle-title">Тренажёрный зал</span>
+      </div>
+      <div class="eq-panel-content">
+        <div class="eq-panel-tag">Силовой и кардио тренинг</div>
+        <h3 class="eq-panel-title">Тренажёрный зал</h3>
+        <p class="eq-panel-desc">Просторный зал с силовыми и кардио-тренажёрами, гантельным рядом и зоной свободных весов.</p>
+        <div class="eq-panel-chips">
+          <span>Кардио-зона</span>
+          <span>Свободные веса</span>
+          <span>Силовые тренажёры</span>
+        </div>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="eq-panel-btn">Записаться</a>
+      </div>
+    </div>
+
+    <!-- Групповые залы -->
+    <div class="eq-panel">
+      <div class="eq-panel-bg" style="background-image:url('/images/group_hall.jpg')"></div>
+      <div class="eq-panel-overlay"></div>
+      <div class="eq-panel-idle">
+        <span class="eq-panel-num">02</span>
+        <span class="eq-panel-idle-title">Залы 90 м² и 50 м²</span>
+      </div>
+      <div class="eq-panel-content">
+        <div class="eq-panel-tag">Групповой тренинг и аренда</div>
+        <h3 class="eq-panel-title">Залы 90 м² и 50 м²</h3>
+        <p class="eq-panel-desc">Два зала с профессиональным покрытием для групповых занятий, йоги, боевых искусств и почасовой аренды.</p>
+        <div class="eq-panel-chips">
+          <span>Зал 90 м²</span>
+          <span>Зал 50 м²</span>
+          <span>Аренда по часам</span>
+        </div>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="eq-panel-btn">Записаться</a>
+      </div>
+    </div>
+
+    <!-- Массаж и СПА -->
+    <div class="eq-panel">
+      <div class="eq-panel-bg" style="background-image:url('/images/massage.jpg')"></div>
+      <div class="eq-panel-overlay"></div>
+      <div class="eq-panel-idle">
+        <span class="eq-panel-num">03</span>
+        <span class="eq-panel-idle-title">Массаж и СПА</span>
+      </div>
+      <div class="eq-panel-content">
+        <div class="eq-panel-tag">Восстановление и уход</div>
+        <h3 class="eq-panel-title">Массаж и СПА</h3>
+        <p class="eq-panel-desc">Спортивный, антицеллюлитный, расслабляющий массаж от дипломированных специалистов.</p>
+        <div class="eq-panel-chips">
+          <span>Спортивный</span>
+          <span>Антицеллюлитный</span>
+          <span>Расслабляющий</span>
+        </div>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="eq-panel-btn">Записаться</a>
+      </div>
+    </div>
+
+    <!-- Сауна и Солярий -->
+    <div class="eq-panel">
+      <div class="eq-panel-bg" style="background-image:url('/images/sauna.jpg')"></div>
+      <div class="eq-panel-overlay"></div>
+      <div class="eq-panel-idle">
+        <span class="eq-panel-num">04</span>
+        <span class="eq-panel-idle-title">Сауна и Солярий</span>
+      </div>
+      <div class="eq-panel-content">
+        <div class="eq-panel-tag">Релакс и Загар</div>
+        <h3 class="eq-panel-title">Сауна и Солярий</h3>
+        <p class="eq-panel-desc">Финская сауна для восстановления после тренировки и современный солярий для загара круглый год.</p>
+        <div class="eq-panel-chips">
+          <span>Финская сауна</span>
+          <span>Солярий</span>
+          <span>Зона отдыха</span>
+        </div>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="eq-panel-btn">Записаться</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lux-reviews-section reveal">
+  <div class="lux-reviews-top container">
+    <div>
+      <span class="label">Мнения гостей</span>
+      <h2 class="section-title">ОТЗЫВЫ О КЛУБЕ</h2>
+    </div>
+    <div class="lux-score-wrap">
+      <div class="lux-score-num">4.8</div>
+      <div class="lux-score-info">
+        <div class="lux-score-stars">★★★★★</div>
+        <div class="lux-score-sub">145 отзывов на Яндекс.Картах</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lux-reviews-stage">
+    <!-- Декоративные кавычки -->
+    <div class="lux-giant-quote" aria-hidden="true"></div>
+
+    <!-- Карточки отзывов -->
+    <div class="lux-reviews-track" id="reviews-track">
+      <!-- Заполняется из main.js -->
+    </div>
+
+    <!-- Стрелки -->
+    <button class="lux-arrow lux-arrow-prev" id="reviews-prev-btn" aria-label="Предыдущий">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="lux-arrow lux-arrow-next" id="reviews-next-btn" aria-label="Следующий">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+
+  <!-- Точки -->
+  <div class="lux-reviews-footer container">
+    <div class="lux-dots" id="reviews-dots-box"></div>
+  </div>
+</section>
+
+<!-- ФУТЕР ПРЕМИУМ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- Верхний блок -->
+    <div class="footer-top">
+      <!-- Лого + слоган -->
+      <div class="footer-brand">
+        <div class="footer-logo">АУРА ФИТНЕС</div>
+        <p class="footer-tagline">Премиальный фитнес-клуб<br>в сердце Мытищ</p>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="footer-cta">
+          Записаться бесплатно
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Навигация -->
+      <div class="footer-nav-col">
+        <div class="footer-col-title">Клуб</div>
+        <a href="/">Главная</a>
+        <a href="/about">О клубе</a>
+        <a href="/trainers">Тренеры</a>
+        <a href="/news">Новости</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <div class="footer-col-title">Услуги</div>
+        <a href="/services">Тренажёрный зал</a>
+        <a href="/services">Групповые залы</a>
+        <a href="/services">Массаж и СПА</a>
+        <a href="/services">Сауна и Солярий</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <div class="footer-col-title">Контакты</div>
+        <a href="tel:+79037977739">+7 (903) 797-77-39</a>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank">WhatsApp</a>
+        <span class="footer-address">Мытищи, ул. Колпакова 24А<br>2 этаж бизнес-центра</span>
+        <span class="footer-hours">Пн–Пт: 7:00–23:00<br>Сб–Вс: 8:00–22:00</span>
+      </div>
+    </div>
+
+    <!-- Разделитель -->
+    <div class="footer-divider"></div>
+
+    <!-- Нижняя строка -->
+    <div class="footer-bottom">
+      <span>© 2026 Аура Фитнес — Все права защищены</span>
+      <div class="footer-bottom-links">
+        <a href="/reviews">Отзывы</a>
+        <a href="/prices">Цены</a>
+        <a href="/gallery">Галерея</a>
+        <a href="/admin">Админ</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="/js/main.js"></script>
+<script>
+  // Переключение табов услуг
+  document.querySelectorAll('.svc-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var idx = this.getAttribute('data-target');
+      document.querySelectorAll('.svc-tab').forEach(function(t) { t.classList.remove('active'); });
+      document.querySelectorAll('.svc-panel').forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      var panel = document.getElementById('svc-panel-' + idx);
+      if (panel) panel.classList.add('active');
+    });
+  });
+</script>
+</body>
+</html>

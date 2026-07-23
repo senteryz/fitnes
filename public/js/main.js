@@ -48,26 +48,63 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => revealObserver.observe(el));
 
-// Лайтбокс галереи
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const lightboxClose = document.getElementById('lightbox-close');
+// Лайтбокс галереи с поддержкой листания (Prev/Next)
+let activeGalleryItems = [];
+let currentLightboxIndex = 0;
 
-function openLightbox(src, alt) {
-  if (!lightbox || !lightboxImg) return;
-  lightboxImg.src = src;
-  lightboxImg.alt = alt || '';
+function openLightboxByIndex(index) {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCat = document.getElementById('lightbox-cat');
+  const lightboxTitle = document.getElementById('lightbox-title');
+
+  if (!lightbox || !lightboxImg || !activeGalleryItems.length) return;
+
+  currentLightboxIndex = (index + activeGalleryItems.length) % activeGalleryItems.length;
+  const item = activeGalleryItems[currentLightboxIndex];
+
+  lightboxImg.src = item.url || '/images/hero.jpg';
+  lightboxImg.alt = item.caption || '';
+  if (lightboxCat) lightboxCat.textContent = item.category || 'Аура Фитнес';
+  if (lightboxTitle) lightboxTitle.textContent = item.caption || item.category || '';
+
   lightbox.classList.add('open');
 }
 
-if (lightboxClose && lightbox) {
-  lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
-}
-if (lightbox) {
-  lightbox.addEventListener('click', e => {
-    if (e.target === lightbox) lightbox.classList.remove('open');
+document.addEventListener('DOMContentLoaded', () => {
+  const lightbox = document.getElementById('lightbox');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+
+  if (lightboxClose && lightbox) {
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('open'));
+  }
+  if (lightboxPrev) {
+    lightboxPrev.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightboxByIndex(currentLightboxIndex - 1);
+    });
+  }
+  if (lightboxNext) {
+    lightboxNext.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openLightboxByIndex(currentLightboxIndex + 1);
+    });
+  }
+  if (lightbox) {
+    lightbox.addEventListener('click', e => {
+      if (e.target === lightbox) lightbox.classList.remove('open');
+    });
+  }
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox || !lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') lightbox.classList.remove('open');
+    if (e.key === 'ArrowLeft') openLightboxByIndex(currentLightboxIndex - 1);
+    if (e.key === 'ArrowRight') openLightboxByIndex(currentLightboxIndex + 1);
   });
-}
+});
 
 // ═══════════════════════════════════════════════════
 // LUXURY СЛАЙДЕР ОТЗЫВОВ
@@ -104,17 +141,32 @@ function renderReviews(reviews) {
   // Заполнить страницу всех отзывов
   const fullGrid = document.getElementById('full-reviews-grid');
   if (fullGrid) {
-    fullGrid.innerHTML = reviews.map(r => `
-      <div class="review-slide-card">
-        <div class="review-slide-quote">"${r.text}"</div>
-        <div class="review-slide-user">
-          <div class="review-avatar-letter">${r.name.charAt(0)}</div>
-          <div>
-            <div class="review-user-name">${r.name}</div>
-            <div class="review-user-meta">${r.level || 'Клиент клуба'} · ${r.date}</div>
+    fullGrid.innerHTML = reviews.map(r => {
+      const initial = r.name ? r.name.charAt(0).toUpperCase() : 'А';
+      const stars = '★'.repeat(r.rating || 5);
+      return `
+      <div class="review-lux-card">
+        <div class="review-lux-header">
+          <div class="review-lux-stars">${stars}</div>
+          <span class="review-lux-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            Проверен на Яндекс
+          </span>
+        </div>
+        <blockquote class="review-lux-quote">"${r.text}"</blockquote>
+        <div class="review-lux-user">
+          <div class="review-lux-avatar">${initial}</div>
+          <div class="review-lux-meta">
+            <div class="review-lux-name">${r.name}</div>
+            <div class="review-lux-sub">
+              <span>${r.level || 'Знаток города'}</span>
+              <span class="review-lux-dot">•</span>
+              <span>${r.date}</span>
+            </div>
           </div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
 
   buildDots();
@@ -275,35 +327,23 @@ function renderPrices(prices) {
 
 function renderGallery(gallery) {
   const grid = document.getElementById('gallery-grid');
-  const filters = document.getElementById('gallery-filters');
   if (!grid || !gallery) return;
 
-  const cats = ['Все', ...new Set(gallery.map(g => g.category).filter(Boolean))];
-  if (filters) {
-    filters.innerHTML = cats.map((c, i) => `
-      <button class="filter-btn ${i === 0 ? 'active' : ''}" data-cat="${c}">${c}</button>
-    `).join('');
+  activeGalleryItems = gallery;
 
-    filters.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        filters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const cat = btn.dataset.cat;
-        grid.querySelectorAll('.gallery-item').forEach(item => {
-          if (cat === 'Все' || item.dataset.cat === cat) item.style.display = '';
-          else item.style.display = 'none';
-        });
-      });
-    });
-  }
-
-  grid.innerHTML = gallery.map(g => `
-    <div class="gallery-item" data-cat="${g.category}" onclick="openLightbox('${g.url}', '${g.caption || ''}')">
-      <img src="${g.url || '/images/hero.jpg'}" alt="${g.caption || ''}" loading="lazy">
-      <div class="gallery-overlay">
-        <span style="font-size:0.85rem; font-weight:700; color:var(--white);">${g.caption || g.category}</span>
+  grid.innerHTML = gallery.map((g, i) => {
+    return `
+    <div class="gallery-bento-card gallery-bento-card-${i + 1}" onclick="openLightboxByIndex(${i})">
+      <div class="gallery-bento-inner">
+        <img src="${g.url || '/images/hero.jpg'}" alt="${g.caption || ''}" loading="lazy">
+        <div class="gallery-bento-overlay">
+          <div class="gallery-bento-zoom" title="Увеличить">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          </div>
+        </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 function renderNews(news) {
@@ -337,4 +377,90 @@ async function loadData() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', loadData);
+document.addEventListener('DOMContentLoaded', () => {
+  loadData();
+  initHallsShowcase();
+});
+
+let currentHallIndex = 0;
+
+function initHallsShowcase() {
+  const prevBtn = document.getElementById('halls-prev-btn');
+  const nextBtn = document.getElementById('halls-next-btn');
+  const slides = document.querySelectorAll('.halls-banner-slide');
+  const dotsBox = document.getElementById('halls-dots-box');
+
+  if (!slides.length) return;
+
+  if (dotsBox) {
+    dotsBox.innerHTML = '';
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = 'halls-dot-item' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', `Слайд ${i + 1}`);
+      dot.addEventListener('click', () => switchHallSlide(i));
+      dotsBox.appendChild(dot);
+    });
+  }
+
+  function switchHallSlide(index) {
+    currentHallIndex = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === currentHallIndex);
+    });
+    const dots = document.querySelectorAll('.halls-dot-item');
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentHallIndex);
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => switchHallSlide(currentHallIndex - 1));
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => switchHallSlide(currentHallIndex + 1));
+  }
+}
+
+// ─── ИНИЦИАЛИЗАЦИЯ НАВИГАЦИИ ПО КАТЕГОРИЯМ ЦЕН ───────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const catBtns = document.querySelectorAll('.cat-nav-btn');
+  const priceBlocks = document.querySelectorAll('.pricing-block');
+
+  if (catBtns.length && priceBlocks.length) {
+    catBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const targetId = btn.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          const targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            catBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      });
+    });
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      priceBlocks.forEach(block => {
+        const blockTop = block.offsetTop - 200;
+        if (window.scrollY >= blockTop) {
+          current = '#' + block.getAttribute('id');
+        }
+      });
+
+      if (current) {
+        catBtns.forEach(btn => {
+          btn.classList.remove('active');
+          if (btn.getAttribute('href') === current) {
+            btn.classList.add('active');
+          }
+        });
+      }
+    });
+  }
+});
+

@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Цены и абонементы — Аура Фитнес Мытищи</title>
-  <meta name="description" content="Стоимость разовых посещений, абонементов и аренды залов 90 м² и 50 м² в Аура Фитнес. Первое посещение бесплатно!">
-  <link rel="stylesheet" href="/css/main.css?v=5">
+  <title>Услуги и цены — Аура Фитнес Мытищи</title>
+  <meta name="description" content="Полный прайс-лист и спектр услуг Аура Фитнес: лазерная эпиляция, массаж, абонементы, персональный тренинг, групповые занятия, сауна, солярий и аренда залов.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css?v=14">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%2354663d' stroke-width='2'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-size='40' fill='%2354663d' font-family='serif'%3EА%3C/text%3E%3C/svg%3E">
 </head>
 <body>
 
+<!-- ХЕДЕР И НАВИГАЦИЯ -->
 <nav id="navbar">
   <div class="header-top-bar">
     <div class="container">
@@ -42,9 +46,8 @@
         <ul class="nav-links">
           <li><a href="/">Главная</a></li>
           <li><a href="/about">О клубе</a></li>
-          <li><a href="/services">Услуги</a></li>
+          <li><a href="/services" class="active">Услуги и цены</a></li>
           <li><a href="/trainers">Тренеры</a></li>
-          <li><a href="/prices" class="active">Цены</a></li>
           <li><a href="/gallery">Галерея</a></li>
           <li><a href="/reviews">Отзывы</a></li>
           <li><a href="/news">Новости</a></li>
@@ -61,9 +64,8 @@
   <button class="mobile-menu-close" id="mobile-menu-close">✕</button>
   <a href="/">Главная</a>
   <a href="/about">О клубе</a>
-  <a href="/services">Услуги</a>
+  <a href="/services">Услуги и цены</a>
   <a href="/trainers">Тренеры</a>
-  <a href="/prices">Цены</a>
   <a href="/gallery">Галерея</a>
   <a href="/reviews">Отзывы</a>
   <a href="/news">Новости</a>
@@ -72,25 +74,577 @@
 
 <header class="page-hero">
   <div class="container">
-    <div class="breadcrumbs"><a href="/">Главная</a> <span>/</span> <span>Цены</span></div>
-    <h1 class="section-title">ЦЕНЫ И АБОНЕМЕНТЫ</h1>
-    <p class="section-subtitle">Честная стоимость без скрытых платежей. Выберите удобный формат занятий.</p>
+    <div class="breadcrumbs"><a href="/">Главная</a> <span>/</span> <span>Услуги и цены</span></div>
+    <h1 class="section-title">УСЛУГИ И ЦЕНЫ</h1>
+    <p class="section-subtitle">Полный спектр услуг премиального клуба «Аура Фитнес». Без скрытых платежей, профессиональный подход и абсолютный комфорт.</p>
   </div>
 </header>
 
-<section class="section">
+<section class="section unified-pricing-section">
   <div class="container">
-    <div class="prices-layout" id="prices-layout">
-      <!-- Загружается из main.js -->
+    
+    <!-- Категории Навигации -->
+    <div class="pricing-cat-nav reveal">
+      <a href="#laser" class="cat-nav-btn active">Лазерная эпиляция</a>
+      <a href="#massage" class="cat-nav-btn">Массаж & СПА</a>
+      <a href="#personal" class="cat-nav-btn">Персональный тренинг</a>
+      <a href="#group" class="cat-nav-btn">Групповые занятия</a>
+      <a href="#passes" class="cat-nav-btn">Абонементы</a>
+      <a href="#rent" class="cat-nav-btn">Аренда залов</a>
+      <a href="#tanning" class="cat-nav-btn">Солярий</a>
     </div>
+
+    <!-- 1. ЛАЗЕРНАЯ ЭПИЛЯЦИЯ -->
+    <div class="pricing-block reveal" id="laser">
+      <div class="pricing-banner-header" style="background-image: url('/images/hero.jpg');">
+        <div class="pricing-banner-overlay"></div>
+        <div class="pricing-banner-content">
+          <div class="pricing-banner-badge">Красота & Уход</div>
+          <h2 class="pricing-banner-title">Лазерная эпиляция премиум-класса</h2>
+          <p class="pricing-banner-desc">Современное безболезненное оборудование для долговечной гладкости вашей кожи без раздражений.</p>
+          <div class="pricing-banner-chips">
+            <span>Безболезненно</span>
+            <span>Для всех типов кожи</span>
+            <span>Сертифицированные мастера</span>
+            <span>Комфортные кабинеты</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Выгодные комплексы -->
+      <div class="pricing-complexes-grid">
+        <div class="complex-card">
+          <div class="complex-tag">Комплекс №1</div>
+          <h3 class="complex-title">Мини</h3>
+          <p class="complex-desc">Глубокое бикини + подмышки</p>
+          <div class="complex-price">2 700 ₽</div>
+          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%9C%D0%B8%D0%BD%D0%B8" target="_blank" class="btn btn-gold btn-small">Записаться</a>
+        </div>
+        <div class="complex-card">
+          <div class="complex-tag">Комплекс №2</div>
+          <h3 class="complex-title">Стандарт</h3>
+          <p class="complex-desc">Глубокое бикини + подмышки + голени</p>
+          <div class="complex-price">3 900 ₽</div>
+          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%A1%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82" target="_blank" class="btn btn-gold btn-small">Записаться</a>
+        </div>
+        <div class="complex-card featured">
+          <div class="complex-badge">Хит</div>
+          <div class="complex-tag">Комплекс №3</div>
+          <h3 class="complex-title">Популярный</h3>
+          <p class="complex-desc">Глубокое бикини + подмышки + ноги полностью</p>
+          <div class="complex-price">5 000 ₽</div>
+          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%9F%D0%BE%D0%BF%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%B9" target="_blank" class="btn btn-gold btn-small">Записаться</a>
+        </div>
+        <div class="complex-card">
+          <div class="complex-tag">Комплекс №4</div>
+          <h3 class="complex-title">Всё тело</h3>
+          <p class="complex-desc">Любые зоны на выбор без ограничений</p>
+          <div class="complex-price">7 000 ₽</div>
+          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%92%D1%81%D1%91+%D1%82%D0%B5%D0%BB%D0%BE" target="_blank" class="btn btn-gold btn-small">Записаться</a>
+        </div>
+      </div>
+
+      <!-- Отдельные зоны таблицы -->
+      <div class="pricing-table-wrap">
+        <h4 class="table-group-title">Зоны эпиляции по отдельности</h4>
+        <div class="pricing-rows-grid">
+          <div class="price-row-item">
+            <span class="price-row-name">Подмышечные впадины</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 000 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Классическое бикини</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 200 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Глубокое бикини</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">2 000 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Голень + коленки</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">2 000 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Бедра</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 900 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Ноги полностью</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">2 950 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Руки до локтя / выше локтя</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 200 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Плечи</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 200 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Руки полностью</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 900 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Поясница</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 200 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Спина полностью</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 800 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Ягодицы</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 200 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <span class="price-row-name">Лицо полностью</span>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">1 700 ₽</span>
+          </div>
+          <div class="price-row-item">
+            <div>
+              <span class="price-row-name">Одна малая зона</span>
+              <span class="price-row-note">Верх. губа, подбородок, виски, ареолы, межбровье, бакенбарды, скулы, шея спереди / сзади</span>
+            </div>
+            <span class="price-row-dots"></span>
+            <span class="price-row-val">700 ₽</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. МАССАЖ & СПА -->
+    <div class="pricing-block reveal" id="massage">
+      <div class="pricing-banner-header" style="background-image: url('/images/massage.jpg');">
+        <div class="pricing-banner-overlay"></div>
+        <div class="pricing-banner-content">
+          <div class="pricing-banner-badge">Релакс & Оздоровление</div>
+          <h2 class="pricing-banner-title">Массаж и СПА-уход</h2>
+          <p class="pricing-banner-desc">От дипломированных мастеров с многолетним стажем. Глубокая проработка мышц, оздоровление и полный детокс.</p>
+          <div class="pricing-banner-chips">
+            <span>Классический</span>
+            <span>Антицеллюлитный</span>
+            <span>5D Коррекция фигуры</span>
+            <span>СПА-Обертывания</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-rows-grid">
+        <div class="price-row-item">
+          <span class="price-row-name">Классический массаж всего тела (60 мин)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 400 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Классический массаж всего тела (45 мин)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Массаж "Relax"</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Медовый массаж</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 400 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Антицеллюлитный / лимфодренажный массаж</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 500 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Баночный массаж</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Креольский массаж</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Массаж спины и ШВЗ (60 минут)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Массаж спины и ШВЗ (30 минут)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">1 800 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Спортивный массаж</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 000 ₽</span>
+        </div>
+        <div class="price-row-item featured-row">
+          <div>
+            <span class="price-row-name">Массаж коррекция фигуры 5D</span>
+            <span class="price-row-note">Глубокая проработка мышц и кожи (~120 минут)</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">5 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Массаж + обертывание</span>
+            <span class="price-row-note">Любой часовой массаж + спа-обертывание</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">4 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Обертывание</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">1 500 ₽</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. ПЕРСОНАЛЬНЫЕ ЗАНЯТИЯ -->
+    <div class="pricing-block reveal" id="personal">
+      <div class="pricing-banner-header" style="background-image: url('/images/trainer_inga.jpg');">
+        <div class="pricing-banner-overlay"></div>
+        <div class="pricing-banner-content">
+          <div class="pricing-banner-badge">Индивидуальный подход</div>
+          <h2 class="pricing-banner-title">Персональные тренировки</h2>
+          <p class="pricing-banner-desc">Занятия 1-on-1 и сплит-форматы с топ-инструкторами клуба для максимально быстрого и безопасного результата.</p>
+          <div class="pricing-banner-chips">
+            <span>Персональный наставник</span>
+            <span>Сплит-тренинг</span>
+            <span>Индивидуальный план</span>
+            <span>Контроль техники</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-rows-grid">
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Персональное занятие</span>
+            <span class="price-row-note">Разовое занятие с тренером без приобретения клубной карты</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">2 500 ₽</span>
+        </div>
+        <div class="price-row-item featured-row">
+          <div>
+            <span class="price-row-name">Блок на 10 персональных занятий</span>
+            <span class="price-row-note">Выгода: 2 200 ₽ за тренировку (Без приобретения карты)</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">22 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Сплит-тренировка на 2 человека</span>
+            <span class="price-row-note">1 800 ₽ с человека</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 600 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Сплит-тренировка на 3 человека</span>
+            <span class="price-row-note">1 600 ₽ с человека</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">4 800 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Сплит-тренировка от 4 человек</span>
+            <span class="price-row-note">1 200 ₽ с человека</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">4 800 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Составление программы тренировок</span>
+            <span class="price-row-note">Индивидуальный план под ваши цели</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Составление программы питания</span>
+            <span class="price-row-note">Расчет КБЖУ и рацион под каждого</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 500 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Программа тренировок + 1 занятие с тренером</span>
+            <span class="price-row-note">План + практический разбор техники</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">4 500 ₽</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. ГРУППОВЫЕ ТРЕНИРОВКИ -->
+    <div class="pricing-block reveal" id="group">
+      <div class="pricing-banner-header" style="background-image: url('/images/group_hall.jpg');">
+        <div class="pricing-banner-overlay"></div>
+        <div class="pricing-banner-content">
+          <div class="pricing-banner-badge">Движение & Энергия</div>
+          <h2 class="pricing-banner-title">Групповые программы</h2>
+          <p class="pricing-banner-desc">АэроЙога в гамаках, High Heels, функциональные фитнес-классы и авторские танцевальные направления.</p>
+          <div class="pricing-banner-chips">
+            <span>АэроЙога в гамаках</span>
+            <span>High Heels</span>
+            <span>Фитнес-классы</span>
+            <span>Комбо-карты</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-rows-grid">
+        <div class="price-row-item featured-row">
+          <div>
+            <span class="price-row-name">АэроЙога-фит (в гамаках)</span>
+            <span class="price-row-note">8 занятий — 7 000 ₽ (Разовое посещение — 1 200 ₽)</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">7 000 ₽</span>
+        </div>
+        <div class="price-row-item featured-row">
+          <div>
+            <span class="price-row-name">High Heels (Танцы на каблуках)</span>
+            <span class="price-row-note">8 занятий — 4 700 ₽ (Разовое — 800 ₽, 4 зан. — 3 000 ₽, 16 зан. — 8 000 ₽)</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">4 700 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Фитнес-классы (Разовое занятие)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">800 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Фитнес-классы (4 занятия в месяц)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">2 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Фитнес-классы (8 занятий в месяц)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 500 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <span class="price-row-name">Фитнес-классы (12 тренировок в месяц)</span>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">4 500 ₽</span>
+        </div>
+        <div class="price-row-item featured-row">
+          <div>
+            <span class="price-row-name">Комбо (Тренажерный зал + Фитнес-классы)</span>
+            <span class="price-row-note">Безлимитный доступ на 1 месяц</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">6 000 ₽</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. АБОНЕМЕНТЫ В КЛУБ -->
+    <div class="pricing-block reveal" id="passes">
+      <div class="pricing-banner-header" style="background-image: url('/images/hero.jpg');">
+        <div class="pricing-banner-overlay"></div>
+        <div class="pricing-banner-content">
+          <div class="pricing-banner-badge">Клубные карты</div>
+          <h2 class="pricing-banner-title">Абонементы в тренажерный зал</h2>
+          <p class="pricing-banner-desc">Безлимитный доступ ко всему премиальному оборудованию, уютной финской сауне, душевым и зоне отдыха.</p>
+          <div class="pricing-banner-chips">
+            <span>Безлимит 7 дней</span>
+            <span>Финская сауна</span>
+            <span>Бесплатная парковка</span>
+            <span>Заморозка карты</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-rows-grid">
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Разовое посещение</span>
+            <span class="price-row-note">Доступ весь день</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">800 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Абонемент на 1 месяц</span>
+            <span class="price-row-note">Безлимитный доступ</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">3 500 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Абонемент на 3 месяца</span>
+            <span class="price-row-note">Безлимитный доступ</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">9 000 ₽</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Полугодовой абонемент (6 месяцев)</span>
+            <span class="price-row-note">Безлимитный доступ</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">13 000 ₽</span>
+        </div>
+        <div class="price-row-item featured-row">
+          <div>
+            <span class="price-row-name">Годовой абонемент (12 месяцев)</span>
+            <span class="price-row-note">Максимальная выгода + услуга заморозки</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">20 000 ₽</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. АРЕНДА ЗАЛОВ -->
+    <div class="pricing-block reveal" id="rent">
+      <div class="pricing-banner-header" style="background-image: url('/images/group_hall.jpg');">
+        <div class="pricing-banner-overlay"></div>
+        <div class="pricing-banner-content">
+          <div class="pricing-banner-badge">Пространство & Аренда</div>
+          <h2 class="pricing-banner-title">Почасовая аренда залов</h2>
+          <p class="pricing-banner-desc">Для инструкторов, хореографов, фотосессий, видеосъёмок и индивидуальных тренировок.</p>
+          <div class="pricing-banner-chips">
+            <span>Большой зал 90 м²</span>
+            <span>Малый зал 50 м²</span>
+            <span>7 пилонов</span>
+            <span>Профессиональный звук</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-rows-grid">
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Аренда малого зала (кроссфит) (~50 м²)</span>
+            <span class="price-row-note">Для групповых и индивидуальных занятий, единоборств и кроссфита</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">1 200 ₽ / час</span>
+        </div>
+        <div class="price-row-item">
+          <div>
+            <span class="price-row-name">Аренда большого зала (~90 м²)</span>
+            <span class="price-row-note">Для танцев, силовых программ, единоборств + установка 7 пилонов</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">1 500 ₽ / час</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. СОЛЯРИЙ -->
+    <div class="pricing-block reveal" id="tanning">
+      <div class="pricing-banner-header" style="background-image: url('/images/sauna.jpg');">
+        <div class="pricing-banner-overlay"></div>
+        <div class="pricing-banner-content">
+          <div class="pricing-banner-badge">Бронзовый Glow</div>
+          <h2 class="pricing-banner-title">Солярий</h2>
+          <p class="pricing-banner-desc">Ровный, безопасный и красивый загар круглый год в удобное для вас время.</p>
+          <div class="pricing-banner-chips">
+            <span>Вертикальный солярий</span>
+            <span>Новые лампы</span>
+            <span>Все аксессуары включены</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pricing-rows-grid">
+        <div class="price-row-item featured-row">
+          <div>
+            <span class="price-row-name">Минута загара в солярии</span>
+            <span class="price-row-note">Стикини, гигиенический коврик и шапочка входят в стоимость</span>
+          </div>
+          <span class="price-row-dots"></span>
+          <span class="price-row-val">50 ₽ / мин</span>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
-<footer>
-  <div class="container" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.5rem;">
-    <div style="font-family:var(--font-display); font-weight:900; color:var(--olive-dark);">АУРА ФИТНЕС</div>
-    <div style="font-size:0.85rem; color:var(--text-muted);">© 2026 Аура Фитнес · Мытищи, ул. Колпакова, 24А</div>
-    <a href="/admin" style="font-size:0.85rem; color:var(--olive);">Панель администратора</a>
+<!-- ФУТЕР ПРЕМИУМ -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">АУРА ФИТНЕС</div>
+        <p class="footer-tagline">Премиальный фитнес-клуб<br>в сердце Мытищ</p>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="footer-cta">
+          Записаться бесплатно
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <div class="footer-nav-col">
+        <div class="footer-col-title">Клуб</div>
+        <a href="/">Главная</a>
+        <a href="/about">О клубе</a>
+        <a href="/trainers">Тренеры</a>
+        <a href="/news">Новости</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <div class="footer-col-title">Услуги и цены</div>
+        <a href="/services#laser">Лазерная эпиляция</a>
+        <a href="/services#massage">Массаж и СПА</a>
+        <a href="/services#personal">Персональный тренинг</a>
+        <a href="/services#passes">Абонементы</a>
+      </div>
+
+      <div class="footer-nav-col">
+        <div class="footer-col-title">Контакты</div>
+        <a href="tel:+79037977739">+7 (903) 797-77-39</a>
+        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank">WhatsApp</a>
+        <span class="footer-address">Мытищи, ул. Колпакова 24А<br>2 этаж бизнес-центра</span>
+        <span class="footer-hours">Пн–Пт: 7:00–23:00<br>Сб–Вс: 8:00–22:00</span>
+      </div>
+    </div>
+
+    <div class="footer-divider"></div>
+
+    <div class="footer-bottom">
+      <span>© 2026 Аура Фитнес — Все права защищены</span>
+      <div class="footer-bottom-links">
+        <a href="/reviews">Отзывы</a>
+        <a href="/services">Услуги и цены</a>
+        <a href="/gallery">Галерея</a>
+        <a href="/admin">Админ</a>
+      </div>
+    </div>
   </div>
 </footer>
 

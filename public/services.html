@@ -4,16 +4,585 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Услуги и цены — Аура Фитнес Мытищи</title>
-  <meta name="description" content="Полный прайс-лист и спектр услуг Аура Фитнес: лазерная эпиляция, массаж, абонементы, персональный тренинг, групповые занятия, сауна, солярий и аренда залов.">
+  <meta name="description" content="Премиальный прайс-лист Аура Фитнес: лазерная эпиляция, массаж, персональный тренинг, групповые программы, абонементы, аренда залов и солярий.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css?v=14">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Tenor+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css?v=14">
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='none' stroke='%2354663d' stroke-width='2'/%3E%3Ctext x='50' y='65' text-anchor='middle' font-size='40' fill='%2354663d' font-family='serif'%3EА%3C/text%3E%3C/svg%3E">
-</head>
-<body>
 
-<!-- ХЕДЕР И НАВИГАЦИЯ -->
+  <style>
+    :root{
+      --ink:#1a2013;
+      --ink-soft:#4a5240;
+      --paper:#f7f5ef;
+      --paper-2:#efece2;
+      --paper-3:#fbfaf5;
+      --line:#e0dbc9;
+      --line-soft:#ece8d8;
+      --olive:#54663d;
+      --olive-deep:#354224;
+      --olive-glow:rgba(84,102,61,.14);
+      --gold:#a8894a;
+      --gold-soft:#c9a866;
+      --gold-light:#e6c98a;
+      --shadow-soft: 0 24px 60px -30px rgba(53,66,36,.35);
+      --shadow-lift: 0 40px 80px -40px rgba(53,66,36,.45);
+    }
+
+    body.svc-page{ background:var(--paper); color:var(--ink); }
+
+    /* ─────────────────────────── HERO ─────────────────────────── */
+    .svc-hero{
+      position:relative;
+      padding: 200px 0 120px;
+      background:
+        radial-gradient(1200px 500px at 82% 8%, rgba(84,102,61,.12), transparent 62%),
+        radial-gradient(900px 400px at 8% 100%, rgba(168,137,74,.10), transparent 60%),
+        linear-gradient(180deg, #fbfaf5 0%, var(--paper) 100%);
+      overflow:hidden;
+      border-bottom:1px solid var(--line);
+    }
+    .svc-hero::after{
+      content:""; position:absolute; inset:auto 0 0 0; height:1px;
+      background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+      opacity:.5;
+    }
+
+
+    .svc-hero-meta{
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:1.5rem;
+      margin-top:3.2rem; padding-top:2.2rem;
+      border-top:1px solid var(--line);
+    }
+    @media (max-width:820px){ .svc-hero-meta{ grid-template-columns: repeat(2,1fr); gap:1.4rem 1rem;} }
+    .svc-hero-meta div{ font-family:'Plus Jakarta Sans',sans-serif; }
+    .svc-hero-meta .k{
+      display:block; font-size:.65rem; letter-spacing:.28em;
+      text-transform:uppercase; color:var(--ink-soft); margin-bottom:.55rem;
+    }
+    .svc-hero-meta .v{
+      font-family:'Cormorant Garamond',serif; font-size:1.75rem; color:var(--olive-deep);
+      font-weight:500;
+    }
+
+    .svc-hero-mark{
+      position:absolute; right:-5rem; top:50%; transform:translateY(-50%);
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size: clamp(20rem, 36vw, 40rem);
+      color:rgba(84,102,61,.055);
+      line-height:.85; pointer-events:none; user-select:none; z-index:1;
+      animation: floatMark 14s ease-in-out infinite;
+    }
+    @keyframes floatMark {
+      0%,100%{ transform:translate(0,-50%);}
+      50%{ transform:translate(-1.2rem,-52%);}
+    }
+
+    .svc-hero-scroll{
+      position:absolute; left:50%; bottom:26px; transform:translateX(-50%);
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.6rem; letter-spacing:.35em; text-transform:uppercase;
+      color:var(--olive); display:flex; flex-direction:column; align-items:center; gap:.6rem;
+      z-index:3;
+    }
+    .svc-hero-scroll::after{
+      content:""; width:1px; height:34px;
+      background: linear-gradient(180deg, var(--olive), transparent);
+      animation: scrollLine 2.2s ease-in-out infinite;
+    }
+    @keyframes scrollLine { 0%,100%{opacity:.3; transform:scaleY(.6);} 50%{opacity:1; transform:scaleY(1);} }
+
+    /* ─────────────────────────── SHELL ─────────────────────────── */
+    .svc-shell{
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap: 5rem;
+      padding: 6rem 0 8rem;
+      align-items:start;
+    }
+    @media (max-width: 1024px){
+      .svc-shell{ grid-template-columns:1fr; gap:2.5rem; padding:3.5rem 0 5rem; }
+    }
+
+    .svc-nav{ position:sticky; top:120px; font-family:'Plus Jakarta Sans',sans-serif; }
+    .svc-nav-title{
+      font-size:.65rem; letter-spacing:.32em; text-transform:uppercase;
+      color:var(--ink-soft); margin-bottom:1.4rem;
+      padding-bottom:1rem; border-bottom:1px solid var(--line);
+    }
+    .svc-nav ol{ list-style:none; padding:0; margin:0; counter-reset:svc; }
+    .svc-nav li{ counter-increment:svc; }
+    .svc-nav a{
+      display:flex; align-items:baseline; gap:.9rem;
+      padding: .9rem 0;
+      color:var(--ink-soft);
+      font-size:.95rem;
+      border-bottom:1px dashed rgba(217,212,195,.7);
+      transition: all .3s cubic-bezier(.4,0,.2,1);
+      position:relative;
+    }
+    .svc-nav a::before{
+      content: counter(svc, decimal-leading-zero);
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size:.85rem; color:var(--gold); min-width:26px;
+      transition:color .3s;
+    }
+    .svc-nav a:hover{ color:var(--olive-deep); padding-left:.5rem; }
+    .svc-nav a.active{
+      color:var(--olive-deep); font-weight:600;
+      padding-left:.6rem;
+      background: linear-gradient(90deg, var(--olive-glow), transparent 80%);
+    }
+    .svc-nav a.active::before{ color:var(--olive-deep); }
+    .svc-nav a.active::after{
+      content:""; position:absolute; right:0; top:50%;
+      width:18px; height:1px; background:var(--olive-deep);
+    }
+
+    /* ─────────────────────────── SECTIONS ─────────────────────────── */
+    .svc-section{
+      padding-bottom: 6rem;
+      margin-bottom: 6rem;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 120px;
+      opacity:0; transform: translateY(24px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .svc-section.in{ opacity:1; transform:none; }
+    .svc-section:last-child{ border-bottom:none; margin-bottom:0; }
+
+    .svc-head{
+      display:grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.5rem;
+      align-items:end;
+      margin-bottom: 3.5rem;
+      padding-bottom: 2rem;
+      border-bottom:1px solid var(--line);
+    }
+    @media (max-width:720px){ .svc-head{ grid-template-columns:1fr; gap:1rem; } }
+    .svc-num{
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size: clamp(4rem, 9vw, 7rem);
+      color:var(--gold);
+      line-height:.8; letter-spacing:-.02em;
+      opacity:.55;
+      background: linear-gradient(180deg, var(--gold), rgba(168,137,74,.25));
+      -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .svc-head-body .tag{
+      display:inline-block;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.65rem; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--olive); margin-bottom:.9rem;
+    }
+    .svc-head-body h2{
+      font-family:'Cormorant Garamond',serif;
+      font-weight:500;
+      font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+      line-height:1.05; color:var(--ink);
+      margin:0 0 .9rem;
+    }
+    .svc-head-body .desc{
+      max-width: 640px; color:var(--ink-soft);
+      font-size:1.02rem; line-height:1.65; font-weight:300;
+    }
+
+    /* ─────────────────────────── EDITORIAL CARDS ─────────────────────────── */
+    .svc-complex-grid{
+      display:grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.4rem;
+      margin-bottom: 4rem;
+    }
+    @media (max-width: 1100px){ .svc-complex-grid{ grid-template-columns:repeat(2,1fr); } }
+    @media (max-width: 560px){ .svc-complex-grid{ grid-template-columns:1fr; } }
+
+    .svc-complex{
+      background:var(--paper-3);
+      padding: 2.4rem 2rem 2.2rem;
+      position:relative;
+      display:flex; flex-direction:column;
+      border:1px solid var(--line);
+      border-radius: 2px;
+      transition: all .45s cubic-bezier(.16,1,.3,1);
+      overflow:hidden;
+    }
+    .svc-complex::before{
+      content:""; position:absolute; inset:0;
+      background: linear-gradient(180deg, transparent 60%, var(--olive-glow));
+      opacity:0; transition:opacity .45s ease;
+      pointer-events:none;
+    }
+    .svc-complex:hover{
+      transform: translateY(-6px);
+      border-color: var(--olive);
+      box-shadow: var(--shadow-soft);
+      background:#fff;
+    }
+    .svc-complex:hover::before{ opacity:1; }
+
+    .svc-complex .num{
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      color:var(--gold); font-size:1rem; margin-bottom:1.4rem;
+      display:flex; align-items:center; gap:.6rem;
+      position:relative;
+    }
+    .svc-complex .num::after{ content:""; flex:1; height:1px; background:var(--line); }
+    .svc-complex h3{
+      font-family:'Cormorant Garamond',serif; font-weight:500;
+      font-size:2.1rem; color:var(--ink); line-height:1;
+      margin: 0 0 .8rem; position:relative;
+    }
+    .svc-complex p{
+      color:var(--ink-soft); font-size:.92rem; line-height:1.55;
+      font-weight:300; min-height:3.3em; margin-bottom:1.6rem;
+      position:relative;
+    }
+    .svc-complex .price{
+      font-family:'Cormorant Garamond',serif; font-size:2.1rem;
+      color:var(--olive-deep); margin-bottom:1.6rem;
+      display:flex; align-items:baseline; gap:.4rem;
+      position:relative;
+    }
+    .svc-complex .price small{
+      font-family:'Plus Jakarta Sans',sans-serif; font-size:.7rem;
+      color:var(--ink-soft); letter-spacing:.15em; text-transform:uppercase;
+    }
+    .svc-complex .book{
+      margin-top:auto;
+      display:inline-flex; align-items:center; gap:.55rem;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.72rem; letter-spacing:.28em; text-transform:uppercase;
+      color:var(--olive-deep); font-weight:600;
+      padding: 1rem 0; border-top:1px solid var(--line);
+      transition: color .3s ease, gap .3s ease;
+      background:none; cursor:pointer; text-align:left; width:100%;
+      position:relative;
+    }
+    .svc-complex .book svg{ transition: transform .3s ease; }
+    .svc-complex .book:hover{ color:var(--gold); gap:.9rem; }
+    .svc-complex .book:hover svg{ transform: translateX(5px); }
+
+    .svc-complex.hit{
+      background: linear-gradient(180deg, var(--olive-deep) 0%, #2b3620 100%);
+      color:var(--paper); border-color:var(--olive-deep);
+    }
+    .svc-complex.hit h3, .svc-complex.hit .price{ color:var(--paper); }
+    .svc-complex.hit p, .svc-complex.hit .price small{ color:rgba(247,245,239,.72); }
+    .svc-complex.hit .num{ color:var(--gold-light); }
+    .svc-complex.hit .num::after{ background:rgba(247,245,239,.15); }
+    .svc-complex.hit .book{ color:var(--gold-light); border-top-color:rgba(247,245,239,.18); }
+    .svc-complex.hit .book:hover{ color:#fff; }
+    .svc-complex.hit:hover{ box-shadow: 0 40px 80px -40px rgba(0,0,0,.55); }
+    .svc-complex.hit::before{
+      background: linear-gradient(180deg, transparent 55%, rgba(230,201,138,.12));
+    }
+    .svc-complex .badge{
+      position:absolute; top:1rem; right:1rem;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.55rem; letter-spacing:.25em; text-transform:uppercase;
+      color:var(--gold-light); padding:.35rem .65rem;
+      border:1px solid rgba(230,201,138,.45);
+      background: rgba(0,0,0,.15); backdrop-filter: blur(6px);
+    }
+
+    /* ─────────────────────────── PRICE LIST ─────────────────────────── */
+    .svc-list-title{
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.7rem; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--olive); margin: 2rem 0 1.6rem;
+      display:flex; align-items:center; gap:1rem;
+    }
+    .svc-list-title::after{ content:""; flex:1; height:1px; background:var(--line); }
+
+    .svc-list{
+      display:grid; grid-template-columns: 1fr 1fr;
+      gap: 0 3.5rem;
+    }
+    @media (max-width: 820px){ .svc-list{ grid-template-columns:1fr; gap:0; } }
+
+    .svc-row{
+      display:flex; align-items:baseline; gap: 1rem;
+      padding: 1.2rem .6rem;
+      border-bottom: 1px dotted rgba(84,102,61,.25);
+      transition: all .3s cubic-bezier(.16,1,.3,1);
+      cursor:pointer;
+      position:relative;
+      background: transparent;
+      text-align:left; width:100%;
+      font: inherit; color: inherit;
+      border-left: none; border-right: none; border-top: none;
+    }
+    .svc-row::before{
+      content:""; position:absolute; left:0; top:50%;
+      width:0; height:1px; background:var(--olive);
+      transform:translateY(-50%); transition:width .3s ease;
+    }
+    .svc-row:hover{
+      padding-left: 1.4rem;
+      background: linear-gradient(90deg, rgba(84,102,61,.05), transparent 70%);
+    }
+    .svc-row:hover::before{ width:20px; }
+    .svc-row:hover .rv{ color:var(--gold); }
+
+    .svc-row .rn{
+      font-family:'Cormorant Garamond',serif;
+      font-size: 1.28rem; color:var(--ink); line-height:1.25;
+      text-align:left;
+    }
+    .svc-row .rn .note{
+      display:block;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.78rem; color:var(--ink-soft); font-weight:300;
+      margin-top:.4rem; letter-spacing:.01em; line-height:1.5;
+    }
+    .svc-row .dots{ flex:1; border-bottom:1px dotted rgba(84,102,61,.35); transform:translateY(-4px); }
+    .svc-row .rv{
+      font-family:'Cormorant Garamond',serif; font-weight:500;
+      font-size:1.4rem; color:var(--olive-deep); white-space:nowrap;
+      transition: color .3s ease;
+    }
+    .svc-row.hi{
+      background: linear-gradient(90deg, rgba(168,137,74,.10), transparent 70%);
+      padding-left:1.2rem; padding-right:1rem;
+      border-radius:2px; border-bottom-color:transparent;
+    }
+    .svc-row.hi .rv{ color:var(--gold); }
+    .svc-row.hi::before{ background: var(--gold); }
+
+    /* ─────────────────────────── FINAL CTA ─────────────────────────── */
+    .svc-cta{
+      background:
+        radial-gradient(800px 400px at 20% 20%, rgba(230,201,138,.10), transparent 60%),
+        linear-gradient(160deg, var(--olive-deep) 0%, #202a15 100%);
+      color: var(--paper);
+      padding: 7rem 0;
+      position:relative; overflow:hidden;
+      border-top: 1px solid rgba(0,0,0,.1);
+    }
+    .svc-cta::before{
+      content:"Аура";
+      position:absolute; right:-1rem; bottom:-4rem;
+      font-family:'Cormorant Garamond',serif; font-style:italic;
+      font-size: clamp(14rem, 26vw, 28rem);
+      color: rgba(247,245,239,.05); line-height:.85;
+      pointer-events:none;
+    }
+    .svc-cta .container{ position:relative; z-index:2; }
+    .svc-cta h3{
+      font-family:'Cormorant Garamond',serif; font-weight:500;
+      font-size: clamp(2.4rem, 5vw, 4.2rem); line-height:1.05;
+      max-width: 780px; margin: 1.4rem 0 1.4rem;
+    }
+    .svc-cta h3 em{ font-style:italic; color:var(--gold-light); }
+    .svc-cta p{
+      max-width: 560px; color:rgba(247,245,239,.78);
+      font-size:1.1rem; line-height:1.65; margin-bottom:2.6rem; font-weight:300;
+    }
+    .svc-cta-actions{ display:flex; flex-wrap:wrap; gap: 1rem; }
+    .modal-backdrop{
+      position:fixed; inset:0; z-index:9999;
+      background: rgba(11, 17, 10, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display:flex; align-items:center; justify-content:center;
+      padding: 1.5rem;
+      opacity:0; pointer-events:none;
+      transition: opacity .35s ease;
+    }
+    .modal-backdrop.open{ opacity:1; pointer-events:auto; }
+
+    .modal-window{
+      background: var(--paper);
+      max-width: 540px; width:100%;
+      max-height: 92vh; overflow-y:auto;
+      position:relative;
+      padding: 3rem 2.6rem 2.4rem;
+      border-radius: 24px;
+      transform: scale(.88) translateY(30px);
+      opacity: 0;
+      transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .35s ease;
+      box-shadow: 0 30px 90px rgba(0,0,0,.45);
+      border: 1px solid rgba(196,169,106,.3);
+    }
+    [data-theme="dark"] .modal-window {
+      background: #141d13;
+      color: #f0f4ec;
+      border-color: rgba(196, 169, 106, 0.4);
+      box-shadow: 0 40px 100px rgba(0,0,0,.75);
+    }
+    .modal-backdrop.open .modal-window{
+      transform: scale(1) translateY(0);
+      opacity: 1;
+    }
+
+    .modal-close{
+      position:absolute; top:1.2rem; right:1.2rem;
+      width:38px; height:38px; border-radius: 50%;
+      background: rgba(84,102,61,.08); border:1px solid rgba(84,102,61,.2);
+      color:var(--ink-soft);
+      font-size:1.2rem; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      transition: all .3s cubic-bezier(.16,1,.3,1);
+    }
+    [data-theme="dark"] .modal-close {
+      background: rgba(255,255,255,.08);
+      border-color: rgba(255,255,255,.15);
+      color: #f0f4ec;
+    }
+    .modal-close:hover{
+      background: var(--gold);
+      color: #0b110a;
+      border-color: var(--gold);
+      transform: rotate(90deg) scale(1.1);
+    }
+
+    .modal-eyebrow{
+      display:inline-flex; align-items:center; gap:.7rem;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.62rem; letter-spacing:.35em; text-transform:uppercase;
+      color:var(--gold); font-weight:600;
+    }
+    .modal-eyebrow::before{ content:""; width:32px; height:1px; background:var(--gold); }
+
+    .modal-window h3{
+      font-family:'Oswald', sans-serif; font-weight:600;
+      font-size: 2.1rem; line-height:1.1; letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color:var(--ink); margin: .9rem 0 .6rem;
+    }
+    [data-theme="dark"] .modal-window h3 { color: #ffffff !important; }
+    .modal-window h3 em{ font-style:normal; color:var(--olive); }
+    .modal-sub{
+      color:var(--ink-soft); font-size:.94rem; line-height:1.55;
+      font-weight:300; margin-bottom: 1.8rem;
+    }
+    [data-theme="dark"] .modal-sub { color: rgba(255,255,255,.8) !important; }
+
+    .modal-service-card{
+      background: var(--paper-2);
+      border: 1px solid rgba(84,102,61,.2);
+      border-left: 4px solid var(--gold);
+      border-radius: 14px;
+      padding: 1.1rem 1.3rem;
+      margin-bottom: 1.8rem;
+      display:flex; justify-content:space-between; align-items:center; gap:1rem;
+    }
+    .modal-service-card .ms-name{
+      font-family:'Cormorant Garamond',serif;
+      font-size: 1.15rem; color:var(--ink); line-height:1.2;
+    }
+    .modal-service-card .ms-name small{
+      display:block; font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.65rem; letter-spacing:.22em; text-transform:uppercase;
+      color:var(--olive); margin-top:.35rem;
+    }
+    .modal-service-card .ms-price{
+      font-family:'Cormorant Garamond',serif; font-weight:500;
+      font-size: 1.4rem; color:var(--gold); white-space:nowrap;
+    }
+
+    .modal-field{ margin-bottom: 1.1rem; }
+    .modal-field label{
+      display:block;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.6rem; letter-spacing:.28em; text-transform:uppercase;
+      color:var(--ink-soft); margin-bottom:.5rem; font-weight:500;
+    }
+    .modal-field input, .modal-field textarea{
+      width:100%; padding: .85rem 1rem;
+      background: #fff;
+      border: 1px solid var(--line);
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.95rem;
+      color:var(--ink);
+      outline:none;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+    .modal-field input:focus, .modal-field textarea:focus{
+      border-color: var(--olive);
+      box-shadow: 0 0 0 3px rgba(84,102,61,.12);
+    }
+    .modal-field textarea{ resize:vertical; min-height: 80px; }
+
+    .modal-actions{
+      display:flex; gap:.8rem; margin-top: 1.6rem;
+      flex-wrap:wrap;
+    }
+    .modal-submit{
+      flex:1; min-width: 200px;
+      background: var(--olive-deep); color: var(--paper);
+      padding: 1.05rem 1.6rem;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; font-weight:600;
+      border:none; cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+      transition: all .3s ease;
+    }
+    .modal-submit:hover{
+      background: var(--olive); gap:.9rem;
+      box-shadow: 0 12px 30px -12px rgba(53,66,36,.5);
+    }
+    .modal-wa{
+      padding: 1.05rem 1.4rem;
+      background: #fff;
+      border:1px solid var(--line);
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.7rem; letter-spacing:.28em; text-transform:uppercase; font-weight:600;
+      color:var(--olive-deep); cursor:pointer; text-decoration:none;
+      display:inline-flex; align-items:center; gap:.5rem;
+      transition: all .3s ease;
+    }
+    .modal-wa:hover{ border-color: var(--olive); color:var(--olive); }
+
+    .modal-legal{
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:.7rem; color:var(--ink-soft);
+      text-align:center; margin-top: 1.2rem; line-height:1.5;
+    }
+
+    .modal-success{
+      text-align:center; padding: 1rem 0 .5rem;
+    }
+    .modal-success .check{
+      width:64px; height:64px; margin: 0 auto 1.4rem;
+      border-radius:50%; background: var(--olive-deep);
+      display:flex; align-items:center; justify-content:center;
+      color: var(--gold-light);
+      animation: pop .5s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes pop{ 0%{transform:scale(.3); opacity:0;} 100%{transform:scale(1); opacity:1;} }
+
+    /* 🌙 DARK THEME SERVICES OVERRIDES */
+    [data-theme="dark"] .svc-hero h1 { color: #ffffff !important; }
+    [data-theme="dark"] .svc-nav-title { color: #ffffff !important; }
+    [data-theme="dark"] .svc-nav ol li a { color: rgba(255, 255, 255, 0.85) !important; }
+    [data-theme="dark"] .svc-nav ol li a:hover,
+    [data-theme="dark"] .svc-nav ol li a.active { color: #ffffff !important; border-left-color: #c4a96a !important; }
+    [data-theme="dark"] .svc-head-body h2,
+    [data-theme="dark"] .pricing-menu-head h2,
+    [data-theme="dark"] .pricing-menu-title,
+    [data-theme="dark"] .pricing-section-block h2 { color: #ffffff !important; }
+    [data-theme="dark"] .svc-head-body p.desc,
+    [data-theme="dark"] .pricing-menu-desc { color: rgba(255, 255, 255, 0.88) !important; }
+    [data-theme="dark"] .svc-complex h3 { color: #ffffff !important; }
+    [data-theme="dark"] .svc-complex p { color: rgba(255, 255, 255, 0.85) !important; }
+    [data-theme="dark"] .svc-complex .price { color: #f5cc7a !important; }
+    [data-theme="dark"] .svc-complex { background: #141d13 !important; border-color: rgba(128, 156, 93, 0.35) !important; }
+    [data-theme="dark"] .svc-row .rn { color: #ffffff !important; }
+    [data-theme="dark"] .svc-row .rn .note { color: rgba(255, 255, 255, 0.88) !important; }
+    [data-theme="dark"] .svc-row .rv { color: #f5cc7a !important; }
+    [data-theme="dark"] .svc-row { border-bottom-color: rgba(128, 156, 93, 0.25) !important; }
+    [data-theme="dark"] .svc-row:hover { background: linear-gradient(90deg, rgba(128, 156, 93, 0.18), transparent 70%) !important; }
+    [data-theme="dark"] .svc-nav { background: #141d13 !important; border-color: rgba(128, 156, 93, 0.3) !important; }
+  </style>
+</head>
+<body class="svc-page">
+
+<!-- ── HEADER ── -->
 <nav id="navbar">
   <div class="header-top-bar">
     <div class="container">
@@ -28,32 +597,28 @@
       </div>
     </div>
   </div>
-
   <div class="header-main-bar">
     <div class="container">
       <div class="nav-inner">
-        <a href="/" class="nav-logo">
-          <svg viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="47" stroke="#54663d" stroke-width="2"/>
-            <path d="M28 72 Q32 55 38 40 Q42 30 45 22" stroke="#54663d" stroke-width="1.8" fill="none"/>
-            <text x="50" y="68" text-anchor="middle" font-size="28" fill="#54663d" font-family="serif" font-style="italic">Аура</text>
-          </svg>
-          <div class="nav-logo-text">
-            <span class="nav-logo-main">Аура</span>
-            <span class="nav-logo-sub">ФИТНЕС</span>
-          </div>
-        </a>
-        <ul class="nav-links">
+        <ul class="nav-links nav-links-left">
           <li><a href="/">Главная</a></li>
           <li><a href="/about">О клубе</a></li>
           <li><a href="/services" class="active">Услуги и цены</a></li>
           <li><a href="/trainers">Тренеры</a></li>
+        </ul>
+        <a href="/" class="nav-logo">
+          <img src="/images/logo.png" alt="Аура Фитнес" class="nav-logo-img">
+        </a>
+        <ul class="nav-links nav-links-right">
           <li><a href="/gallery">Галерея</a></li>
           <li><a href="/reviews">Отзывы</a></li>
           <li><a href="/news">Новости</a></li>
           <li><a href="/contacts">Контакты</a></li>
         </ul>
-        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="btn btn-gold" style="padding:0.7rem 1.6rem; font-size:0.75rem;">Записаться</a>
+        <button type="button" class="theme-toggle-btn" aria-label="Переключить тему">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
         <button class="burger" id="burger"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -72,543 +637,269 @@
   <a href="/contacts">Контакты</a>
 </div>
 
+<!-- ── HERO ── -->
 <header class="page-hero">
   <div class="container">
-    <div class="breadcrumbs"><a href="/">Главная</a> <span>/</span> <span>Услуги и цены</span></div>
     <h1 class="section-title">УСЛУГИ И ЦЕНЫ</h1>
-    <p class="section-subtitle">Полный спектр услуг премиального клуба «Аура Фитнес». Без скрытых платежей, профессиональный подход и абсолютный комфорт.</p>
   </div>
 </header>
 
-<section class="section unified-pricing-section">
+<!-- ── SHELL ── -->
+<section class="section" style="padding:0;">
   <div class="container">
-    
-    <!-- Категории Навигации -->
-    <div class="pricing-cat-nav reveal">
-      <a href="#laser" class="cat-nav-btn active">Лазерная эпиляция</a>
-      <a href="#massage" class="cat-nav-btn">Массаж & СПА</a>
-      <a href="#personal" class="cat-nav-btn">Персональный тренинг</a>
-      <a href="#group" class="cat-nav-btn">Групповые занятия</a>
-      <a href="#passes" class="cat-nav-btn">Абонементы</a>
-      <a href="#rent" class="cat-nav-btn">Аренда залов</a>
-      <a href="#tanning" class="cat-nav-btn">Солярий</a>
-    </div>
+    <div class="svc-shell">
 
-    <!-- 1. ЛАЗЕРНАЯ ЭПИЛЯЦИЯ -->
-    <div class="pricing-block reveal" id="laser">
-      <div class="pricing-banner-header" style="background-image: url('/images/hero.jpg');">
-        <div class="pricing-banner-overlay"></div>
-        <div class="pricing-banner-content">
-          <div class="pricing-banner-badge">Красота & Уход</div>
-          <h2 class="pricing-banner-title">Лазерная эпиляция премиум-класса</h2>
-          <p class="pricing-banner-desc">Современное безболезненное оборудование для долговечной гладкости вашей кожи без раздражений.</p>
-          <div class="pricing-banner-chips">
-            <span>Безболезненно</span>
-            <span>Для всех типов кожи</span>
-            <span>Сертифицированные мастера</span>
-            <span>Комфортные кабинеты</span>
-          </div>
-        </div>
-      </div>
+      <aside class="svc-nav" id="svcNav">
+        <div class="svc-nav-title">Разделы</div>
+        <ol>
+          <li><a href="#laser" class="active">Лазерная эпиляция</a></li>
+          <li><a href="#massage">Массаж и СПА</a></li>
+          <li><a href="#personal">Персональный тренинг</a></li>
+          <li><a href="#group">Групповые программы</a></li>
+          <li><a href="#passes">Абонементы</a></li>
+          <li><a href="#rent">Аренда залов</a></li>
+          <li><a href="#tanning">Солярий</a></li>
+        </ol>
+      </aside>
 
-      <!-- Выгодные комплексы -->
-      <div class="pricing-complexes-grid">
-        <div class="complex-card">
-          <div class="complex-tag">Комплекс №1</div>
-          <h3 class="complex-title">Мини</h3>
-          <p class="complex-desc">Глубокое бикини + подмышки</p>
-          <div class="complex-price">2 700 ₽</div>
-          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%9C%D0%B8%D0%BD%D0%B8" target="_blank" class="btn btn-gold btn-small">Записаться</a>
-        </div>
-        <div class="complex-card">
-          <div class="complex-tag">Комплекс №2</div>
-          <h3 class="complex-title">Стандарт</h3>
-          <p class="complex-desc">Глубокое бикини + подмышки + голени</p>
-          <div class="complex-price">3 900 ₽</div>
-          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%A1%D1%82%D0%B0%D0%BD%D0%B4%D0%B0%D1%80%D1%82" target="_blank" class="btn btn-gold btn-small">Записаться</a>
-        </div>
-        <div class="complex-card featured">
-          <div class="complex-badge">Хит</div>
-          <div class="complex-tag">Комплекс №3</div>
-          <h3 class="complex-title">Популярный</h3>
-          <p class="complex-desc">Глубокое бикини + подмышки + ноги полностью</p>
-          <div class="complex-price">5 000 ₽</div>
-          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%9F%D0%BE%D0%BF%D1%83%D0%BB%D1%8F%D1%80%D0%BD%D1%8B%D0%B9" target="_blank" class="btn btn-gold btn-small">Записаться</a>
-        </div>
-        <div class="complex-card">
-          <div class="complex-tag">Комплекс №4</div>
-          <h3 class="complex-title">Всё тело</h3>
-          <p class="complex-desc">Любые зоны на выбор без ограничений</p>
-          <div class="complex-price">7 000 ₽</div>
-          <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B0%D0%BF%D0%B8%D1%81%D1%8C+%D0%BD%D0%B0+%D0%BB%D0%B0%D0%B7%D0%B5%D1%80%D0%BD%D1%83%D1%8E+%D1%8D%D0%BF%D0%B8%D0%BB%D1%8F%D1%86%D0%B8%D1%8E+%D0%92%D1%81%D1%91+%D1%82%D0%B5%D0%BB%D0%BE" target="_blank" class="btn btn-gold btn-small">Записаться</a>
-        </div>
-      </div>
+      <div class="svc-content">
 
-      <!-- Отдельные зоны таблицы -->
-      <div class="pricing-table-wrap">
-        <h4 class="table-group-title">Зоны эпиляции по отдельности</h4>
-        <div class="pricing-rows-grid">
-          <div class="price-row-item">
-            <span class="price-row-name">Подмышечные впадины</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 000 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Классическое бикини</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 200 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Глубокое бикини</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">2 000 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Голень + коленки</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">2 000 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Бедра</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 900 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Ноги полностью</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">2 950 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Руки до локтя / выше локтя</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 200 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Плечи</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 200 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Руки полностью</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 900 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Поясница</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 200 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Спина полностью</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 800 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Ягодицы</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 200 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <span class="price-row-name">Лицо полностью</span>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">1 700 ₽</span>
-          </div>
-          <div class="price-row-item">
-            <div>
-              <span class="price-row-name">Одна малая зона</span>
-              <span class="price-row-note">Верх. губа, подбородок, виски, ареолы, межбровье, бакенбарды, скулы, шея спереди / сзади</span>
+        <!-- 1. LASER -->
+        <article class="svc-section" id="laser">
+          <div class="svc-head">
+            <div class="svc-num">01</div>
+            <div class="svc-head-body">
+              <span class="tag">Красота & Уход</span>
+              <h2>Лазерная эпиляция</h2>
+              <p class="desc">Современное безболезненное оборудование для долговечной гладкости вашей кожи без раздражений и последствий.</p>
             </div>
-            <span class="price-row-dots"></span>
-            <span class="price-row-val">700 ₽</span>
           </div>
-        </div>
+
+          <div class="svc-complex-grid">
+            <div class="svc-complex">
+              <div class="num">Комплекс № 01</div>
+              <h3>Мини</h3>
+              <p>Глубокое бикини и подмышечные впадины.</p>
+              <div class="price">2 700 <small>₽</small></div>
+              <button type="button" class="book" data-modal-open data-service="Лазерная эпиляция — комплекс «Мини»" data-price="2 700 ₽">
+                Записаться
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <div class="svc-complex">
+              <div class="num">Комплекс № 02</div>
+              <h3>Стандарт</h3>
+              <p>Глубокое бикини, подмышки и голени.</p>
+              <div class="price">3 900 <small>₽</small></div>
+              <button type="button" class="book" data-modal-open data-service="Лазерная эпиляция — «Стандарт»" data-price="3 900 ₽">
+                Записаться
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <div class="svc-complex hit">
+              <span class="badge">Хит</span>
+              <div class="num">Комплекс № 03</div>
+              <h3>Популярный</h3>
+              <p>Глубокое бикини, подмышки и ноги полностью.</p>
+              <div class="price">5 000 <small>₽</small></div>
+              <button type="button" class="book" data-modal-open data-service="Лазерная эпиляция — «Популярный»" data-price="5 000 ₽">
+                Записаться
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+
+            <div class="svc-complex">
+              <div class="num">Комплекс № 04</div>
+              <h3>Всё тело</h3>
+              <p>Любые зоны на выбор без ограничений.</p>
+              <div class="price">7 000 <small>₽</small></div>
+              <button type="button" class="book" data-modal-open data-service="Лазерная эпиляция — «Всё тело»" data-price="7 000 ₽">
+                Записаться
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="svc-list-title">Зоны эпиляции по отдельности</div>
+          <div class="svc-list">
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Подмышечные впадины" data-price="1 000 ₽"><span class="rn">Подмышечные впадины</span><span class="dots"></span><span class="rv">1 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Классическое бикини" data-price="1 200 ₽"><span class="rn">Классическое бикини</span><span class="dots"></span><span class="rv">1 200 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Глубокое бикини" data-price="2 000 ₽"><span class="rn">Глубокое бикини</span><span class="dots"></span><span class="rv">2 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Голень + коленки" data-price="2 000 ₽"><span class="rn">Голень + коленки</span><span class="dots"></span><span class="rv">2 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Бёдра" data-price="1 900 ₽"><span class="rn">Бёдра</span><span class="dots"></span><span class="rv">1 900 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Ноги полностью" data-price="2 950 ₽"><span class="rn">Ноги полностью</span><span class="dots"></span><span class="rv">2 950 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Руки до/выше локтя" data-price="1 200 ₽"><span class="rn">Руки до локтя / выше локтя</span><span class="dots"></span><span class="rv">1 200 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Плечи" data-price="1 200 ₽"><span class="rn">Плечи</span><span class="dots"></span><span class="rv">1 200 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Руки полностью" data-price="1 900 ₽"><span class="rn">Руки полностью</span><span class="dots"></span><span class="rv">1 900 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Поясница" data-price="1 200 ₽"><span class="rn">Поясница</span><span class="dots"></span><span class="rv">1 200 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Спина полностью" data-price="1 800 ₽"><span class="rn">Спина полностью</span><span class="dots"></span><span class="rv">1 800 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Ягодицы" data-price="1 200 ₽"><span class="rn">Ягодицы</span><span class="dots"></span><span class="rv">1 200 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Лицо полностью" data-price="1 700 ₽"><span class="rn">Лицо полностью</span><span class="dots"></span><span class="rv">1 700 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Лазерная эпиляция — Малая зона" data-price="700 ₽"><span class="rn">Одна малая зона<span class="note">Верхняя губа, подбородок, виски, ареолы, межбровье, бакенбарды, скулы, шея</span></span><span class="dots"></span><span class="rv">700 ₽</span></button>
+          </div>
+        </article>
+
+        <!-- 2. MASSAGE -->
+        <article class="svc-section" id="massage">
+          <div class="svc-head">
+            <div class="svc-num">02</div>
+            <div class="svc-head-body">
+              <span class="tag">Релакс & Оздоровление</span>
+              <h2>Массаж и СПА-уход</h2>
+              <p class="desc">От дипломированных мастеров с многолетним стажем. Глубокая проработка мышц, оздоровление и полный детокс.</p>
+            </div>
+          </div>
+
+          <div class="svc-list">
+            <button type="button" class="svc-row" data-modal-open data-service="Классический массаж всего тела · 60 мин" data-price="3 400 ₽"><span class="rn">Классический массаж всего тела<span class="note">60 минут</span></span><span class="dots"></span><span class="rv">3 400 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Классический массаж всего тела · 45 мин" data-price="3 000 ₽"><span class="rn">Классический массаж всего тела<span class="note">45 минут</span></span><span class="dots"></span><span class="rv">3 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Массаж «Relax»" data-price="3 000 ₽"><span class="rn">Массаж «Relax»</span><span class="dots"></span><span class="rv">3 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Медовый массаж" data-price="3 400 ₽"><span class="rn">Медовый массаж</span><span class="dots"></span><span class="rv">3 400 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Антицеллюлитный / лимфодренажный массаж" data-price="3 500 ₽"><span class="rn">Антицеллюлитный / лимфодренажный</span><span class="dots"></span><span class="rv">3 500 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Баночный массаж" data-price="3 000 ₽"><span class="rn">Баночный массаж</span><span class="dots"></span><span class="rv">3 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Креольский массаж" data-price="3 000 ₽"><span class="rn">Креольский массаж</span><span class="dots"></span><span class="rv">3 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Массаж спины и ШВЗ · 60 мин" data-price="3 000 ₽"><span class="rn">Массаж спины и ШВЗ<span class="note">60 минут</span></span><span class="dots"></span><span class="rv">3 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Массаж спины и ШВЗ · 30 мин" data-price="1 800 ₽"><span class="rn">Массаж спины и ШВЗ<span class="note">30 минут</span></span><span class="dots"></span><span class="rv">1 800 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Спортивный массаж" data-price="3 000 ₽"><span class="rn">Спортивный массаж</span><span class="dots"></span><span class="rv">3 000 ₽</span></button>
+            <button type="button" class="svc-row hi" data-modal-open data-service="Массаж коррекция фигуры 5D" data-price="5 000 ₽"><span class="rn">Массаж коррекция фигуры 5D<span class="note">Глубокая проработка мышц и кожи, ~120 минут</span></span><span class="dots"></span><span class="rv">5 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Массаж + обёртывание" data-price="4 000 ₽"><span class="rn">Массаж + обёртывание<span class="note">Любой часовой массаж + спа-обёртывание</span></span><span class="dots"></span><span class="rv">4 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Обёртывание" data-price="1 500 ₽"><span class="rn">Обёртывание</span><span class="dots"></span><span class="rv">1 500 ₽</span></button>
+          </div>
+        </article>
+
+        <!-- 3. PERSONAL -->
+        <article class="svc-section" id="personal">
+          <div class="svc-head">
+            <div class="svc-num">03</div>
+            <div class="svc-head-body">
+              <span class="tag">Индивидуальный подход</span>
+              <h2>Персональные тренировки</h2>
+              <p class="desc">Занятия 1-on-1 и сплит-форматы с топ-инструкторами клуба для максимально быстрого результата.</p>
+            </div>
+          </div>
+
+          <div class="svc-list">
+            <button type="button" class="svc-row" data-modal-open data-service="Персональное занятие" data-price="2 500 ₽"><span class="rn">Персональное занятие<span class="note">Разовое занятие с тренером без клубной карты</span></span><span class="dots"></span><span class="rv">2 500 ₽</span></button>
+            <button type="button" class="svc-row hi" data-modal-open data-service="Блок из 10 персональных занятий" data-price="22 000 ₽"><span class="rn">Блок из 10 персональных занятий<span class="note">Выгода: 2 200 ₽ за тренировку, без клубной карты</span></span><span class="dots"></span><span class="rv">22 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Сплит на 2 человек" data-price="3 600 ₽"><span class="rn">Сплит-тренировка на 2 человек<span class="note">1 800 ₽ с человека</span></span><span class="dots"></span><span class="rv">3 600 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Сплит на 3 человек" data-price="4 800 ₽"><span class="rn">Сплит-тренировка на 3 человек<span class="note">1 600 ₽ с человека</span></span><span class="dots"></span><span class="rv">4 800 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Сплит от 4 человек" data-price="4 800 ₽"><span class="rn">Сплит-тренировка от 4 человек<span class="note">1 200 ₽ с человека</span></span><span class="dots"></span><span class="rv">4 800 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Программа тренировок" data-price="3 000 ₽"><span class="rn">Составление программы тренировок<span class="note">Индивидуальный план под ваши цели</span></span><span class="dots"></span><span class="rv">3 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Программа питания" data-price="3 500 ₽"><span class="rn">Составление программы питания<span class="note">Расчёт КБЖУ и рацион</span></span><span class="dots"></span><span class="rv">3 500 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Программа + 1 занятие" data-price="4 500 ₽"><span class="rn">Программа + 1 занятие с тренером<span class="note">План + практический разбор техники</span></span><span class="dots"></span><span class="rv">4 500 ₽</span></button>
+          </div>
+        </article>
+
+        <!-- 4. GROUP -->
+        <article class="svc-section" id="group">
+          <div class="svc-head">
+            <div class="svc-num">04</div>
+            <div class="svc-head-body">
+              <span class="tag">Движение & Энергия</span>
+              <h2>Групповые программы</h2>
+              <p class="desc">АэроЙога в гамаках, High Heels, функциональные фитнес-классы и авторские танцевальные направления.</p>
+            </div>
+          </div>
+
+          <div class="svc-list">
+            <button type="button" class="svc-row hi" data-modal-open data-service="АэроЙога-фит в гамаках" data-price="7 000 ₽"><span class="rn">АэроЙога-фит в гамаках<span class="note">8 занятий — 7 000 ₽ · Разовое посещение — 1 200 ₽</span></span><span class="dots"></span><span class="rv">7 000 ₽</span></button>
+            <button type="button" class="svc-row hi" data-modal-open data-service="High Heels — танцы на каблуках" data-price="4 700 ₽"><span class="rn">High Heels — танцы на каблуках<span class="note">Разовое — 800 ₽ · 4 — 3 000 ₽ · 8 — 4 700 ₽ · 16 — 8 000 ₽</span></span><span class="dots"></span><span class="rv">4 700 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Фитнес-класс · разовое" data-price="800 ₽"><span class="rn">Фитнес-классы — разовое занятие</span><span class="dots"></span><span class="rv">800 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Фитнес-классы · 4 занятия" data-price="2 000 ₽"><span class="rn">Фитнес-классы — 4 занятия / месяц</span><span class="dots"></span><span class="rv">2 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Фитнес-классы · 8 занятий" data-price="3 500 ₽"><span class="rn">Фитнес-классы — 8 занятий / месяц</span><span class="dots"></span><span class="rv">3 500 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Фитнес-классы · 12 занятий" data-price="4 500 ₽"><span class="rn">Фитнес-классы — 12 занятий / месяц</span><span class="dots"></span><span class="rv">4 500 ₽</span></button>
+            <button type="button" class="svc-row hi" data-modal-open data-service="Комбо: зал + фитнес-классы" data-price="6 000 ₽"><span class="rn">Комбо: тренажёрный зал + фитнес-классы<span class="note">Безлимитный доступ на 1 месяц</span></span><span class="dots"></span><span class="rv">6 000 ₽</span></button>
+          </div>
+        </article>
+
+        <!-- 5. PASSES -->
+        <article class="svc-section" id="passes">
+          <div class="svc-head">
+            <div class="svc-num">05</div>
+            <div class="svc-head-body">
+              <span class="tag">Клубные карты</span>
+              <h2>Абонементы в тренажёрный зал</h2>
+              <p class="desc">Безлимитный доступ ко всему премиальному оборудованию, уютной финской сауне, душевым и зоне отдыха.</p>
+            </div>
+          </div>
+
+          <div class="svc-list">
+            <button type="button" class="svc-row" data-modal-open data-service="Разовое посещение" data-price="800 ₽"><span class="rn">Разовое посещение<span class="note">Доступ весь день</span></span><span class="dots"></span><span class="rv">800 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Абонемент 1 месяц" data-price="3 500 ₽"><span class="rn">Абонемент на 1 месяц<span class="note">Безлимитный доступ</span></span><span class="dots"></span><span class="rv">3 500 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Абонемент 3 месяца" data-price="9 000 ₽"><span class="rn">Абонемент на 3 месяца<span class="note">Безлимитный доступ</span></span><span class="dots"></span><span class="rv">9 000 ₽</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Полугодовой абонемент" data-price="13 000 ₽"><span class="rn">Полугодовой абонемент<span class="note">6 месяцев безлимитного доступа</span></span><span class="dots"></span><span class="rv">13 000 ₽</span></button>
+            <button type="button" class="svc-row hi" data-modal-open data-service="Годовой абонемент" data-price="20 000 ₽"><span class="rn">Годовой абонемент<span class="note">12 месяцев + услуга заморозки. Максимальная выгода.</span></span><span class="dots"></span><span class="rv">20 000 ₽</span></button>
+          </div>
+        </article>
+
+        <!-- 6. RENT -->
+        <article class="svc-section" id="rent">
+          <div class="svc-head">
+            <div class="svc-num">06</div>
+            <div class="svc-head-body">
+              <span class="tag">Пространство & Аренда</span>
+              <h2>Почасовая аренда залов</h2>
+              <p class="desc">Для инструкторов, хореографов, фотосессий, видеосъёмок и индивидуальных тренировок.</p>
+            </div>
+          </div>
+
+          <div class="svc-list">
+            <button type="button" class="svc-row" data-modal-open data-service="Аренда — малый зал (~50 м²)" data-price="1 200 ₽ / час"><span class="rn">Малый зал — кроссфит, ~50 м²<span class="note">Для групповых и индивидуальных занятий, единоборств, кроссфита</span></span><span class="dots"></span><span class="rv">1 200 ₽ / час</span></button>
+            <button type="button" class="svc-row" data-modal-open data-service="Аренда — большой зал (~90 м²)" data-price="1 500 ₽ / час"><span class="rn">Большой зал, ~90 м²<span class="note">Танцы, силовые программы, единоборства, установка 7 пилонов</span></span><span class="dots"></span><span class="rv">1 500 ₽ / час</span></button>
+          </div>
+        </article>
+
+        <!-- 7. TANNING -->
+        <article class="svc-section" id="tanning">
+          <div class="svc-head">
+            <div class="svc-num">07</div>
+            <div class="svc-head-body">
+              <span class="tag">Бронзовый Glow</span>
+              <h2>Солярий</h2>
+              <p class="desc">Ровный, безопасный и красивый загар круглый год в удобное для вас время.</p>
+            </div>
+          </div>
+
+          <div class="svc-list">
+            <button type="button" class="svc-row hi" data-modal-open data-service="Солярий · минута загара" data-price="50 ₽ / мин"><span class="rn">Минута загара в солярии<span class="note">Стикини, гигиенический коврик и шапочка входят в стоимость</span></span><span class="dots"></span><span class="rv">50 ₽ / мин</span></button>
+          </div>
+        </article>
+
       </div>
     </div>
-
-    <!-- 2. МАССАЖ & СПА -->
-    <div class="pricing-block reveal" id="massage">
-      <div class="pricing-banner-header" style="background-image: url('/images/massage.jpg');">
-        <div class="pricing-banner-overlay"></div>
-        <div class="pricing-banner-content">
-          <div class="pricing-banner-badge">Релакс & Оздоровление</div>
-          <h2 class="pricing-banner-title">Массаж и СПА-уход</h2>
-          <p class="pricing-banner-desc">От дипломированных мастеров с многолетним стажем. Глубокая проработка мышц, оздоровление и полный детокс.</p>
-          <div class="pricing-banner-chips">
-            <span>Классический</span>
-            <span>Антицеллюлитный</span>
-            <span>5D Коррекция фигуры</span>
-            <span>СПА-Обертывания</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-rows-grid">
-        <div class="price-row-item">
-          <span class="price-row-name">Классический массаж всего тела (60 мин)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 400 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Классический массаж всего тела (45 мин)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Массаж "Relax"</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Медовый массаж</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 400 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Антицеллюлитный / лимфодренажный массаж</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 500 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Баночный массаж</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Креольский массаж</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Массаж спины и ШВЗ (60 минут)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Массаж спины и ШВЗ (30 минут)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">1 800 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Спортивный массаж</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 000 ₽</span>
-        </div>
-        <div class="price-row-item featured-row">
-          <div>
-            <span class="price-row-name">Массаж коррекция фигуры 5D</span>
-            <span class="price-row-note">Глубокая проработка мышц и кожи (~120 минут)</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">5 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Массаж + обертывание</span>
-            <span class="price-row-note">Любой часовой массаж + спа-обертывание</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">4 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Обертывание</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">1 500 ₽</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3. ПЕРСОНАЛЬНЫЕ ЗАНЯТИЯ -->
-    <div class="pricing-block reveal" id="personal">
-      <div class="pricing-banner-header" style="background-image: url('/images/trainer_inga.jpg');">
-        <div class="pricing-banner-overlay"></div>
-        <div class="pricing-banner-content">
-          <div class="pricing-banner-badge">Индивидуальный подход</div>
-          <h2 class="pricing-banner-title">Персональные тренировки</h2>
-          <p class="pricing-banner-desc">Занятия 1-on-1 и сплит-форматы с топ-инструкторами клуба для максимально быстрого и безопасного результата.</p>
-          <div class="pricing-banner-chips">
-            <span>Персональный наставник</span>
-            <span>Сплит-тренинг</span>
-            <span>Индивидуальный план</span>
-            <span>Контроль техники</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-rows-grid">
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Персональное занятие</span>
-            <span class="price-row-note">Разовое занятие с тренером без приобретения клубной карты</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">2 500 ₽</span>
-        </div>
-        <div class="price-row-item featured-row">
-          <div>
-            <span class="price-row-name">Блок на 10 персональных занятий</span>
-            <span class="price-row-note">Выгода: 2 200 ₽ за тренировку (Без приобретения карты)</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">22 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Сплит-тренировка на 2 человека</span>
-            <span class="price-row-note">1 800 ₽ с человека</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 600 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Сплит-тренировка на 3 человека</span>
-            <span class="price-row-note">1 600 ₽ с человека</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">4 800 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Сплит-тренировка от 4 человек</span>
-            <span class="price-row-note">1 200 ₽ с человека</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">4 800 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Составление программы тренировок</span>
-            <span class="price-row-note">Индивидуальный план под ваши цели</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Составление программы питания</span>
-            <span class="price-row-note">Расчет КБЖУ и рацион под каждого</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 500 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Программа тренировок + 1 занятие с тренером</span>
-            <span class="price-row-note">План + практический разбор техники</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">4 500 ₽</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4. ГРУППОВЫЕ ТРЕНИРОВКИ -->
-    <div class="pricing-block reveal" id="group">
-      <div class="pricing-banner-header" style="background-image: url('/images/group_hall.jpg');">
-        <div class="pricing-banner-overlay"></div>
-        <div class="pricing-banner-content">
-          <div class="pricing-banner-badge">Движение & Энергия</div>
-          <h2 class="pricing-banner-title">Групповые программы</h2>
-          <p class="pricing-banner-desc">АэроЙога в гамаках, High Heels, функциональные фитнес-классы и авторские танцевальные направления.</p>
-          <div class="pricing-banner-chips">
-            <span>АэроЙога в гамаках</span>
-            <span>High Heels</span>
-            <span>Фитнес-классы</span>
-            <span>Комбо-карты</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-rows-grid">
-        <div class="price-row-item featured-row">
-          <div>
-            <span class="price-row-name">АэроЙога-фит (в гамаках)</span>
-            <span class="price-row-note">8 занятий — 7 000 ₽ (Разовое посещение — 1 200 ₽)</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">7 000 ₽</span>
-        </div>
-        <div class="price-row-item featured-row">
-          <div>
-            <span class="price-row-name">High Heels (Танцы на каблуках)</span>
-            <span class="price-row-note">8 занятий — 4 700 ₽ (Разовое — 800 ₽, 4 зан. — 3 000 ₽, 16 зан. — 8 000 ₽)</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">4 700 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Фитнес-классы (Разовое занятие)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">800 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Фитнес-классы (4 занятия в месяц)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">2 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Фитнес-классы (8 занятий в месяц)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 500 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <span class="price-row-name">Фитнес-классы (12 тренировок в месяц)</span>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">4 500 ₽</span>
-        </div>
-        <div class="price-row-item featured-row">
-          <div>
-            <span class="price-row-name">Комбо (Тренажерный зал + Фитнес-классы)</span>
-            <span class="price-row-note">Безлимитный доступ на 1 месяц</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">6 000 ₽</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5. АБОНЕМЕНТЫ В КЛУБ -->
-    <div class="pricing-block reveal" id="passes">
-      <div class="pricing-banner-header" style="background-image: url('/images/hero.jpg');">
-        <div class="pricing-banner-overlay"></div>
-        <div class="pricing-banner-content">
-          <div class="pricing-banner-badge">Клубные карты</div>
-          <h2 class="pricing-banner-title">Абонементы в тренажерный зал</h2>
-          <p class="pricing-banner-desc">Безлимитный доступ ко всему премиальному оборудованию, уютной финской сауне, душевым и зоне отдыха.</p>
-          <div class="pricing-banner-chips">
-            <span>Безлимит 7 дней</span>
-            <span>Финская сауна</span>
-            <span>Бесплатная парковка</span>
-            <span>Заморозка карты</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-rows-grid">
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Разовое посещение</span>
-            <span class="price-row-note">Доступ весь день</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">800 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Абонемент на 1 месяц</span>
-            <span class="price-row-note">Безлимитный доступ</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">3 500 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Абонемент на 3 месяца</span>
-            <span class="price-row-note">Безлимитный доступ</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">9 000 ₽</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Полугодовой абонемент (6 месяцев)</span>
-            <span class="price-row-note">Безлимитный доступ</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">13 000 ₽</span>
-        </div>
-        <div class="price-row-item featured-row">
-          <div>
-            <span class="price-row-name">Годовой абонемент (12 месяцев)</span>
-            <span class="price-row-note">Максимальная выгода + услуга заморозки</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">20 000 ₽</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6. АРЕНДА ЗАЛОВ -->
-    <div class="pricing-block reveal" id="rent">
-      <div class="pricing-banner-header" style="background-image: url('/images/group_hall.jpg');">
-        <div class="pricing-banner-overlay"></div>
-        <div class="pricing-banner-content">
-          <div class="pricing-banner-badge">Пространство & Аренда</div>
-          <h2 class="pricing-banner-title">Почасовая аренда залов</h2>
-          <p class="pricing-banner-desc">Для инструкторов, хореографов, фотосессий, видеосъёмок и индивидуальных тренировок.</p>
-          <div class="pricing-banner-chips">
-            <span>Большой зал 90 м²</span>
-            <span>Малый зал 50 м²</span>
-            <span>7 пилонов</span>
-            <span>Профессиональный звук</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-rows-grid">
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Аренда малого зала (кроссфит) (~50 м²)</span>
-            <span class="price-row-note">Для групповых и индивидуальных занятий, единоборств и кроссфита</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">1 200 ₽ / час</span>
-        </div>
-        <div class="price-row-item">
-          <div>
-            <span class="price-row-name">Аренда большого зала (~90 м²)</span>
-            <span class="price-row-note">Для танцев, силовых программ, единоборств + установка 7 пилонов</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">1 500 ₽ / час</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7. СОЛЯРИЙ -->
-    <div class="pricing-block reveal" id="tanning">
-      <div class="pricing-banner-header" style="background-image: url('/images/sauna.jpg');">
-        <div class="pricing-banner-overlay"></div>
-        <div class="pricing-banner-content">
-          <div class="pricing-banner-badge">Бронзовый Glow</div>
-          <h2 class="pricing-banner-title">Солярий</h2>
-          <p class="pricing-banner-desc">Ровный, безопасный и красивый загар круглый год в удобное для вас время.</p>
-          <div class="pricing-banner-chips">
-            <span>Вертикальный солярий</span>
-            <span>Новые лампы</span>
-            <span>Все аксессуары включены</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pricing-rows-grid">
-        <div class="price-row-item featured-row">
-          <div>
-            <span class="price-row-name">Минута загара в солярии</span>
-            <span class="price-row-note">Стикини, гигиенический коврик и шапочка входят в стоимость</span>
-          </div>
-          <span class="price-row-dots"></span>
-          <span class="price-row-val">50 ₽ / мин</span>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<!-- ФУТЕР ПРЕМИУМ -->
+<!-- ── FINAL CTA ── -->
+<section class="svc-cta">
+  <div class="container">
+    <span class="svc-eyebrow gold">Готовы начать?</span>
+    <h3>Первый визит — это <em>знакомство,</em> а не обязательство.</h3>
+    <p>Приезжайте на экскурсию по клубу, познакомьтесь с тренерами и попробуйте оборудование. Мы подберём формат, который подойдёт именно вам.</p>
+    <div class="svc-cta-actions">
+      <button type="button" class="svc-btn primary" data-modal-open data-service="Экскурсия по клубу" data-price="Бесплатно">
+        Записаться на визит
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+      <a href="tel:+79037977739" class="svc-btn ghost">Позвонить +7 (903) 797-77-39</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
         <div class="footer-logo">АУРА ФИТНЕС</div>
         <p class="footer-tagline">Премиальный фитнес-клуб<br>в сердце Мытищ</p>
-        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="footer-cta">
+        <button type="button" class="footer-cta" data-modal-open data-service="Экскурсия по клубу" data-price="Бесплатно">
           Записаться бесплатно
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
+        </button>
       </div>
-
       <div class="footer-nav-col">
         <div class="footer-col-title">Клуб</div>
         <a href="/">Главная</a>
@@ -616,7 +907,6 @@
         <a href="/trainers">Тренеры</a>
         <a href="/news">Новости</a>
       </div>
-
       <div class="footer-nav-col">
         <div class="footer-col-title">Услуги и цены</div>
         <a href="/services#laser">Лазерная эпиляция</a>
@@ -624,7 +914,6 @@
         <a href="/services#personal">Персональный тренинг</a>
         <a href="/services#passes">Абонементы</a>
       </div>
-
       <div class="footer-nav-col">
         <div class="footer-col-title">Контакты</div>
         <a href="tel:+79037977739">+7 (903) 797-77-39</a>
@@ -633,9 +922,7 @@
         <span class="footer-hours">Пн–Пт: 7:00–23:00<br>Сб–Вс: 8:00–22:00</span>
       </div>
     </div>
-
     <div class="footer-divider"></div>
-
     <div class="footer-bottom">
       <span>© 2026 Аура Фитнес — Все права защищены</span>
       <div class="footer-bottom-links">
@@ -648,6 +935,170 @@
   </div>
 </footer>
 
+<!-- ═══════════ MODAL ═══════════ -->
+<div class="modal-backdrop" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-window" role="document">
+    <button type="button" class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
+
+    <div id="modalForm">
+      <span class="modal-eyebrow">Запись в клуб</span>
+      <h3 id="modalTitle">Оставьте <em>заявку</em></h3>
+      <p class="modal-sub">Администратор перезвонит в течение 15 минут и подберёт удобное время визита.</p>
+
+      <div class="modal-service-card" id="modalService">
+        <div class="ms-name" id="modalServiceName">Услуга<small>Выбрано</small></div>
+        <div class="ms-price" id="modalServicePrice">—</div>
+      </div>
+
+      <form id="bookingForm" novalidate>
+        <div class="modal-field">
+          <label for="bfName">Ваше имя</label>
+          <input type="text" id="bfName" name="name" placeholder="Как к вам обращаться" required>
+        </div>
+        <div class="modal-field">
+          <label for="bfPhone">Телефон</label>
+          <input type="tel" id="bfPhone" name="phone" placeholder="+7 (___) ___-__-__" required>
+        </div>
+        <div class="modal-field">
+          <label for="bfNote">Комментарий (необязательно)</label>
+          <textarea id="bfNote" name="note" placeholder="Удобное время, вопросы…"></textarea>
+        </div>
+
+        <div class="modal-actions">
+          <button type="submit" class="modal-submit">
+            Отправить заявку
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </button>
+          <a href="#" id="modalWa" class="modal-wa" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+        <p class="modal-legal">Нажимая кнопку, вы соглашаетесь с обработкой персональных данных.</p>
+      </form>
+    </div>
+
+    <div id="modalSuccess" style="display:none;">
+      <div class="modal-success">
+        <div class="check">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <span class="modal-eyebrow" style="justify-content:center;">Заявка принята</span>
+        <h3 style="text-align:center;">Спасибо, мы <em>на связи</em></h3>
+        <p class="modal-sub" style="text-align:center;">Администратор перезвонит вам в ближайшее время. Хорошего дня!</p>
+        <div style="display:flex; justify-content:center;">
+          <button type="button" class="modal-submit" id="modalDone" style="flex:none; min-width:180px;">Закрыть</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="/js/main.js"></script>
+
+<!-- ═══════════ SCROLLSPY + REVEAL + MODAL ═══════════ -->
+<script>
+(function(){
+  // Sidebar scrollspy
+  const links = document.querySelectorAll('#svcNav a');
+  const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+
+  function onScroll(){
+    const y = window.scrollY + 200;
+    let idx = 0;
+    sections.forEach((s, i) => { if (s && s.offsetTop <= y) idx = i; });
+    links.forEach(l => l.classList.remove('active'));
+    if (links[idx]) links[idx].classList.add('active');
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  links.forEach(l => l.addEventListener('click', e => {
+    const href = l.getAttribute('href');
+    const el = document.querySelector(href);
+    if (!el) return;
+    e.preventDefault();
+    window.scrollTo({ top: el.offsetTop - 110, behavior:'smooth' });
+    history.replaceState(null, '', href);
+  }));
+  onScroll();
+
+  // Reveal on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) en.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.svc-section').forEach(el => io.observe(el));
+
+  // ── MODAL ──
+  const modal = document.getElementById('bookingModal');
+  const closeBtn = document.getElementById('modalClose');
+  const nameEl = document.getElementById('modalServiceName');
+  const priceEl = document.getElementById('modalServicePrice');
+  const waLink = document.getElementById('modalWa');
+  const form = document.getElementById('bookingForm');
+  const formWrap = document.getElementById('modalForm');
+  const successWrap = document.getElementById('modalSuccess');
+  const doneBtn = document.getElementById('modalDone');
+  const PHONE = '79037977739';
+
+  function openModal(service, price){
+    const s = service || 'Консультация';
+    const p = price || '—';
+    nameEl.innerHTML = s + '<small>Выбрано</small>';
+    priceEl.textContent = p;
+    waLink.href = 'https://api.whatsapp.com/send/?phone=' + PHONE +
+                  '&text=' + encodeURIComponent('Здравствуйте! Хочу записаться: ' + s + ' (' + p + ')');
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow = 'hidden';
+    formWrap.style.display = '';
+    successWrap.style.display = 'none';
+    setTimeout(() => document.getElementById('bfName').focus(), 300);
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('click', e => {
+    const trigger = e.target.closest('[data-modal-open]');
+    if (trigger){
+      e.preventDefault();
+      openModal(trigger.getAttribute('data-service'), trigger.getAttribute('data-price'));
+    }
+  });
+  closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = document.getElementById('bfName').value.trim();
+    const phone = document.getElementById('bfPhone').value.trim();
+    if (!name || !phone){
+      if (!name) document.getElementById('bfName').focus();
+      else document.getElementById('bfPhone').focus();
+      return;
+    }
+    formWrap.style.display = 'none';
+    successWrap.style.display = '';
+  });
+  doneBtn.addEventListener('click', () => {
+    closeModal();
+    form.reset();
+  });
+
+  // Phone auto-format (simple)
+  const phoneInput = document.getElementById('bfPhone');
+  phoneInput.addEventListener('input', () => {
+    let d = phoneInput.value.replace(/\D/g,'').slice(0,11);
+    if (d.startsWith('8')) d = '7' + d.slice(1);
+    if (!d.startsWith('7') && d.length) d = '7' + d;
+    let out = '+7';
+    if (d.length > 1) out += ' (' + d.slice(1,4);
+    if (d.length >= 4) out += ') ' + d.slice(4,7);
+    if (d.length >= 7) out += '-' + d.slice(7,9);
+    if (d.length >= 9) out += '-' + d.slice(9,11);
+    phoneInput.value = out;
+  });
+})();
+</script>
+
 </body>
 </html>

@@ -28,28 +28,25 @@
   <div class="header-main-bar">
     <div class="container">
       <div class="nav-inner">
-        <a href="/" class="nav-logo">
-          <svg viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="47" stroke="#54663d" stroke-width="2"/>
-            <path d="M28 72 Q32 55 38 40 Q42 30 45 22" stroke="#54663d" stroke-width="1.8" fill="none"/>
-            <text x="50" y="68" text-anchor="middle" font-size="28" fill="#54663d" font-family="serif" font-style="italic">Аура</text>
-          </svg>
-          <div class="nav-logo-text">
-            <span class="nav-logo-main">Аура</span>
-            <span class="nav-logo-sub">ФИТНЕС</span>
-          </div>
-        </a>
-        <ul class="nav-links">
+        <ul class="nav-links nav-links-left">
           <li><a href="/">Главная</a></li>
           <li><a href="/about">О клубе</a></li>
           <li><a href="/services">Услуги и цены</a></li>
           <li><a href="/trainers" class="active">Тренеры</a></li>
+        </ul>
+        <a href="/" class="nav-logo">
+          <img src="/images/logo.png" alt="Аура Фитнес" class="nav-logo-img">
+        </a>
+        <ul class="nav-links nav-links-right">
           <li><a href="/gallery">Галерея</a></li>
           <li><a href="/reviews">Отзывы</a></li>
           <li><a href="/news">Новости</a></li>
           <li><a href="/contacts">Контакты</a></li>
         </ul>
-        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="btn btn-gold" style="padding:0.7rem 1.6rem; font-size:0.75rem;">Записаться</a>
+        <button type="button" class="theme-toggle-btn" aria-label="Переключить тему">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
         <button class="burger" id="burger"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -70,9 +67,7 @@
 
 <header class="page-hero">
   <div class="container">
-    <div class="breadcrumbs"><a href="/">Главная</a> <span>/</span> <span>Тренеры</span></div>
     <h1 class="section-title">ТРЕНЕРСКИЙ СОСТАВ</h1>
-    <p class="section-subtitle">Профессиональные наставники, которые приведут вас к результату безопасно и эффективно.</p>
   </div>
 </header>
 

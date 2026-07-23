@@ -28,28 +28,25 @@
   <div class="header-main-bar">
     <div class="container">
       <div class="nav-inner">
-        <a href="/" class="nav-logo">
-          <svg viewBox="0 0 100 100" fill="none">
-            <circle cx="50" cy="50" r="47" stroke="#54663d" stroke-width="2"/>
-            <path d="M28 72 Q32 55 38 40 Q42 30 45 22" stroke="#54663d" stroke-width="1.8" fill="none"/>
-            <text x="50" y="68" text-anchor="middle" font-size="28" fill="#54663d" font-family="serif" font-style="italic">Аура</text>
-          </svg>
-          <div class="nav-logo-text">
-            <span class="nav-logo-main">Аура</span>
-            <span class="nav-logo-sub">ФИТНЕС</span>
-          </div>
-        </a>
-        <ul class="nav-links">
+        <ul class="nav-links nav-links-left">
           <li><a href="/">Главная</a></li>
           <li><a href="/about">О клубе</a></li>
           <li><a href="/services">Услуги и цены</a></li>
           <li><a href="/trainers">Тренеры</a></li>
+        </ul>
+        <a href="/" class="nav-logo">
+          <img src="/images/logo.png" alt="Аура Фитнес" class="nav-logo-img">
+        </a>
+        <ul class="nav-links nav-links-right">
           <li><a href="/gallery">Галерея</a></li>
           <li><a href="/reviews" class="active">Отзывы</a></li>
           <li><a href="/news">Новости</a></li>
           <li><a href="/contacts">Контакты</a></li>
         </ul>
-        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="btn btn-gold" style="padding:0.7rem 1.6rem; font-size:0.75rem;">Записаться</a>
+        <button type="button" class="theme-toggle-btn" aria-label="Переключить тему">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
         <button class="burger" id="burger"><span></span><span></span><span></span></button>
       </div>
     </div>
@@ -68,25 +65,31 @@
   <a href="/contacts">Контакты</a>
 </div>
 
+<header class="page-hero">
+  <div class="container">
+    <h1 class="section-title">ОТЗЫВЫ КЛИЕНТОВ</h1>
+  </div>
+</header>
+
 <section class="section reviews-page-section">
   <div class="container">
-    <div class="reviews-hero-card">
-      <div class="reviews-hero-score-box">
-        <div class="reviews-hero-score">4.8</div>
-        <div class="reviews-hero-stars">★★★★★</div>
-        <div class="reviews-hero-platform">
+    <div class="reviews-summary-card">
+      <div class="reviews-summary-score-box">
+        <div class="reviews-summary-score">4.8</div>
+        <div class="reviews-summary-stars">★★★★★</div>
+        <div class="reviews-summary-yandex">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="#fc3f1d"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14.5h-2.5V8.5H13c1.38 0 2.5 1.12 2.5 2.5s-1.12 2.5-2.5 2.5h-1v3zm0-5c.55 0 1-.45 1-1s-.45-1-1-1h-1v2h1z"/></svg>
           Яндекс.Карты
         </div>
       </div>
       
-      <div class="reviews-hero-info">
-        <span class="reviews-hero-badge">Официальный рейтинг</span>
-        <h1 class="reviews-hero-title">145 ОТЗЫВОВ НА ЯНДЕКС.КАРТАХ</h1>
-        <p class="reviews-hero-desc">
+      <div class="reviews-summary-info">
+        <span class="reviews-summary-tag">Официальный рейтинг</span>
+        <h2 class="reviews-summary-title">145 отзывов от гостей клуба</h2>
+        <p class="reviews-summary-desc">
           Наши клиенты ценят душевную атмосферу, идеальную чистоту, премиальное оборудование и профессиональный подход тренеров клуба «Аура Фитнес».
         </p>
-        <a href="https://yandex.ru/maps" target="_blank" rel="noopener" class="reviews-hero-btn">
+        <a href="https://yandex.ru/maps" target="_blank" rel="noopener" class="btn btn-gold" style="display:inline-flex; align-items:center; gap:0.6rem;">
           Оставить отзыв на Яндексе
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         </a>

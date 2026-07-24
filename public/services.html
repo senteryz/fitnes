@@ -399,6 +399,21 @@
     .svc-card-luxury:hover .svc-card-cta {
       color: #a8894a;
     }
+
+    .svc-list-title {
+      font-family: 'Oswald', sans-serif !important;
+      font-size: 1.55rem !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase !important;
+      color: var(--olive-deep, #354224) !important;
+      margin: 2.5rem 0 1.2rem 0 !important;
+      padding-bottom: 0.5rem !important;
+      border-bottom: 2px solid rgba(84, 102, 61, 0.22) !important;
+      display: flex !important;
+      justify-content: space-between !important;
+      align-items: center !important;
+    }
     .svc-row.hi{
       background: linear-gradient(90deg, rgba(168,137,74,.10), transparent 70%);
       padding-left:1.2rem; padding-right:1rem;
@@ -437,29 +452,35 @@
     }
     .svc-cta-actions{ display:flex; flex-wrap:wrap; gap: 1rem; }
     .modal-backdrop{
-      position:fixed; inset:0; z-index:9999;
-      background: rgba(11, 17, 10, 0.78);
+      position:fixed; inset:0; z-index:999999;
+      background: rgba(11, 17, 10, 0.82);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      display:flex; align-items:center; justify-content:center;
+      display:none; align-items:center; justify-content:center;
       padding: 1.5rem;
       opacity:0; pointer-events:none;
-      transition: opacity .35s ease;
+      transition: opacity .3s ease;
+      overscroll-behavior: contain;
     }
-    .modal-backdrop.open{ opacity:1; pointer-events:auto; }
+    .modal-backdrop.open{
+      display:flex !important;
+      opacity:1 !important;
+      pointer-events:auto !important;
+    }
 
     .modal-window{
       background: var(--paper);
       max-width: 520px; width:100%;
       max-height: 94vh; overflow-y:auto;
+      overscroll-behavior: contain;
       scrollbar-width: none !important;
       -ms-overflow-style: none !important;
       position:relative;
       padding: 1.4rem 1.6rem 1.4rem;
       border-radius: 24px;
-      transform: scale(.88) translateY(30px);
+      transform: scale(.92) translateY(20px);
       opacity: 0;
-      transition: transform .45s cubic-bezier(.16,1,.3,1), opacity .35s ease;
+      transition: transform .35s cubic-bezier(.16,1,.3,1), opacity .3s ease;
       box-shadow: 0 30px 90px rgba(0,0,0,.45);
       border: 1px solid rgba(196,169,106,.3);
     }
@@ -475,8 +496,8 @@
       box-shadow: 0 40px 100px rgba(0,0,0,.75);
     }
     .modal-backdrop.open .modal-window{
-      transform: scale(1) translateY(0);
-      opacity: 1;
+      transform: scale(1) translateY(0) !important;
+      opacity: 1 !important;
     }
 
     .modal-close{
@@ -1254,7 +1275,7 @@
               </div>
               <div class="svc-card-body">
                 <h4 class="svc-card-title">Ноги полностью</h4>
-                <p class="svc-card-sub">Полная лазерная обработка от бедра до стоп</p>
+                <p class="svc-card-sub">Эпиляция обеих ног полностью диодным лазером</p>
               </div>
               <div class="svc-card-footer">
                 <span class="svc-card-price">2 950 ₽</span>
@@ -1263,64 +1284,20 @@
             </button>
           </div>
         </article>
-
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── FINAL CTA ── -->
-<section class="svc-cta">
-  <div class="container">
-    <span class="svc-eyebrow gold">Готовы начать?</span>
-    <h3>Первый визит — это <em>знакомство,</em> а не обязательство.</h3>
-    <p>Приезжайте на экскурсию по клубу, познакомьтесь с тренерами и попробуйте оборудование. Мы подберём формат, который подойдёт именно вам.</p>
-    <div class="svc-cta-actions">
-      <button type="button" class="svc-btn primary" data-modal-open data-service="Экскурсия по клубу" data-price="Бесплатно">
-        Записаться на визит
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </button>
-      <a href="tel:+79037977739" class="svc-btn ghost">Позвонить +7 (903) 797-77-39</a>
     </div>
   </div>
 </section>
 
 <!-- ── FOOTER ── -->
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="footer-logo">АУРА ФИТНЕС</div>
-        <p class="footer-tagline">Премиальный фитнес-клуб<br>в сердце Мытищ</p>
-        <button type="button" class="footer-cta" data-modal-open data-service="Экскурсия по клубу" data-price="Бесплатно">
-          Записаться бесплатно
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
-      </div>
-      <div class="footer-nav-col">
-        <div class="footer-col-title">Клуб</div>
-        <a href="/">Главная</a>
-        <a href="/about">О клубе</a>
-        <a href="/trainers">Тренеры</a>
-        <a href="/news">Новости</a>
-      </div>
-      <div class="footer-nav-col">
-        <div class="footer-col-title">Услуги и цены</div>
-        <a href="/services#laser">Лазерная эпиляция</a>
-        <a href="/services#massage">Массаж и СПА</a>
-        <a href="/services#personal">Персональный тренинг</a>
-        <a href="/services#passes">Абонементы</a>
-      </div>
-      <div class="footer-nav-col">
-        <div class="footer-col-title">Контакты</div>
-        <a href="tel:+79037977739">+7 (903) 797-77-39</a>
-        <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank">WhatsApp</a>
-        <span class="footer-address">Мытищи, ул. Колпакова 24А<br>2 этаж бизнес-центра</span>
-        <span class="footer-hours">Пн–Пт: 7:00–23:00<br>Сб–Вс: 8:00–22:00</span>
-      </div>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom">
+      <p>© 2026 Аура Фитнес & СПА. Все права защищены.</p>
     </div>
   </div>
 </footer>
+
 
 <!-- ═══════════ MODAL ═══════════ -->
 <div class="modal-backdrop" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalServiceTitle" aria-hidden="true">
@@ -1361,26 +1338,7 @@
         </div>
       </div>
 
-      <!-- 4. OR DIRECT FORM REQUEST -->
-      <div class="modal-form-divider">
-        <span>или оставьте номер телефона</span>
-      </div>
 
-      <form id="bookingForm" novalidate>
-        <div class="modal-field">
-          <label for="bfName">Ваше имя</label>
-          <input type="text" id="bfName" name="name" placeholder="Как к вам обращаться" required>
-        </div>
-        <div class="modal-field">
-          <label for="bfPhone">Телефон</label>
-          <input type="tel" id="bfPhone" name="phone" placeholder="+7 (___) ___-__-__" required>
-        </div>
-
-        <button type="submit" class="modal-submit">
-          Заказать обратный звонок
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
-      </form>
     </div>
 
     <div id="modalSuccess" style="display:none;">
@@ -1439,12 +1397,9 @@
   const waLink = document.getElementById('modalWa');
   const tgLink = document.getElementById('modalTg');
   const vkLink = document.getElementById('modalVk');
-
-  const form = document.getElementById('bookingForm');
-  const formWrap = document.getElementById('modalForm');
-  const successWrap = document.getElementById('modalSuccess');
-  const doneBtn = document.getElementById('modalDone');
   const PHONE = '79037977739';
+
+  let scrollbarWidth = 0;
 
   function openModal(service, price, desc, img){
     const s = service || 'Консультация';
@@ -1469,28 +1424,23 @@
       else i = '/images/hero.jpg';
     }
 
-    titleEl.textContent = s;
-    priceEl.textContent = p;
-    descEl.textContent = d;
-    bannerImg.src = i;
+    if (titleEl) titleEl.textContent = s;
+    if (priceEl) priceEl.textContent = p;
+    if (descEl) descEl.textContent = d;
+    if (bannerImg) bannerImg.src = i;
 
     const msgText = encodeURIComponent('Здравствуйте! Хочу записаться на услугу: ' + s + ' (' + p + ')');
-    waLink.href = 'https://api.whatsapp.com/send/?phone=' + PHONE + '&text=' + msgText;
-    tgLink.href = 'https://t.me/senteryz?text=' + msgText;
-    vkLink.href = 'https://vk.com';
+    if (waLink) waLink.href = 'https://api.whatsapp.com/send/?phone=' + PHONE + '&text=' + msgText;
+    if (tgLink) tgLink.href = 'https://t.me/senteryz?text=' + msgText;
+    if (vkLink) vkLink.href = 'https://vk.com';
 
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');
-    document.body.style.overflow = 'hidden';
-    formWrap.style.display = '';
-    successWrap.style.display = 'none';
-    setTimeout(() => document.getElementById('bfName').focus(), 300);
   }
 
   function closeModal(){
     modal.classList.remove('open');
     modal.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
   }
 
   document.addEventListener('click', e => {
@@ -1505,46 +1455,17 @@
       e.preventDefault();
       const cardSub = trigger.querySelector('.svc-card-sub');
       const desc = trigger.getAttribute('data-desc') || (cardSub ? cardSub.textContent.trim() : '');
-      const img = trigger.getAttribute('data-img') || '';
+      const img = trigger.getAttribute('data-img') || trigger.getAttribute('data-photo') || '';
       openModal(trigger.getAttribute('data-service'), trigger.getAttribute('data-price'), desc, img);
     }
   });
 
-  closeBtn.addEventListener('click', closeModal);
+  const doneBtn = document.getElementById('modalDone');
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  if (doneBtn) doneBtn.addEventListener('click', closeModal);
   modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
 
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = document.getElementById('bfName').value.trim();
-    const phone = document.getElementById('bfPhone').value.trim();
-    if (!name || !phone){
-      if (!name) document.getElementById('bfName').focus();
-      else document.getElementById('bfPhone').focus();
-      return;
-    }
-    formWrap.style.display = 'none';
-    successWrap.style.display = '';
-  });
-
-  doneBtn.addEventListener('click', () => {
-    closeModal();
-    form.reset();
-  });
-
-  // Phone auto-format
-  const phoneInput = document.getElementById('bfPhone');
-  phoneInput.addEventListener('input', () => {
-    let d = phoneInput.value.replace(/\D/g,'').slice(0,11);
-    if (d.startsWith('8')) d = '7' + d.slice(1);
-    if (!d.startsWith('7') && d.length) d = '7' + d;
-    let out = '+7';
-    if (d.length > 1) out += ' (' + d.slice(1,4);
-    if (d.length >= 4) out += ') ' + d.slice(4,7);
-    if (d.length >= 7) out += '-' + d.slice(7,9);
-    if (d.length >= 9) out += '-' + d.slice(9,11);
-    phoneInput.value = out;
-  });
 })();
 </script>
 

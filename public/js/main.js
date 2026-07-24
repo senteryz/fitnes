@@ -441,49 +441,133 @@ function setupTrainerFilterListeners() {
 }
 
 function renderPrices(prices) {
+  // 1. Главная страница (если есть #prices-layout)
   const layout = document.getElementById('prices-layout');
-  if (!layout || !prices) return;
+  if (layout && prices) {
+    const singleVal = prices.single || 800;
+    const subs = prices.subscriptions || (prices.serviceSections && prices.serviceSections[0] && prices.serviceSections[0].subcategories && prices.serviceSections[0].subcategories[0] ? prices.serviceSections[0].subcategories[0].items : []);
+    const h90 = prices.hall90 || (prices.serviceSections && prices.serviceSections[1] && prices.serviceSections[1].subcategories && prices.serviceSections[1].subcategories[0] ? prices.serviceSections[1].subcategories[0].items : []);
+    const h50 = prices.hall50 || (prices.serviceSections && prices.serviceSections[1] && prices.serviceSections[1].subcategories && prices.serviceSections[1].subcategories[1] ? prices.serviceSections[1].subcategories[1].items : []);
 
-  layout.innerHTML = `
-    <div class="price-section reveal">
-      <div class="price-section-header">
-        <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Визит</div>
-        <h3>Разовое посещение</h3>
+    layout.innerHTML = `
+      <div class="price-section reveal">
+        <div class="price-section-header">
+          <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Визит</div>
+          <h3>${prices.singleTitle || 'Разовое посещение'}</h3>
+        </div>
+        <div style="padding:2.5rem 1.8rem; text-align:center;">
+          ${prices.singlePhoto ? `<img src="${prices.singlePhoto}" style="width:100%; max-height:160px; object-fit:cover; border-radius:12px; margin-bottom:1.2rem;">` : ''}
+          <div style="font-family:var(--font-display); font-size:3.5rem; font-weight:900; color:var(--gold); line-height:1; margin-bottom:0.5rem;">${typeof singleVal === 'number' ? singleVal.toLocaleString('ru-RU') + ' ₽' : singleVal}</div>
+          <div style="font-size:0.9rem; color:var(--white-muted); margin-bottom:0.8rem;">${prices.singleDesc || 'за 1 тренировку в клубе'}</div>
+          <div style="display:inline-block; padding:0.4rem 1.2rem; background:rgba(212,175,55,0.15); border:1px solid var(--gold); border-radius:30px; font-size:0.75rem; font-weight:700; color:var(--gold);">Первый визит — БЕСПЛАТНО</div>
+        </div>
       </div>
-      <div style="padding:3rem 2rem; text-align:center;">
-        <div style="font-family:var(--font-display); font-size:3.8rem; font-weight:900; color:var(--gold); line-height:1; margin-bottom:0.5rem;">${(prices.single || 800).toLocaleString('ru-RU')} ₽</div>
-        <div style="font-size:0.9rem; color:var(--white-muted);">за 1 тренировку</div>
-        <div style="display:inline-block; padding:0.4rem 1.2rem; background:rgba(212,175,55,0.15); border:1px solid var(--gold); border-radius:30px; font-size:0.75rem; font-weight:700; color:var(--gold); margin-top:1.2rem;">Первый визит — БЕСПЛАТНО</div>
-      </div>
-    </div>
 
-    <div class="price-section reveal delay-1">
-      <div class="price-section-header">
-        <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Карты</div>
-        <h3>Абонементы</h3>
+      <div class="price-section reveal delay-1">
+        <div class="price-section-header">
+          <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Карты</div>
+          <h3>Абонементы</h3>
+        </div>
+        <div style="padding:1rem;">
+          ${(subs || []).map(s => `
+            <div class="price-item" style="padding:1rem; border-bottom:1px solid rgba(255,255,255,0.06);">
+              ${s.photo ? `<img src="${s.photo}" style="width:48px; height:48px; border-radius:8px; object-fit:cover; margin-right:1rem;">` : ''}
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="price-item-name" style="font-weight:700;">${s.period || s.name}</span>
+                  <span class="price-item-value">${typeof s.price === 'number' ? s.price.toLocaleString('ru-RU') + ' ₽' : s.price}</span>
+                </div>
+                ${s.desc ? `<div style="font-size:0.78rem; color:var(--white-muted); margin-top:0.3rem;">${s.desc}</div>` : ''}
+              </div>
+            </div>`).join('')}
+        </div>
       </div>
-      <div>
-        ${(prices.subscriptions || []).map(s => `
-          <div class="price-item">
-            <span class="price-item-name">${s.period}</span>
-            <span class="price-item-value">${s.price.toLocaleString('ru-RU')} ₽</span>
-          </div>`).join('')}
-      </div>
-    </div>
 
-    <div class="price-section reveal delay-2">
-      <div class="price-section-header">
-        <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Аренда</div>
-        <h3>Аренда зала 90 м²</h3>
+      <div class="price-section reveal delay-2">
+        <div class="price-section-header">
+          <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Аренда</div>
+          <h3>Аренда зала 90 м²</h3>
+        </div>
+        <div style="padding:1rem;">
+          ${(h90 || []).map(h => `
+            <div class="price-item" style="padding:1rem; border-bottom:1px solid rgba(255,255,255,0.06);">
+              ${h.photo ? `<img src="${h.photo}" style="width:48px; height:48px; border-radius:8px; object-fit:cover; margin-right:1rem;">` : ''}
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="price-item-name" style="font-weight:700;">${h.duration || h.name}</span>
+                  <span class="price-item-value">${typeof h.price === 'number' ? h.price.toLocaleString('ru-RU') + ' ₽' : h.price}</span>
+                </div>
+                ${h.desc ? `<div style="font-size:0.78rem; color:var(--white-muted); margin-top:0.3rem;">${h.desc}</div>` : ''}
+              </div>
+            </div>`).join('')}
+        </div>
       </div>
-      <div>
-        ${(prices.hall90 || []).map(h => `
-          <div class="price-item">
-            <span class="price-item-name">${h.duration}</span>
-            <span class="price-item-value">${h.price.toLocaleString('ru-RU')} ₽</span>
-          </div>`).join('')}
-      </div>
-    </div>`;
+
+      <div class="price-section reveal delay-3">
+        <div class="price-section-header">
+          <div style="font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--gold); margin-bottom:0.4rem;">Аренда</div>
+          <h3>Аренда зала 50 м²</h3>
+        </div>
+        <div style="padding:1rem;">
+          ${(h50 || []).map(h => `
+            <div class="price-item" style="padding:1rem; border-bottom:1px solid rgba(255,255,255,0.06);">
+              ${h.photo ? `<img src="${h.photo}" style="width:48px; height:48px; border-radius:8px; object-fit:cover; margin-right:1rem;">` : ''}
+              <div style="flex:1;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                  <span class="price-item-name" style="font-weight:700;">${h.duration || h.name}</span>
+                  <span class="price-item-value">${typeof h.price === 'number' ? h.price.toLocaleString('ru-RU') + ' ₽' : h.price}</span>
+                </div>
+                ${h.desc ? `<div style="font-size:0.78rem; color:var(--white-muted); margin-top:0.3rem;">${h.desc}</div>` : ''}
+              </div>
+            </div>`).join('')}
+        </div>
+      </div>`;
+  }
+
+  // 2. Страница services.html (Динамическое обновление ВСЕХ разделов и карточек услуг)
+  const navContainer = document.querySelector('#svcNav ol');
+  const contentContainer = document.querySelector('.svc-content');
+  if (navContainer && contentContainer && prices && prices.serviceSections) {
+    const sections = prices.serviceSections;
+
+    // Обновление левого меню навигации
+    navContainer.innerHTML = sections.map((sec, idx) => `
+      <li><a href="#${sec.id}" class="${idx === 0 ? 'active' : ''}">${sec.title}</a></li>
+    `).join('');
+
+    // Обновление основного контента разделов
+    contentContainer.innerHTML = sections.map((sec, idx) => `
+      <article class="svc-section in" id="${sec.id}">
+        <div class="svc-head">
+          <div class="svc-num">${sec.num || (idx < 9 ? '0' + (idx + 1) : idx + 1)}</div>
+          <div class="svc-head-body">
+            <span class="tag">${sec.tag || 'Услуга'}</span>
+            <h2>${sec.title}</h2>
+            ${sec.desc ? `<p class="desc">${sec.desc}</p>` : ''}
+          </div>
+        </div>
+
+        ${(sec.subcategories || []).map(sub => `
+          ${sub.title ? `<div class="svc-list-title">${sub.title}</div>` : ''}
+          <div class="svc-card-grid">
+            ${(sub.items || []).map(item => `
+              <button type="button" class="svc-card-luxury" data-modal-open data-service="${item.name}" data-price="${item.price}" data-img="${item.photo || ''}" data-desc="${item.desc || ''}">
+                ${item.photo ? `<div style="width:100%; height:160px; border-radius:12px; overflow:hidden; margin-bottom:0.8rem;"><img src="${item.photo}" style="width:100%; height:100%; object-fit:cover;"></div>` : ''}
+                <div class="svc-card-body">
+                  <h4 class="svc-card-title">${item.name}</h4>
+                  ${item.desc ? `<p class="svc-card-sub">${item.desc}</p>` : ''}
+                </div>
+                <div class="svc-card-footer">
+                  <span class="svc-card-price">${item.price}</span>
+                  <span class="svc-card-cta">Записаться <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span>
+                </div>
+              </button>
+            `).join('')}
+          </div>
+        `).join('')}
+      </article>
+    `).join('');
+  }
 }
 
 function renderGallery(gallery) {
@@ -512,14 +596,22 @@ function renderNews(news) {
   if (!grid || !news) return;
 
   grid.innerHTML = news.map((n, i) => `
-    <div class="news-card reveal delay-${(i % 3) + 1}">
+    <div class="news-card reveal visible" style="display:flex; flex-direction:column; height:100%;">
       <div class="news-img-wrap">
         <img src="${n.image || '/images/hero.jpg'}" alt="${n.title}">
       </div>
-      <div class="news-content">
-        <span style="font-size:0.75rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); margin-bottom:0.6rem; display:block;">${n.category || 'Акция'}</span>
-        <h3 style="font-family:var(--font-display); font-size:1.15rem; font-weight:800; margin-bottom:0.8rem; line-height:1.3;">${n.title}</h3>
-        <p style="font-size:0.9rem; color:var(--white-muted); line-height:1.7;">${n.content || ''}</p>
+      <div class="news-content" style="display:flex; flex-direction:column; justify-content:space-between; flex:1; padding:1.6rem;">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.6rem;">
+            <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold);">${n.category || 'Акция'}</span>
+            <span style="font-size:0.78rem; opacity:0.6;">${n.date || ''}</span>
+          </div>
+          <h3 style="font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:600; text-transform:uppercase; margin-bottom:0.8rem; line-height:1.2; color:var(--ink);">${n.title}</h3>
+          <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.6; margin-bottom:1.5rem;">${n.content ? (n.content.length > 120 ? n.content.slice(0, 120) + '...' : n.content) : ''}</p>
+        </div>
+        <a href="/news-item.html?id=${n.id}" style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.82rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--olive-deep); text-decoration:none; margin-top:auto;">
+          Читать подробнее →
+        </a>
       </div>
     </div>`).join('');
 }
@@ -538,10 +630,15 @@ async function loadData() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    loadData();
+    initHallsShowcase();
+  });
+} else {
   loadData();
   initHallsShowcase();
-});
+}
 
 let currentHallIndex = 0;
 

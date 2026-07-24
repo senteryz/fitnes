@@ -105,28 +105,69 @@
       <!-- ═══ DASHBOARD ═══ -->
       <div class="panel active" id="panel-dashboard">
         <div class="stats-grid" id="stats-grid">
-          <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-value" id="stat-trainers">0</div><div class="stat-label">Тренеров</div></div>
-          <div class="stat-card"><div class="stat-icon">📰</div><div class="stat-value" id="stat-news">0</div><div class="stat-label">Новостей</div></div>
-          <div class="stat-card"><div class="stat-icon">⭐</div><div class="stat-value" id="stat-reviews">0</div><div class="stat-label">Отзывов</div></div>
-          <div class="stat-card"><div class="stat-icon">🖼️</div><div class="stat-value" id="stat-gallery">0</div><div class="stat-label">Фото в галерее</div></div>
+          <div class="stat-card">
+            <div class="stat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="stat-value" id="stat-trainers">0</div>
+            <div class="stat-label">Тренеров в клубе</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div class="stat-value" id="stat-news">0</div>
+            <div class="stat-label">Публикаций & Акций</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="stat-value" id="stat-reviews">0</div>
+            <div class="stat-label">Отзывов гостей</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
+            </div>
+            <div class="stat-value" id="stat-gallery">0</div>
+            <div class="stat-label">Фото в галерее</div>
+          </div>
         </div>
+
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
           <div class="card">
             <div class="card-title">Быстрые действия</div>
             <div style="display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem;">
-              <button class="btn btn-ghost" onclick="switchPanel('trainers')">→ Добавить тренера</button>
-              <button class="btn btn-ghost" onclick="switchPanel('news')">→ Новая новость</button>
-              <button class="btn btn-ghost" onclick="switchPanel('gallery')">→ Добавить фото</button>
-              <button class="btn btn-ghost" onclick="switchPanel('prices')">→ Изменить цены</button>
+              <button class="btn btn-ghost" onclick="switchPanel('trainers')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Добавить тренера
+              </button>
+              <button class="btn btn-ghost" onclick="switchPanel('news')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Новая новость
+              </button>
+              <button class="btn btn-ghost" onclick="switchPanel('gallery')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Добавить фото
+              </button>
+              <button class="btn btn-ghost" onclick="switchPanel('prices')">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                Изменить цены
+              </button>
             </div>
           </div>
+
           <div class="card">
-            <div class="card-title">Информация</div>
-            <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
-              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Адрес:</span> ул. Колпакова, 24А, Мытищи</div>
-              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Телефон:</span> +7 (903) 797-77-39</div>
-              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Работа:</span> Ежедневно 09:00–22:00</div>
-              <div style="font-size:0.8rem; color:var(--gray);"><span style="color:var(--gold)">Рейтинг:</span> 4.8 ★ (145 отзывов)</div>
+            <div class="card-title">Информация о клубе</div>
+            <div style="margin-top:1rem; display:flex; flex-direction:column; gap:0.65rem;">
+              <div style="font-size:0.85rem; color:var(--text-muted);"><strong style="color:var(--olive-dark)">Адрес:</strong> ул. Колпакова, 24А, Мытищи (2 этаж)</div>
+              <div style="font-size:0.85rem; color:var(--text-muted);"><strong style="color:var(--olive-dark)">Телефон:</strong> +7 (903) 797-77-39</div>
+              <div style="font-size:0.85rem; color:var(--text-muted);"><strong style="color:var(--olive-dark)">Режим работы:</strong> Ежедневно 09:00 – 22:00</div>
+              <div style="font-size:0.85rem; color:var(--text-muted);"><strong style="color:var(--olive-dark)">Рейтинг:</strong> 4.8 / 5.0 (Яндекс.Карты)</div>
             </div>
           </div>
         </div>
@@ -242,17 +283,25 @@
         </div>
         <div class="db-actions">
           <div class="db-action-card">
-            <div class="db-action-icon">⬇️</div>
+            <div class="db-action-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
             <div class="db-action-title">Скачать базу</div>
             <div class="db-action-desc">Скачайте текущую базу данных (db.json) для резервной копии. Содержит все данные: тренеров, цены, новости, отзывы, галерею.</div>
-            <button class="btn btn-primary" onclick="exportDB()" id="export-db-btn">↓ Скачать db.json</button>
+            <button class="btn btn-primary" onclick="exportDB()" id="export-db-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Скачать db.json
+            </button>
           </div>
           <div class="db-action-card">
-            <div class="db-action-icon">⬆️</div>
+            <div class="db-action-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
             <div class="db-action-title">Загрузить базу</div>
-            <div class="db-action-desc">Загрузите ранее сохранённую базу данных. <strong style="color:var(--warning)">Внимание!</strong> Текущие данные будут заменены.</div>
+            <div class="db-action-desc">Загрузите ранее сохранённую базу данных. <strong style="color:var(--danger)">Внимание!</strong> Текущие данные будут заменены.</div>
             <label class="btn btn-ghost" style="cursor:pointer;" id="import-db-label">
-              ↑ Загрузить db.json
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Загрузить db.json
               <input type="file" accept=".json" style="display:none" id="import-db-file" onchange="importDB(event)">
             </label>
           </div>
@@ -305,9 +354,15 @@
         <input class="form-control" id="t-cert" placeholder="Названия сертификатов">
       </div>
       <div class="form-group form-full">
-        <label class="form-label">Фото (URL)</label>
-        <input class="form-control" id="t-photo" placeholder="https://example.com/photo.jpg">
-        <div class="form-hint">Ссылка на фотографию тренера</div>
+        <label class="form-label">Фотография (Загрузка файла или URL)</label>
+        <div style="display:flex; gap:0.6rem; align-items:center;">
+          <input class="form-control" id="t-photo" placeholder="Вставьте ссылку на фото или загрузите файл →">
+          <label class="btn btn-ghost" style="cursor:pointer; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Загрузить
+            <input type="file" accept="image/*" style="display:none" onchange="uploadImage(event, 't-photo')">
+          </label>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -348,8 +403,15 @@
         <textarea class="form-control" id="n-content" rows="5" placeholder="Текст новости"></textarea>
       </div>
       <div class="form-group form-full">
-        <label class="form-label">Фото (URL)</label>
-        <input class="form-control" id="n-image" placeholder="https://example.com/img.jpg">
+        <label class="form-label">Фотография (Загрузка файла или URL)</label>
+        <div style="display:flex; gap:0.6rem; align-items:center;">
+          <input class="form-control" id="n-image" placeholder="Вставьте ссылку на фото или загрузите файл →">
+          <label class="btn btn-ghost" style="cursor:pointer; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Загрузить
+            <input type="file" accept="image/*" style="display:none" onchange="uploadImage(event, 'n-image')">
+          </label>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -406,8 +468,15 @@
     </div>
     <div class="form-grid">
       <div class="form-group form-full">
-        <label class="form-label">URL фото *</label>
-        <input class="form-control" id="g-url" placeholder="https://example.com/photo.jpg">
+        <label class="form-label">Фотография (Загрузка файла или URL) *</label>
+        <div style="display:flex; gap:0.6rem; align-items:center;">
+          <input class="form-control" id="g-url" placeholder="Вставьте ссылку на фото или загрузите файл →">
+          <label class="btn btn-ghost" style="cursor:pointer; flex-shrink:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Загрузить
+            <input type="file" accept="image/*" style="display:none" onchange="uploadImage(event, 'g-url')">
+          </label>
+        </div>
       </div>
       <div class="form-group">
         <label class="form-label">Категория</label>

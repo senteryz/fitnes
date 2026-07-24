@@ -2,6 +2,7 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const multer = require('multer');
+const crypto = require('crypto');
 
 const app = express();
 const DEFAULT_PORT = parseInt(process.env.PORT || '3000', 10);
@@ -64,16 +65,40 @@ function nextId(arr) {
   return Math.max(...arr.map(i => i.id)) + 1;
 }
 
-// ─── Проверка прав админа ────────────────────────────────────────────────────
+// ─── Проверка прав админа (SHA-256 / Token Security) ──────────────────────
+const activeTokens = new Set();
+
+function hashPassword(pass) {
+  return crypto.createHash('sha256').update(String(pass || '')).digest('hex');
+}
+
 function adminAuth(req, res, next) {
-  const token = req.headers['x-admin-token'];
+  const token = String(req.headers['x-admin-token'] || '').trim();
   const db = readDB();
-  if (token === db.settings.adminPassword) {
+  const masterPass = String(db.settings.adminPassword || 'aura2026').trim();
+  if (token === masterPass || activeTokens.has(token)) {
     next();
   } else {
     res.status(401).json({ error: 'Необходима авторизация' });
   }
 }
+
+app.post('/api/admin/login', (req, res) => {
+  const { password } = req.body || {};
+  const db = readDB();
+  const inputPass = String(password || '').trim();
+  const masterPass = String(db.settings.adminPassword || 'aura2026').trim();
+
+  if (inputPass === masterPass || hashPassword(inputPass) === hashPassword(masterPass)) {
+    const sessionToken = (crypto && crypto.randomBytes)
+      ? crypto.randomBytes(32).toString('hex')
+      : Math.random().toString(36).substring(2) + Date.now().toString(36);
+    activeTokens.add(sessionToken);
+    res.json({ ok: true, token: sessionToken });
+  } else {
+    res.status(401).json({ error: 'Неверный пароль' });
+  }
+});
 
 // ─── API ─────────────────────────────────────────────────────────────────────
 app.get('/api/data', (req, res) => {
@@ -155,6 +180,14 @@ app.post('/api/reviews', adminAuth, (req, res) => {
   writeDB(db);
   res.status(201).json(item);
 });
+app.put('/api/reviews/:id', adminAuth, (req, res) => {
+  const db = readDB();
+  const idx = db.reviews.findIndex(r => r.id === parseInt(req.params.id));
+  if (idx === -1) return res.status(404).json({ error: 'Не найдено' });
+  db.reviews[idx] = { ...db.reviews[idx], ...req.body };
+  writeDB(db);
+  res.json(db.reviews[idx]);
+});
 app.delete('/api/reviews/:id', adminAuth, (req, res) => {
   const db = readDB();
   db.reviews = db.reviews.filter(r => r.id !== parseInt(req.params.id));
@@ -218,8 +251,11 @@ app.get('/prices', (req, res) => res.sendFile(path.join(__dirname, 'public', 'se
 app.get('/gallery', (req, res) => res.sendFile(path.join(__dirname, 'public', 'gallery.html')));
 app.get('/reviews', (req, res) => res.sendFile(path.join(__dirname, 'public', 'reviews.html')));
 app.get('/news', (req, res) => res.sendFile(path.join(__dirname, 'public', 'news.html')));
+app.get('/news-item', (req, res) => res.sendFile(path.join(__dirname, 'public', 'news-item.html')));
+app.get('/news/:id', (req, res) => res.sendFile(path.join(__dirname, 'public', 'news-item.html')));
 app.get('/contacts', (req, res) => res.sendFile(path.join(__dirname, 'public', 'contacts.html')));
-app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+app.get('/aura-control-7739', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
+app.get('/admin', (req, res) => res.redirect('/'));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
@@ -227,7 +263,7 @@ app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.ht
 function startServer(port) {
   const server = app.listen(port, () => {
     console.log(`\n🌿 Аура Фитнес сервер успешно запущен: http://localhost:${port}`);
-    console.log(`🔐 Панель администратора: http://localhost:${port}/admin\n`);
+    console.log(`🔐 Секретная панель управления: http://localhost:${port}/aura-control-7739\n`);
   });
 
   server.on('error', (err) => {

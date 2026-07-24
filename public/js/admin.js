@@ -26,13 +26,18 @@ document.getElementById('login-password').addEventListener('keydown', e => {
 });
 
 async function tryLogin() {
-  const pass = document.getElementById('login-password').value;
+  const pass = (document.getElementById('login-password').value || '').trim();
   const errEl = document.getElementById('login-error');
   errEl.classList.remove('show');
   try {
-    const res = await fetch('/api/data', { headers: { 'x-admin-token': pass } });
-    if (res.ok) {
-      token = pass;
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pass })
+    });
+    const data = await res.json();
+    if (res.ok && data.token) {
+      token = data.token;
       localStorage.setItem(TOKEN_KEY, token);
       document.getElementById('login-screen').style.display = 'none';
       document.getElementById('admin-app').style.display = 'flex';
@@ -54,8 +59,20 @@ document.getElementById('logout-btn').addEventListener('click', () => {
 });
 
 // ─── API ─────────────────────────────────────────────────────────
+function checkAuthError(res) {
+  if (res.status === 401) {
+    localStorage.removeItem(TOKEN_KEY);
+    token = '';
+    document.getElementById('admin-app').style.display = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    toast('Сессия истекла. Пожалуйста, войдите снова.', 'error');
+    throw new Error('Unauthorized');
+  }
+}
+
 async function apiGet(url) {
   const res = await fetch(url, { headers: { 'x-admin-token': token } });
+  checkAuthError(res);
   return res.json();
 }
 async function apiPost(url, body) {
@@ -64,6 +81,7 @@ async function apiPost(url, body) {
     headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
     body: JSON.stringify(body)
   });
+  checkAuthError(res);
   return res.json();
 }
 async function apiPut(url, body) {
@@ -72,6 +90,7 @@ async function apiPut(url, body) {
     headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
     body: JSON.stringify(body)
   });
+  checkAuthError(res);
   return res.json();
 }
 async function apiDelete(url) {
@@ -79,6 +98,7 @@ async function apiDelete(url) {
     method: 'DELETE',
     headers: { 'x-admin-token': token }
   });
+  checkAuthError(res);
   return res.json();
 }
 
@@ -213,71 +233,370 @@ async function deleteTrainer(id) {
   await loadDB();
 }
 
-// ─── Prices ────────────────────────────────────────────────────
+// ─── Photo Upload Helper (Supports file upload & URL input) ────────
+async function uploadImage(event, targetElementOrId) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const formData = new FormData();
+  formData.append('image', file);
+  try {
+    toast('Загрузка файла...', 'info');
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: { 'x-admin-token': token },
+      body: formData
+    });
+    const data = await res.json();
+    if (res.ok && data.url) {
+      if (typeof targetElementOrId === 'string') {
+        const input = document.getElementById(targetElementOrId);
+        if (input) input.value = data.url;
+      } else if (targetElementOrId && targetElementOrId.value !== undefined) {
+        targetElementOrId.value = data.url;
+      }
+      toast('Фото успешно загружено', 'success');
+    } else {
+      toast(data.error || 'Ошибка загрузки', 'error');
+    }
+  } catch (e) {
+    toast('Ошибка сервера при загрузке', 'error');
+  }
+}
+
+// ─── Prices & Services Editor ──────────────────────────────────────
+function getDefaultServiceSections() {
+  return [
+    {
+      id: "gym",
+      num: "01",
+      tag: "Клубные карты & Тренинг",
+      title: "Тренажёрный зал & Персональные тренировки",
+      desc: "Абонементы, разовые посещения, индивидуальные и СПЛИТ-тренировки с опытными инструкторами.",
+      subcategories: [
+        {
+          title: "Абонементы и Разовый визит",
+          items: [
+            { name: "Разовое посещение", price: "800 ₽", desc: "Доступ в клуб на весь день без ограничений", tag: "Полный день", photo: "" },
+            { name: "Абонемент на 1 месяц", price: "3 500 ₽", desc: "Безлимитный доступ на 30 дней ко всем зонам", tag: "Безлимитно", photo: "" },
+            { name: "Абонемент на 3 месяца", price: "9 000 ₽", desc: "Клубная карта с возможностью заморозки", tag: "90 Дней", photo: "" },
+            { name: "Абонемент на 6 месяцев", price: "15 000 ₽", desc: "Полгода тренировок + заморозка визитов", tag: "Полгода", photo: "" },
+            { name: "Абонемент на 12 месяцев", price: "23 000 ₽", desc: "Годовой безлимит по выгодной цене", tag: "1 Год", photo: "" }
+          ]
+        },
+        {
+          title: "Персональный тренинг & СПЛИТ",
+          items: [
+            { name: "Персональная тренировка (1 занятие)", price: "2 800 ₽", desc: "Персональное занятие с топ-тренером", tag: "1 на 1", photo: "" },
+            { name: "Блок из 10 персональных тренировок", price: "25 000 ₽", desc: "Курс индивидуальных занятий", tag: "Выгода", photo: "" },
+            { name: "СПЛИТ тренировка (2 человека)", price: "2 100 ₽/чел", desc: "Занятие для двоих с тренером", tag: "Мини-группа", photo: "" },
+            { name: "СПЛИТ тренировка (3 человека)", price: "1 900 ₽/чел", desc: "Занятие для троих с тренером", tag: "Мини-группа", photo: "" },
+            { name: "СПЛИТ тренировка (от 4х человек)", price: "1 700 ₽/чел", desc: "Занятие от 4х человек", tag: "Группа", photo: "" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "halls",
+      num: "02",
+      tag: "Пространство",
+      title: "Аренда залов 90 м² и 50 м²",
+      desc: "Аренда профессиональных залов с паркетом, акустикой и зеркалами.",
+      subcategories: [
+        {
+          title: "Большой зал (90 м²)",
+          items: [
+            { name: "1 час аренды (90 м²)", price: "1 800 ₽", desc: "Зеркальная стена, коврики, станки", tag: "90 м²", photo: "/images/group_hall.jpg" },
+            { name: "1.5 часа аренды (90 м²)", price: "2 400 ₽", desc: "Зеркальная стена, акустическая система", tag: "90 м²", photo: "/images/group_hall.jpg" },
+            { name: "2 часа аренды (90 м²)", price: "3 000 ₽", desc: "Для мастер-классов и практики", tag: "90 м²", photo: "/images/group_hall.jpg" },
+            { name: "3 часа аренды (90 м²)", price: "4 400 ₽", desc: "Длительная аренда под мероприятия", tag: "90 м²", photo: "/images/group_hall.jpg" }
+          ]
+        },
+        {
+          title: "Малый зал (50 м²)",
+          items: [
+            { name: "1 час аренды (50 м²)", price: "1 500 ₽", desc: "Уютный зал для 1-5 человек", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
+            { name: "1.5 часа аренды (50 м²)", price: "2 000 ₽", desc: "Для малых групп и репетиций", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
+            { name: "2 часа аренды (50 м²)", price: "2 700 ₽", desc: "Оборудован звуком и зеркалами", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
+            { name: "3 часа аренды (50 м²)", price: "3 900 ₽", desc: "Выгодная цена при длительной аренде", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
+            { name: "4 часа аренды (50 м²)", price: "5 000 ₽", desc: "Максимальный пакет аренды", tag: "50 м²", photo: "/images/trainer_inga.jpg" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "solarium",
+      num: "03",
+      tag: "Инсоляция & Загар",
+      title: "Солярий",
+      desc: "Вертикальный солярий с новыми мощными лампами. В стоимость входит шапочка, стикини и коврик.",
+      subcategories: [
+        {
+          title: "Прайс на солярий",
+          items: [
+            { name: "1 минута инсоляции", price: "60 ₽/мин", desc: "Шапочка, стикини и коврик включены", tag: "Загар", photo: "" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "massage",
+      num: "04",
+      tag: "Тело и Релакс",
+      title: "Массаж и СПА-уход",
+      desc: "Антицеллюлитный, лимфодренажный, классический и массаж спины от дипломированных специалистов.",
+      subcategories: [
+        {
+          title: "Классический и Корректирующий массаж",
+          items: [
+            { name: "Классический массаж (60 мин)", price: "от 3 200 ₽", desc: "Женский: 3200 ₽ / Мужской: 3700 ₽", tag: "60 мин", photo: "" },
+            { name: "Классический массаж (90 мин)", price: "от 3 900 ₽", desc: "Женский: 3900 ₽ / Мужской: 4400 ₽", tag: "90 мин", photo: "" },
+            { name: "Антицеллюлитный / Лимфодренажный (60 мин)", price: "от 3 700 ₽", desc: "Женский: 3700 ₽ / Мужской: 4200 ₽", tag: "60 мин", photo: "" },
+            { name: "Массаж спины и ШВЗ (40 мин)", price: "от 2 200 ₽", desc: "Женский: 2200 ₽ / Мужской: 2700 ₽", tag: "40 мин", photo: "" },
+            { name: "Массаж лица (30 мин)", price: "от 2 000 ₽", desc: "Женский: 2000 ₽ / Мужской: 2500 ₽", tag: "30 мин", photo: "" }
+          ]
+        }
+      ]
+    },
+    {
+      id: "laser",
+      num: "05",
+      tag: "Инновационная Косметология",
+      title: "Лазерная эпиляция",
+      desc: "Новое поколение диодного лазера. Безболезненно, эффективно и быстро.",
+      subcategories: [
+        {
+          title: "Выгодные комбо-комплексы",
+          items: [
+            { name: "Комплекс МИНИ", price: "2 700 ₽", desc: "Глубокое бикини + подмышки", tag: "Хит", photo: "" },
+            { name: "Комплекс СТАНДАРТ", price: "3 900 ₽", desc: "Глубокое бикини + подмышки + голени", tag: "Популярно", photo: "" },
+            { name: "Комплекс ПОПУЛЯРНЫЙ", price: "5 000 ₽", desc: "Глубокое бикини + подмышки + ноги полностью", tag: "Макс", photo: "" },
+            { name: "Комплекс ВСЕ ТЕЛО", price: "7 000 ₽", desc: "Полная обработка тела", tag: "Всё включено", photo: "" }
+          ]
+        }
+      ]
+    }
+  ];
+}
+
 function renderPricesEditor() {
   const el = document.getElementById('prices-editor');
   if (!db || !el) return;
+  if (!db.prices) db.prices = {};
+  if (!db.prices.serviceSections || !db.prices.serviceSections.length) {
+    db.prices.serviceSections = getDefaultServiceSections();
+  }
   const p = db.prices;
+  const sections = p.serviceSections;
 
   el.innerHTML = `
-    <div class="price-editor-grid">
-      <div class="card">
-        <div class="card-title">Разовое посещение</div>
-        <div class="form-group" style="margin-top:1rem;">
-          <label class="form-label">Цена (₽)</label>
-          <input class="form-control" id="price-single" type="number" value="${p.single}">
-        </div>
+    <div style="display:flex; flex-direction:column; gap:2rem;">
+      <div style="display:flex; justify-content:flex-end; align-items:center;">
+        <button class="btn btn-primary" onclick="addServiceSection()">+ Добавить раздел</button>
       </div>
-      <div class="card">
-        <div class="card-title">Абонементы</div>
-        ${p.subscriptions.map(s => `
-          <div class="form-group" style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem;">
-            <span style="font-size:0.8rem; color:var(--gray); min-width:80px;">${s.period}</span>
-            <input class="form-control price-table-input" data-sub-id="${s.id}" type="number" value="${s.price}">
-            <span style="font-size:0.8rem; color:var(--gray)">₽</span>
+
+      <div id="service-sections-container" style="display:flex; flex-direction:column; gap:2rem;">
+        ${sections.map((sec, secIdx) => `
+          <div class="svc-sec-box card" style="border:1px solid var(--border-color); border-radius:18px; padding:1.8rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; padding-bottom:0.8rem; border-bottom:1px solid var(--border-color);">
+              <div style="display:flex; align-items:center; gap:0.6rem;">
+                <span class="svc-sec-num" style="font-family:'Oswald',sans-serif; font-size:1.2rem; font-weight:700; color:var(--gold-dark);">${sec.num || (secIdx < 9 ? '0' + (secIdx + 1) : secIdx + 1)}</span>
+                <strong style="font-family:'Oswald',sans-serif; font-size:1.2rem; text-transform:uppercase; color:var(--olive-dark);">Раздел #${secIdx + 1}: ${sec.title || 'Новый раздел'}</strong>
+              </div>
+              <button class="btn btn-sm btn-danger" onclick="deleteServiceSection(${secIdx})">Удалить раздел</button>
+            </div>
+
+            <div class="form-grid" style="margin-bottom:1.5rem;">
+              <div class="form-group form-full">
+                <label class="form-label">Заголовок раздела *</label>
+                <input class="form-control sec-title" value="${sec.title || ''}" placeholder="например, Лазерная эпиляция">
+              </div>
+              <div class="form-group form-full">
+                <label class="form-label">Описание раздела</label>
+                <input class="form-control sec-desc" value="${sec.desc || ''}" placeholder="Описание услуг данного раздела">
+              </div>
+            </div>
+
+            <!-- Подкатегории и карточки услуг -->
+            <div class="subcategories-container" style="display:flex; flex-direction:column; gap:1.5rem;">
+              ${(sec.subcategories || []).map((sub, subIdx) => `
+                <div class="subcat-box" style="background:#fcfdfb; border:1px solid var(--border-color); border-radius:14px; padding:1.2rem;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+                    <div style="display:flex; align-items:center; gap:0.5rem; flex:1;">
+                      <label class="form-label" style="margin:0; white-space:nowrap;">Подкатегория:</label>
+                      <input class="form-control subcat-title" value="${sub.title || ''}" placeholder="Заголовок подкатегории" style="font-weight:700; max-width:340px;">
+                    </div>
+                    <button class="btn btn-sm btn-danger" onclick="deleteSubcategory(${secIdx}, ${subIdx})">Удалить подкатегорию</button>
+                  </div>
+
+                  <!-- Карточки услуг -->
+                  <div class="items-container" style="display:flex; flex-direction:column; gap:1rem;">
+                    ${(sub.items || []).map((item, itemIdx) => `
+                      <div class="item-box" style="background:#ffffff; border:1px solid var(--border-color); border-radius:12px; padding:1.1rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.8rem;">
+                          <span style="font-size:0.75rem; font-weight:800; color:var(--gold-dark); text-transform:uppercase;">Услуга #${itemIdx + 1}</span>
+                          <button class="btn btn-sm btn-danger" onclick="deleteServiceItem(${secIdx}, ${subIdx}, ${itemIdx})">Удалить услугу</button>
+                        </div>
+                        <div class="form-grid">
+                          <div class="form-group">
+                            <label class="form-label">Название услуги *</label>
+                            <input class="form-control item-name" value="${item.name || ''}" placeholder="например, Абонемент на 1 месяц">
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Цена *</label>
+                            <input class="form-control item-price" value="${item.price || ''}" placeholder="например, 3 500 ₽ или от 2 000 ₽">
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Тэг / Бейдж (опционально)</label>
+                            <input class="form-control item-tag" value="${item.tag || ''}" placeholder="например, Хит или 30 Дней">
+                          </div>
+                          <div class="form-group">
+                            <label class="form-label">Описание карточки</label>
+                            <input class="form-control item-desc" value="${item.desc || ''}" placeholder="краткое описание условий">
+                          </div>
+                          <div class="form-group form-full">
+                            <label class="form-label">Фотография (Загрузка файла или URL)</label>
+                            <div style="display:flex; gap:0.6rem; align-items:center;">
+                              <input class="form-control item-photo" value="${item.photo || ''}" placeholder="Вставьте URL или загрузите фото →">
+                              <label class="btn btn-ghost" style="cursor:pointer; flex-shrink:0;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                Загрузить
+                                <input type="file" accept="image/*" style="display:none" onchange="uploadImage(event, this.parentElement.previousElementSibling)">
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>`).join('')}
+                  </div>
+
+                  <button class="btn btn-sm btn-ghost" style="margin-top:1rem; width:100%; justify-content:center;" onclick="addServiceItem(${secIdx}, ${subIdx})">+ Добавить услугу в подкатегорию</button>
+                </div>`).join('')}
+            </div>
+
+            <button class="btn btn-sm btn-ghost" style="margin-top:1.2rem; width:100%; justify-content:center;" onclick="addSubcategory(${secIdx})">+ Добавить подкатегорию в раздел</button>
           </div>`).join('')}
       </div>
-      <div class="card">
-        <div class="card-title">Аренда 90 м²</div>
-        ${p.hall90.map(h => `
-          <div class="form-group" style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem;">
-            <span style="font-size:0.8rem; color:var(--gray); min-width:80px;">${h.duration}</span>
-            <input class="form-control price-table-input" data-h90-id="${h.id}" type="number" value="${h.price}">
-            <span style="font-size:0.8rem; color:var(--gray)">₽</span>
-          </div>`).join('')}
-      </div>
-      <div class="card">
-        <div class="card-title">Аренда 50 м²</div>
-        ${p.hall50.map(h => `
-          <div class="form-group" style="display:flex; gap:0.5rem; align-items:center; margin-top:0.5rem;">
-            <span style="font-size:0.8rem; color:var(--gray); min-width:80px;">${h.duration}</span>
-            <input class="form-control price-table-input" data-h50-id="${h.id}" type="number" value="${h.price}">
-            <span style="font-size:0.8rem; color:var(--gray)">₽</span>
-          </div>`).join('')}
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--border-color);">
+        <button class="btn btn-ghost" onclick="addServiceSection()">+ Добавить новый раздел</button>
+        <button class="btn btn-primary btn-lg" onclick="savePrices()">Сохранить все изменения</button>
       </div>
     </div>`;
 }
 
+function addServiceSection() {
+  if (!db.prices.serviceSections) db.prices.serviceSections = [];
+  const idx = db.prices.serviceSections.length + 1;
+  db.prices.serviceSections.push({
+    id: 'section-' + idx,
+    num: idx < 10 ? '0' + idx : '' + idx,
+    tag: 'НОВАЯ КАТЕГОРИЯ',
+    title: 'Новый раздел услуг',
+    desc: 'Описание нового раздела',
+    subcategories: [
+      {
+        title: 'Заголовок подкатегории',
+        items: [
+          { name: 'Название услуги', price: '1 000 ₽', desc: 'Описание услуги', tag: 'Новинка', photo: '' }
+        ]
+      }
+    ]
+  });
+  renderPricesEditor();
+}
+
+function deleteServiceSection(secIdx) {
+  if (!confirm('Удалить этот раздел и все входящие в него услуги?')) return;
+  db.prices.serviceSections.splice(secIdx, 1);
+  renderPricesEditor();
+}
+
+function addSubcategory(secIdx) {
+  if (!db.prices.serviceSections[secIdx].subcategories) db.prices.serviceSections[secIdx].subcategories = [];
+  db.prices.serviceSections[secIdx].subcategories.push({
+    title: 'Новая подкатегория',
+    items: [
+      { name: 'Новая услуга', price: '1 000 ₽', desc: 'Описание услуги', tag: '', photo: '' }
+    ]
+  });
+  renderPricesEditor();
+}
+
+function deleteSubcategory(secIdx, subIdx) {
+  db.prices.serviceSections[secIdx].subcategories.splice(subIdx, 1);
+  renderPricesEditor();
+}
+
+function addServiceItem(secIdx, subIdx) {
+  if (!db.prices.serviceSections[secIdx].subcategories[subIdx].items) {
+    db.prices.serviceSections[secIdx].subcategories[subIdx].items = [];
+  }
+  db.prices.serviceSections[secIdx].subcategories[subIdx].items.push({
+    name: 'Новая услуга',
+    price: '1 000 ₽',
+    desc: 'Описание услуги',
+    tag: '',
+    photo: ''
+  });
+  renderPricesEditor();
+}
+
+function deleteServiceItem(secIdx, subIdx, itemIdx) {
+  db.prices.serviceSections[secIdx].subcategories[subIdx].items.splice(itemIdx, 1);
+  renderPricesEditor();
+}
+
 async function savePrices() {
-  const p = JSON.parse(JSON.stringify(db.prices));
-  p.single = parseInt(document.getElementById('price-single').value) || p.single;
-  document.querySelectorAll('[data-sub-id]').forEach(el => {
-    const sub = p.subscriptions.find(s => s.id === parseInt(el.dataset.subId));
-    if (sub) sub.price = parseInt(el.value) || sub.price;
+  const p = JSON.parse(JSON.stringify(db.prices || {}));
+  const sections = [];
+
+  document.querySelectorAll('.svc-sec-box').forEach((secBox, secIdx) => {
+    const origSec = (p.serviceSections && p.serviceSections[secIdx]) || {};
+    const title = secBox.querySelector('.sec-title').value.trim();
+    const desc = secBox.querySelector('.sec-desc').value.trim();
+    const num = secBox.querySelector('.svc-sec-num').textContent.trim();
+    const id = origSec.id || ('sec-' + (secIdx + 1));
+    const tag = origSec.tag || 'Услуги';
+
+    const subcategories = [];
+    secBox.querySelectorAll('.subcat-box').forEach((subBox) => {
+      const subTitle = subBox.querySelector('.subcat-title').value.trim();
+      const items = [];
+
+      subBox.querySelectorAll('.item-box').forEach((itemBox) => {
+        items.push({
+          name: itemBox.querySelector('.item-name').value.trim(),
+          price: itemBox.querySelector('.item-price').value.trim(),
+          tag: itemBox.querySelector('.item-tag').value.trim(),
+          desc: itemBox.querySelector('.item-desc').value.trim(),
+          photo: itemBox.querySelector('.item-photo').value.trim()
+        });
+      });
+
+      subcategories.push({
+        title: subTitle,
+        items
+      });
+    });
+
+    sections.push({
+      id,
+      num,
+      tag,
+      title,
+      desc,
+      subcategories
+    });
   });
-  document.querySelectorAll('[data-h90-id]').forEach(el => {
-    const h = p.hall90.find(h => h.id === parseInt(el.dataset.h90Id));
-    if (h) h.price = parseInt(el.value) || h.price;
-  });
-  document.querySelectorAll('[data-h50-id]').forEach(el => {
-    const h = p.hall50.find(h => h.id === parseInt(el.dataset.h50Id));
-    if (h) h.price = parseInt(el.value) || h.price;
-  });
+
+  p.serviceSections = sections;
+
   try {
     await apiPut('/api/prices', p);
-    toast('Цены сохранены', 'success');
+    toast('Все изменения разделов и услуг сохранены!', 'success');
     await loadDB();
-  } catch { toast('Ошибка сохранения', 'error'); }
+  } catch {
+    toast('Ошибка сохранения', 'error');
+  }
 }
 
 // ─── News ─────────────────────────────────────────────────────
@@ -348,7 +667,71 @@ async function deleteNews(id) {
   await loadDB();
 }
 
+async function tryLogin() {
+  const pass = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.classList.remove('show');
+  try {
+    const res = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password: pass })
+    });
+    const data = await res.json();
+    if (res.ok && data.token) {
+      token = data.token;
+      localStorage.setItem(TOKEN_KEY, token);
+      document.getElementById('login-screen').style.display = 'none';
+      document.getElementById('admin-app').style.display = 'flex';
+      await loadDB();
+    } else {
+      errEl.classList.add('show');
+    }
+  } catch {
+    errEl.classList.add('show');
+  }
+}
+
+document.getElementById('logout-btn').addEventListener('click', () => {
+  localStorage.removeItem(TOKEN_KEY);
+  token = '';
+  document.getElementById('admin-app').style.display = 'none';
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('login-password').value = '';
+});
+
+// ─── API ─────────────────────────────────────────────────────────
+async function apiGet(url) {
+  const res = await fetch(url, { headers: { 'x-admin-token': token } });
+  return res.json();
+}
+async function apiPost(url, body) {
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+    body: JSON.stringify(body)
+  });
+  return res.json();
+}
+async function apiPut(url, body) {
+  const res = await fetch(url, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+    body: JSON.stringify(body)
+  });
+  return res.json();
+}
+async function apiDelete(url) {
+  const res = await fetch(url, {
+    method: 'DELETE',
+    headers: { 'x-admin-token': token }
+  });
+  return res.json();
+}
+
 // ─── Reviews ─────────────────────────────────────────────────
+let editingReviewId = null;
+
 function renderReviewsList() {
   const list = document.getElementById('reviews-list');
   if (!db || !list) return;
@@ -358,7 +741,7 @@ function renderReviewsList() {
   }
   list.innerHTML = db.reviews.map(r => `
     <div class="review-admin-card">
-      <div class="review-admin-avatar">${r.name.charAt(0)}</div>
+      <div class="review-admin-avatar">${(r.name || 'А').charAt(0)}</div>
       <div class="review-admin-meta">
         <div class="review-admin-name">${r.name} <span style="color:var(--gold);font-size:0.75rem;"> ${'★'.repeat(r.rating || 5)}</span></div>
         <div class="review-admin-date">${r.level || ''} &middot; ${r.date}</div>

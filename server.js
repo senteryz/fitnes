@@ -21,8 +21,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Multer для загрузки файлов
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const dir = path.join(__dirname, 'public', 'uploads');
-    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    const isVercel = process.env.VERCEL || process.env.NOW_BUILDER;
+    const dir = isVercel ? '/tmp' : path.join(__dirname, 'public', 'uploads');
+    try {
+      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    } catch (e) {}
     cb(null, dir);
   },
   filename: (req, file, cb) => {
@@ -33,13 +36,27 @@ const storage = multer.diskStorage({
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
 // ─── Вспомогательные функции БД ──────────────────────────────────────────────
+let inMemoryDB = null;
+
 function readDB() {
-  const raw = fs.readFileSync(DB_PATH, 'utf8');
-  return JSON.parse(raw);
+  if (inMemoryDB) return inMemoryDB;
+  try {
+    const raw = fs.readFileSync(DB_PATH, 'utf8');
+    inMemoryDB = JSON.parse(raw);
+    return inMemoryDB;
+  } catch (e) {
+    if (inMemoryDB) return inMemoryDB;
+    throw e;
+  }
 }
 
 function writeDB(data) {
-  fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  inMemoryDB = data;
+  try {
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.warn('⚠️ Ошибка записи в файл DB (Vercel Serverless):', err.message);
+  }
 }
 
 function nextId(arr) {
@@ -223,4 +240,8 @@ function startServer(port) {
   });
 }
 
-startServer(DEFAULT_PORT);
+module.exports = app;
+
+if (require.main === module) {
+  startServer(DEFAULT_PORT);
+}

@@ -350,20 +350,94 @@ window.addEventListener('resize', () => updateLuxSlider(reviewsIndex, 'none'), {
 
 
 
+let allTrainersData = [];
+
 function renderTrainers(trainers) {
   const grid = document.getElementById('trainers-grid');
   if (!grid) return;
   if (!trainers || !trainers.length) return;
+  allTrainersData = trainers;
+
+  renderTrainersList(trainers);
+  setupTrainerFilterListeners();
+}
+
+function renderTrainersList(trainers) {
+  const grid = document.getElementById('trainers-grid');
+  if (!grid) return;
 
   grid.innerHTML = trainers.map((t, i) => `
-    <div class="trainer-card-full reveal delay-${i + 1}">
-      <img src="${t.photo || '/images/hero.jpg'}" alt="${t.name}">
-      <div class="trainer-card-full-body">
-        <div style="font-size:0.75rem; font-weight:700; color:var(--gold); letter-spacing:0.15em; text-transform:uppercase; margin-bottom:0.4rem;">${t.specialization || 'Тренер'}</div>
-        <div style="font-family:var(--font-display); font-size:1.3rem; font-weight:800; margin-bottom:0.4rem;">${t.name}</div>
-        <div style="font-size:0.9rem; color:var(--white-muted); margin-bottom:1rem;">${t.experience ? 'Опыт: ' + t.experience : ''}</div>
+    <div class="trainer-card-ios reveal visible">
+      <div class="trainer-card-ios-img-wrap">
+        <img src="${t.photo || '/images/hero.jpg'}" alt="${t.name}" loading="lazy">
+        ${t.experience ? `<div class="trainer-ios-exp-tag">${t.experience}</div>` : ''}
+        <div class="trainer-ios-gradient"></div>
+      </div>
+      
+      <div class="trainer-card-ios-content">
+        <h3 class="trainer-ios-name">
+          ${t.name}
+          <span class="trainer-ios-verified" title="Сертифицированный специалист Аура Фитнес">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+          </span>
+        </h3>
+
+        <div class="trainer-ios-spec">${t.specialization || 'Инструктор фитнес-клуба'}</div>
+
+        <div class="trainer-ios-details">
+          ${t.education ? `
+            <div class="trainer-ios-detail-item">
+              <span class="detail-title">Образование:</span>
+              <span class="detail-val">${t.education}</span>
+            </div>` : ''}
+          ${t.achievements ? `
+            <div class="trainer-ios-detail-item">
+              <span class="detail-title">Направления:</span>
+              <span class="detail-val">${t.achievements}</span>
+            </div>` : ''}
+          ${t.certificates ? `
+            <div class="trainer-ios-detail-item">
+              <span class="detail-title">Сертификаты:</span>
+              <span class="detail-val">${t.certificates}</span>
+            </div>` : ''}
+        </div>
+
+        <div class="trainer-ios-footer">
+          <button type="button" class="trainer-ios-btn" data-modal-open data-service="Тренер: ${t.name}" data-price="Персонально">
+            Записаться +
+          </button>
+        </div>
       </div>
     </div>`).join('');
+}
+
+function setupTrainerFilterListeners() {
+  const filterBtns = document.querySelectorAll('.trainer-filter-btn');
+  if (!filterBtns.length) return;
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+
+      const filterKey = this.getAttribute('data-filter');
+      if (filterKey === 'all') {
+        renderTrainersList(allTrainersData);
+      } else {
+        const filtered = allTrainersData.filter(t => {
+          const spec = ((t.specialization || '') + ' ' + (t.achievements || '') + ' ' + (t.certificates || '')).toLowerCase();
+          if (filterKey === 'lfk') return spec.includes('лфк') || spec.includes('реабилитац') || spec.includes('сколиоз');
+          if (filterKey === 'personal') return spec.includes('персональн') || spec.includes('аэробик');
+          if (filterKey === 'antigravity') return spec.includes('antigravity') || spec.includes('гамак') || spec.includes('йога') || spec.includes('stretching');
+          if (filterKey === 'power') return spec.includes('пауэрлифтинг') || spec.includes('кроссфит') || spec.includes('силовы');
+          return true;
+        });
+        renderTrainersList(filtered.length ? filtered : allTrainersData);
+      }
+    });
+  });
 }
 
 function renderPrices(prices) {

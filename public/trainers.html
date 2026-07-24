@@ -71,10 +71,63 @@
   </div>
 </header>
 
+<!-- ── 1. СТАТИСТИКА И СТАНДАРТЫ ── -->
+<section class="trainers-stats-section">
+  <div class="container">
+    <div class="trainers-stats-grid">
+      <div class="trainers-stat-card reveal">
+        <div class="stat-num">20+</div>
+        <div class="stat-title">Лет опыта</div>
+        <div class="stat-desc">Максимальный стаж инструкторов</div>
+      </div>
+      <div class="trainers-stat-card reveal delay-1">
+        <div class="stat-num">100%</div>
+        <div class="stat-title">Сертификация</div>
+        <div class="stat-desc">Дипломы FPA, МИРК и высшее профильное</div>
+      </div>
+      <div class="trainers-stat-card reveal delay-2">
+        <div class="stat-num">1 на 1</div>
+        <div class="stat-title">Персонально</div>
+        <div class="stat-desc">Индивидуальная биомеханика и ЛФК</div>
+      </div>
+      <div class="trainers-stat-card reveal delay-3">
+        <div class="stat-num">360°</div>
+        <div class="stat-title">Результат</div>
+        <div class="stat-desc">Питание, осанка, восстановление</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 2. СЕТКА ТРЕНЕРОВ С ФИЛЬТРАЦИЕЙ ── -->
 <section class="section">
   <div class="container">
+    <div class="trainers-filter-bar reveal">
+      <button type="button" class="trainer-filter-btn active" data-filter="all">Все специалисты</button>
+      <button type="button" class="trainer-filter-btn" data-filter="lfk">ЛФК & Реабилитация</button>
+      <button type="button" class="trainer-filter-btn" data-filter="personal">Персональный тренинг</button>
+      <button type="button" class="trainer-filter-btn" data-filter="antigravity">ANTIGRAVITY & Аэройога</button>
+      <button type="button" class="trainer-filter-btn" data-filter="power">Пауэрлифтинг & Кроссфит</button>
+    </div>
+
     <div class="trainers-grid" id="trainers-grid">
       <!-- Загружается из main.js -->
+    </div>
+  </div>
+</section>
+
+<!-- ── 3. БАННЕР ПОДБОРА ТРЕНЕРА ── -->
+<section class="trainers-cta-section">
+  <div class="container">
+    <div class="trainers-cta-card reveal">
+      <div class="trainers-cta-body">
+        <span class="eyebrow" style="color:var(--gold); font-size:0.75rem; letter-spacing:0.25em; text-transform:uppercase; font-weight:700; display:block; margin-bottom:0.6rem;">Индивидуальный подбор</span>
+        <h2 style="font-family:'Oswald',sans-serif; font-size:clamp(1.6rem, 3.5vw, 2.5rem); font-weight:600; text-transform:uppercase; margin-bottom:0.8rem;">НЕ ЗНАЕТЕ, КАКОГО ТРЕНЕРА ВЫБРАТЬ?</h2>
+        <p style="opacity:0.85; max-width:580px; font-size:0.95rem; line-height:1.6;">Наш старший методист подберёт вам идеального наставника под ваши задачи, состояние здоровья и удобный график.</p>
+      </div>
+      <button type="button" class="btn btn-gold" data-modal-open data-service="Подбор тренера" data-price="Консультация">
+        Подобрать тренера бесплатно
+      </button>
     </div>
   </div>
 </section>
@@ -114,18 +167,6 @@
         <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank">WhatsApp</a>
         <span class="footer-address">Мытищи, ул. Колпакова 24А<br>2 этаж бизнес-центра</span>
         <span class="footer-hours">Пн–Пт: 7:00–23:00<br>Сб–Вс: 8:00–22:00</span>
-      </div>
-    </div>
-
-    <div class="footer-divider"></div>
-
-    <div class="footer-bottom">
-      <span>© 2026 Аура Фитнес — Все права защищены</span>
-      <div class="footer-bottom-links">
-        <a href="/reviews">Отзывы</a>
-        <a href="/services">Услуги и цены</a>
-        <a href="/gallery">Галерея</a>
-        <a href="/admin">Админ</a>
       </div>
     </div>
   </div>

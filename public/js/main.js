@@ -125,7 +125,10 @@ const mobileMenu = document.getElementById('mobile-menu');
 const mobileMenuClose = document.getElementById('mobile-menu-close');
 
 if (burger && mobileMenu) {
-  burger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  burger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mobileMenu.classList.toggle('open');
+  });
 }
 if (mobileMenuClose && mobileMenu) {
   mobileMenuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
@@ -133,6 +136,12 @@ if (mobileMenuClose && mobileMenu) {
 function closeMobileMenu() {
   if (mobileMenu) mobileMenu.classList.remove('open');
 }
+
+document.addEventListener('click', (e) => {
+  if (mobileMenu && mobileMenu.classList.contains('open') && !mobileMenu.contains(e.target) && burger && !burger.contains(e.target)) {
+    mobileMenu.classList.remove('open');
+  }
+});
 
 // Плавное проявление при прокрутке
 const revealObserver = new IntersectionObserver((entries) => {
@@ -567,6 +576,10 @@ function renderPrices(prices) {
         `).join('')}
       </article>
     `).join('');
+
+    if (typeof window.updateActiveNavOnScroll === 'function') {
+      setTimeout(window.updateActiveNavOnScroll, 50);
+    }
   }
 }
 

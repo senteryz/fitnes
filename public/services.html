@@ -99,15 +99,15 @@
     .svc-shell{
       display:grid;
       grid-template-columns: 280px 1fr;
-      gap: 5rem;
-      padding: 6rem 0 8rem;
+      gap: 3.5rem;
+      padding: 2.5rem 0 6rem;
       align-items:start;
     }
     @media (max-width: 1024px){
-      .svc-shell{ grid-template-columns:1fr; gap:2.5rem; padding:3.5rem 0 5rem; }
+      .svc-shell{ grid-template-columns:1fr; gap:2rem; padding:2rem 0 4rem; }
     }
 
-    .svc-nav{ position:sticky; top:120px; font-family:'Plus Jakarta Sans',sans-serif; }
+    .svc-nav{ position:sticky; top:120px; font-family:'Plus Jakarta Sans',sans-serif; background: transparent !important; border: none !important; padding: 0 !important; box-shadow: none !important; }
     .svc-nav-title{
       font-size:.65rem; letter-spacing:.32em; text-transform:uppercase;
       color:var(--ink-soft); margin-bottom:1.4rem;
@@ -115,14 +115,18 @@
     }
     .svc-nav ol{ list-style:none; padding:0; margin:0; counter-reset:svc; }
     .svc-nav li{ counter-increment:svc; }
-    .svc-nav a{
+    .svc-nav a, .svc-nav a:focus, .svc-nav a:focus-visible{
       display:flex; align-items:baseline; gap:.9rem;
       padding: .9rem 0;
       color:var(--ink-soft);
       font-size:.95rem;
       border-bottom:1px dashed rgba(217,212,195,.7);
-      transition: all .3s cubic-bezier(.4,0,.2,1);
+      transition: color .25s ease;
       position:relative;
+      outline: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+      padding-left: 0 !important;
     }
     .svc-nav a::before{
       content: counter(svc, decimal-leading-zero);
@@ -130,17 +134,16 @@
       font-size:.85rem; color:var(--gold); min-width:26px;
       transition:color .3s;
     }
-    .svc-nav a:hover{ color:var(--olive-deep); padding-left:.5rem; }
+    .svc-nav a:hover{ color:var(--olive-deep); padding-left: 0 !important; background: transparent !important; outline: none !important; box-shadow: none !important; }
     .svc-nav a.active{
-      color:var(--olive-deep); font-weight:600;
-      padding-left:.6rem;
-      background: linear-gradient(90deg, var(--olive-glow), transparent 80%);
+      color:var(--olive-deep); font-weight:700;
+      padding-left: 0 !important;
+      background: transparent !important;
+      outline: none !important;
+      box-shadow: none !important;
     }
     .svc-nav a.active::before{ color:var(--olive-deep); }
-    .svc-nav a.active::after{
-      content:""; position:absolute; right:0; top:50%;
-      width:18px; height:1px; background:var(--olive-deep);
-    }
+    .svc-nav a::after, .svc-nav a.active::after{ display: none !important; content: none !important; }
 
     /* ─────────────────────────── SECTIONS ─────────────────────────── */
     .svc-section{
@@ -735,7 +738,7 @@
     [data-theme="dark"] .svc-row .rv { color: #f5cc7a !important; }
     [data-theme="dark"] .svc-row { border-bottom-color: rgba(128, 156, 93, 0.25) !important; }
     [data-theme="dark"] .svc-row:hover { background: linear-gradient(90deg, rgba(128, 156, 93, 0.18), transparent 70%) !important; }
-    [data-theme="dark"] .svc-nav { background: #141d13 !important; border-color: rgba(128, 156, 93, 0.3) !important; }
+    [data-theme="dark"] .svc-nav { background: transparent !important; border: none !important; box-shadow: none !important; padding: 0 !important; }
   </style>
 </head>
 <body class="svc-page">
@@ -985,11 +988,11 @@
             <div class="svc-head-body">
               <span class="tag">Пространства</span>
               <h2>Почасовая аренда залов</h2>
-              <p class="desc">Для тренеров, хореографов, фотосессий, видеосъёмок и личных занятий.</p>
+              <p class="desc">Для тренеров, хореографов, фотосессий, видеосъёмок, мастер-классов и индивидуальных занятий.</p>
             </div>
           </div>
 
-          <div class="svc-list-title">Большой зал (90 м²)</div>
+          <div class="svc-list-title">Большой зал (90 м²) — Групповые & Воздушные дисциплины</div>
           <div class="svc-card-grid">
             <button type="button" class="svc-card-luxury" data-modal-open data-service="Аренда зала 90 м² · 1 час" data-price="1 800 ₽">
               <div class="svc-card-header">
@@ -997,7 +1000,7 @@
               </div>
               <div class="svc-card-body">
                 <h4 class="svc-card-title">1 час</h4>
-                <p class="svc-card-sub">Большой зал 90 м² с аудиосистемой и зеркалами</p>
+                <p class="svc-card-sub">Большой зал 90 м² (пилоны, полотна, гамаки, зеркала, звук)</p>
               </div>
               <div class="svc-card-footer">
                 <span class="svc-card-price">1 800 ₽</span>
@@ -1048,7 +1051,7 @@
             </button>
           </div>
 
-          <div class="svc-list-title" style="margin-top:2rem;">Малый зал (50 м²)</div>
+          <div class="svc-list-title" style="margin-top:2rem;">Малый зал (50 м²) — Единоборства, Кроссфит & Персональный тренинг</div>
           <div class="svc-card-grid">
             <button type="button" class="svc-card-luxury" data-modal-open data-service="Аренда зала 50 м² · 1 час" data-price="1 500 ₽">
               <div class="svc-card-header">
@@ -1056,7 +1059,7 @@
               </div>
               <div class="svc-card-body">
                 <h4 class="svc-card-title">1 час</h4>
-                <p class="svc-card-sub">Камерное пространство 50 м² для йоги и персональных уроков</p>
+                <p class="svc-card-sub">Камерное пространство 50 м² для кроссфита, единоборств и персональных уроков</p>
               </div>
               <div class="svc-card-footer">
                 <span class="svc-card-price">1 500 ₽</span>
@@ -1307,7 +1310,7 @@
     <div id="modalForm">
       <!-- 1. IMAGE BANNER -->
       <div class="modal-banner-wrap">
-        <img id="modalBannerImg" src="/images/hero.jpg" alt="Услуга" class="modal-banner-img">
+        <img id="modalBannerImg" src="/images/1block.png" alt="Услуга" class="modal-banner-img">
       </div>
 
       <!-- 2. NAME, PRICE & DESCRIPTION -->
@@ -1418,10 +1421,7 @@
     }
 
     if (!i) {
-      if (s.toLowerCase().includes('массаж')) i = '/images/massage.jpg';
-      else if (s.includes('зала') || s.includes('зал')) i = '/images/group_hall.jpg';
-      else if (s.includes('Солярий')) i = '/images/sauna.jpg';
-      else i = '/images/hero.jpg';
+      i = '/images/1block.png';
     }
 
     if (titleEl) titleEl.textContent = s;
@@ -1432,7 +1432,7 @@
     const msgText = encodeURIComponent('Здравствуйте! Хочу записаться на услугу: ' + s + ' (' + p + ')');
     if (waLink) waLink.href = 'https://api.whatsapp.com/send/?phone=' + PHONE + '&text=' + msgText;
     if (tgLink) tgLink.href = 'https://t.me/senteryz?text=' + msgText;
-    if (vkLink) vkLink.href = 'https://vk.com';
+    if (vkLink) vkLink.href = 'https://vk.com/club46230813';
 
     modal.classList.add('open');
     modal.setAttribute('aria-hidden','false');

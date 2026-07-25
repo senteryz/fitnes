@@ -151,7 +151,7 @@
             </span>
           </div>
 
-          <h1 style="font-family: 'Oswald', sans-serif; font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 600; text-transform: uppercase; line-height: 1.15; color: #0f172a; margin-bottom: 1.5rem; letter-spacing: 0.02em;">
+          <h1 class="news-single-title" style="font-family: 'Oswald', sans-serif; font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 600; text-transform: uppercase; line-height: 1.15; margin-bottom: 1.5rem; letter-spacing: 0.02em;">
             ${item.title}
           </h1>
         </header>
@@ -161,12 +161,12 @@
           <img src="${item.image}" alt="${item.title}" style="width: 100%; height: 100%; max-height: 520px; object-fit: cover; display: block;">
         </div>` : ''}
 
-        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.12rem; line-height: 1.85; color: #334155; font-weight: 400; white-space: pre-line; margin-bottom: 3.5rem;">
+        <div class="news-single-content" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.12rem; line-height: 1.85; font-weight: 400; white-space: pre-line; margin-bottom: 3.5rem;">
           ${item.content}
         </div>
 
-        <div style="padding: 2.5rem; background: linear-gradient(135deg, #1c261a 0%, #0d140b 100%); border-radius: 22px; color: #ffffff; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.8rem; border: 1px solid rgba(196, 169, 106, 0.35); box-shadow: 0 15px 40px rgba(0,0,0,0.15);">
-          <div style="max-width: 540px;">
+        <div style="padding: 2.5rem 2rem; background: linear-gradient(135deg, #1c261a 0%, #0d140b 100%); border-radius: 22px; color: #ffffff; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; gap: 1.2rem; border: 1px solid rgba(196, 169, 106, 0.35); box-shadow: 0 15px 40px rgba(0,0,0,0.15); width: 100%; box-sizing: border-box;">
+          <div style="max-width: 580px; text-align: center;">
             <span style="font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: #c4a96a; font-weight: 700; display: block; margin-bottom: 0.4rem;">Персональный визит</span>
             <h3 style="font-family: 'Oswald', sans-serif; font-size: 1.7rem; font-weight: 600; margin-bottom: 0.5rem; text-transform: uppercase; color: #ffffff; line-height: 1.2;">
               Записаться в Аура Фитнес
@@ -175,7 +175,7 @@
               Первая тренировка для новых гостей — бесплатно. Оцените атмосферу и комфорт нашего клуба!
             </p>
           </div>
-          <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="btn btn-gold" style="white-space: nowrap; padding: 1.1rem 2rem; font-size: 0.85rem;">
+          <a href="https://api.whatsapp.com/send/?phone=79037977739" target="_blank" class="btn btn-gold" style="white-space: nowrap; padding: 1.1rem 2.2rem; font-size: 0.85rem; margin: 0 auto; display: inline-flex; align-items: center; justify-content: center;">
             Записаться на визит
           </a>
         </div>

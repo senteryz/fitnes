@@ -479,13 +479,13 @@ document.addEventListener('DOMContentLoaded', () => {
 /* ✨ Аура — Модалка деталей услуги */
 (function () {
   const IMG = {
-    laser:   'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80&auto=format&fit=crop',
-    massage: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=900&q=80&auto=format&fit=crop',
-    personal:'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&q=80&auto=format&fit=crop',
-    group:   'https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&q=80&auto=format&fit=crop',
-    passes:  'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=900&q=80&auto=format&fit=crop',
-    rent:    'https://images.unsplash.com/photo-1540497077202-7c8a3999166f?w=900&q=80&auto=format&fit=crop',
-    tanning: 'https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=900&q=80&auto=format&fit=crop',
+    laser:   '/images/1block.png',
+    massage: '/images/1block.png',
+    personal:'/images/1block.png',
+    group:   '/images/1block.png',
+    passes:  '/images/1block.png',
+    rent:    '/images/1block.png',
+    tanning: '/images/1block.png',
   };
   const LABEL = {
     laser:'Лазерная эпиляция', massage:'Массаж & СПА', personal:'Персональный тренинг',

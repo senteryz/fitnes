@@ -51,7 +51,7 @@ function initQuickWidget() {
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.332 5.001l-1.417 5.176 5.297-1.389c1.458.796 3.097 1.214 4.774 1.215h.004c5.505 0 9.988-4.478 9.989-9.985 0-2.667-1.037-5.175-2.924-7.062s-4.394-2.94-7.065-2.940zm5.666 14.168c-.234.656-1.365 1.252-1.898 1.309-.504.053-1.157.085-3.673-.956-3.219-1.331-5.289-4.596-5.45-4.81-.161-.214-1.307-1.739-1.307-3.316 0-1.577.828-2.353 1.12-2.67.293-.317.643-.396.857-.396.214 0 .428.002.615.011.197.009.462-.075.723.551.268.643.914 2.227.994 2.388.08.161.134.348.027.562-.107.214-.161.348-.321.536-.161.188-.339.393-.483.527-.161.149-.328.312-.141.633.187.321.832 1.373 1.785 2.222 1.226 1.093 2.259 1.432 2.58 1.593.321.161.509.134.696-.08.187-.214.803-.937 1.017-1.258.214-.321.428-.268.723-.161.294.107 1.874.883 2.195 1.044.321.161.535.241.615.375.08.134.08.777-.154 1.433z"/></svg>
           <span>WhatsApp</span>
         </a>
-        <a href="https://vk.com" target="_blank" rel="noopener" class="quick-widget-item vk">
+        <a href="https://vk.com/club46230813" target="_blank" rel="noopener" class="quick-widget-item vk">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C3.724 0 0 3.724 0 8.316v7.368C0 20.276 3.724 24 8.316 24h7.368C20.276 24 24 20.276 24 15.684V8.316C24 3.724 20.276 0 15.684 0zm3.692 17.143h-1.644c-.624 0-.816-.495-1.938-1.618-1.026-0.99-1.48-1.12-1.734-1.12-.358 0-.462.103-.462.597v1.442c0 .412-.132.657-1.218.657-1.802 0-3.799-1.093-5.208-3.13-2.128-3.023-2.709-5.302-2.709-5.76 0-.251.097-.487.594-.487h1.644c.446 0 .614.204.786.685.86 2.49 2.304 4.675 2.902 4.675.226 0 .33-.103.33-.668V11.23c-.094-1.493-.868-1.617-.868-2.148 0-.251.214-.504.562-.504h2.576c.371 0 .504.195.504.639v3.456c0 .375.163.504.275.504.226 0 .412-.129.83-.548 1.288-1.455 2.203-3.708 2.203-3.708.117-.251.332-.487.778-.487h1.644c.494 0 .6.251.494.639-.208.972-2.253 3.864-2.253 3.864-.176.275-.246.402 0 .727.176.233.754.744 1.139 1.196.711.815 1.258 1.496 1.403 1.966.147.466-.075.711-.564.711z"/></svg>
           <span>ВКонтакте</span>
         </a>
@@ -606,8 +606,8 @@ function renderNews(news) {
             <span style="font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold);">${n.category || 'Акция'}</span>
             <span style="font-size:0.78rem; opacity:0.6;">${n.date || ''}</span>
           </div>
-          <h3 style="font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:600; text-transform:uppercase; margin-bottom:0.8rem; line-height:1.2; color:var(--ink);">${n.title}</h3>
-          <p style="font-size:0.9rem; color:var(--ink-soft); line-height:1.6; margin-bottom:1.5rem;">${n.content ? (n.content.length > 120 ? n.content.slice(0, 120) + '...' : n.content) : ''}</p>
+          <h3 class="news-card-title" style="font-family:'Oswald',sans-serif; font-size:1.3rem; font-weight:600; text-transform:uppercase; margin-bottom:0.8rem; line-height:1.2;">${n.title}</h3>
+          <p class="news-card-desc" style="font-size:0.9rem; line-height:1.6; margin-bottom:1.5rem;">${n.content ? (n.content.length > 120 ? n.content.slice(0, 120) + '...' : n.content) : ''}</p>
         </div>
         <a href="/news-item.html?id=${n.id}" style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.82rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--olive-deep); text-decoration:none; margin-top:auto;">
           Читать подробнее →

@@ -67,10 +67,6 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21,15 16,10 5,21"/></svg>
         Галерея
       </div>
-      <div class="nav-item" data-panel="schedule" id="nav-schedule">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        Расписание
-      </div>
       <div class="nav-section-title">Система</div>
       <div class="nav-item" data-panel="database" id="nav-database">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
@@ -258,20 +254,7 @@
         <div class="admin-gallery-grid" id="admin-gallery-grid"></div>
       </div>
 
-      <!-- ═══ SCHEDULE ═══ -->
-      <div class="panel" id="panel-schedule">
-        <div class="panel-header">
-          <div>
-            <div class="panel-title">Расписание</div>
-            <div class="panel-subtitle">Расписание групповых занятий</div>
-          </div>
-          <button class="btn btn-primary" onclick="saveSchedule()" id="save-schedule-btn">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17,21 17,13 7,13 7,21"/></svg>
-            Сохранить
-          </button>
-        </div>
-        <div class="schedule-grid" id="schedule-grid"></div>
-      </div>
+
 
       <!-- ═══ DATABASE ═══ -->
       <div class="panel" id="panel-database">
@@ -501,32 +484,7 @@
   </div>
 </div>
 
-<!-- Schedule Class Modal -->
-<div class="modal-overlay" id="schedule-modal">
-  <div class="modal" style="max-width:400px;">
-    <div class="modal-header">
-      <div class="modal-title">Добавить занятие</div>
-      <button class="modal-close" onclick="closeModal('schedule-modal')">×</button>
-    </div>
-    <input type="hidden" id="sched-day-id">
-    <div class="form-group">
-      <label class="form-label">Время</label>
-      <input class="form-control" id="sched-time" placeholder="09:00" type="time">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Название тренировки</label>
-      <input class="form-control" id="sched-name" placeholder="Групповое занятие">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Тренер</label>
-      <input class="form-control" id="sched-trainer" placeholder="Имя тренера">
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeModal('schedule-modal')">Отмена</button>
-      <button class="btn btn-primary" onclick="saveScheduleClass()" id="save-sched-btn">Добавить</button>
-    </div>
-  </div>
-</div>
+
 
 <script src="/js/admin.js"></script>
 </body>

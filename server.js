@@ -71,21 +71,8 @@ async function initDBMiddleware(req, res, next) {
 // Регистрируем middleware инициализации базы данных для API и динамических страниц
 app.use(initDBMiddleware);
 
-// Multer для загрузки файлов
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const isVercel = process.env.VERCEL || process.env.NOW_BUILDER;
-    const dir = isVercel ? '/tmp' : path.join(__dirname, 'public', 'uploads');
-    try {
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-    } catch (e) {}
-    cb(null, dir);
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    cb(null, Date.now() + ext);
-  }
-});
+// Multer для загрузки файлов в оперативную память (для конвертации в Base64)
+const storage = multer.memoryStorage();
 const upload = multer({ storage, limits: { fileSize: 10 * 1024 * 1024 } });
 
 // ─── Вспомогательные функции БД ──────────────────────────────────────────────
@@ -270,7 +257,15 @@ app.put('/api/schedule', adminAuth, (req, res) => {
 
 app.post('/api/upload', adminAuth, upload.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'Файл не выбран' });
-  res.json({ url: '/uploads/' + req.file.filename });
+  
+  try {
+    const base64Data = req.file.buffer.toString('base64');
+    const mimeType = req.file.mimetype;
+    const dataUrl = `data:${mimeType};base64,${base64Data}`;
+    res.json({ url: dataUrl });
+  } catch (err) {
+    res.status(500).json({ error: 'Ошибка обработки файла' });
+  }
 });
 
 app.get('/api/db/export', adminAuth, (req, res) => {

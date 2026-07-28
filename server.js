@@ -19,6 +19,58 @@ app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Middleware для гибридной базы данных (Vercel KV / local file)
+const isKVEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+const KV_KEY = (process.env.KV_PREFIX || 'aura') + '_db';
+let kvClient = null;
+
+if (isKVEnabled) {
+  try {
+    const { kv } = require('@vercel/kv');
+    kvClient = kv;
+    console.log(`⚡ Vercel KV обнаружен и подключен. Ключ БД: ${KV_KEY}`);
+  } catch (err) {
+    console.error('⚠️ Ошибка инициализации Vercel KV:', err.message);
+  }
+}
+
+function getFallbackDB() {
+  try {
+    const raw = fs.readFileSync(DB_PATH, 'utf8');
+    return JSON.parse(raw);
+  } catch (e) {
+    return { club: {}, prices: {}, reviews: [], gallery: [], settings: { adminPassword: "aura2026", rating: 4.9 } };
+  }
+}
+
+async function initDBMiddleware(req, res, next) {
+  try {
+    if (isKVEnabled && kvClient) {
+      const cached = await kvClient.get(KV_KEY);
+      if (cached) {
+        inMemoryDB = typeof cached === 'string' ? JSON.parse(cached) : cached;
+      } else {
+        console.log(`🌱 Инициализация Vercel KV начальными данными из db.json (ключ: ${KV_KEY})...`);
+        const initial = getFallbackDB();
+        await kvClient.set(KV_KEY, JSON.stringify(initial));
+        inMemoryDB = initial;
+      }
+    } else {
+      if (!inMemoryDB) {
+        inMemoryDB = getFallbackDB();
+      }
+    }
+    next();
+  } catch (err) {
+    console.error('⚠️ Ошибка инициализации базы данных:', err.message);
+    if (!inMemoryDB) inMemoryDB = getFallbackDB();
+    next();
+  }
+}
+
+// Регистрируем middleware инициализации базы данных для API и динамических страниц
+app.use(initDBMiddleware);
+
 // Multer для загрузки файлов
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -41,22 +93,22 @@ let inMemoryDB = null;
 
 function readDB() {
   if (inMemoryDB) return inMemoryDB;
-  try {
-    const raw = fs.readFileSync(DB_PATH, 'utf8');
-    inMemoryDB = JSON.parse(raw);
-    return inMemoryDB;
-  } catch (e) {
-    if (inMemoryDB) return inMemoryDB;
-    throw e;
-  }
+  inMemoryDB = getFallbackDB();
+  return inMemoryDB;
 }
 
 function writeDB(data) {
   inMemoryDB = data;
-  try {
-    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
-  } catch (err) {
-    console.warn('⚠️ Ошибка записи в файл DB (Vercel Serverless):', err.message);
+  if (isKVEnabled && kvClient) {
+    kvClient.set(KV_KEY, JSON.stringify(data)).catch((err) => {
+      console.error('⚠️ Ошибка асинхронной записи в Vercel KV:', err.message);
+    });
+  } else {
+    try {
+      fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+    } catch (err) {
+      console.warn('⚠️ Ошибка записи в файл DB:', err.message);
+    }
   }
 }
 
@@ -65,9 +117,7 @@ function nextId(arr) {
   return Math.max(...arr.map(i => i.id)) + 1;
 }
 
-// ─── Проверка прав админа (SHA-256 / Token Security) ──────────────────────
-const activeTokens = new Set();
-
+// ─── Проверка прав админа (SHA-256 / Stateless Token Security) ─────────────
 function hashPassword(pass) {
   return crypto.createHash('sha256').update(String(pass || '')).digest('hex');
 }
@@ -76,7 +126,9 @@ function adminAuth(req, res, next) {
   const token = String(req.headers['x-admin-token'] || '').trim();
   const db = readDB();
   const masterPass = String(db.settings.adminPassword || 'aura2026').trim();
-  if (token === masterPass || activeTokens.has(token)) {
+  const masterHash = hashPassword(masterPass);
+
+  if (token === masterPass || token === masterHash) {
     next();
   } else {
     res.status(401).json({ error: 'Необходима авторизация' });
@@ -90,10 +142,8 @@ app.post('/api/admin/login', (req, res) => {
   const masterPass = String(db.settings.adminPassword || 'aura2026').trim();
 
   if (inputPass === masterPass || hashPassword(inputPass) === hashPassword(masterPass)) {
-    const sessionToken = (crypto && crypto.randomBytes)
-      ? crypto.randomBytes(32).toString('hex')
-      : Math.random().toString(36).substring(2) + Date.now().toString(36);
-    activeTokens.add(sessionToken);
+    // Используем хэш пароля как stateless токен сессии
+    const sessionToken = hashPassword(masterPass);
     res.json({ ok: true, token: sessionToken });
   } else {
     res.status(401).json({ error: 'Неверный пароль' });

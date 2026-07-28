@@ -305,20 +305,20 @@ function getDefaultServiceSections() {
         {
           title: "Большой зал (90 м²)",
           items: [
-            { name: "1 час аренды (90 м²)", price: "1 800 ₽", desc: "Зеркальная стена, коврики, станки", tag: "90 м²", photo: "/images/group_hall.jpg" },
-            { name: "1.5 часа аренды (90 м²)", price: "2 400 ₽", desc: "Зеркальная стена, акустическая система", tag: "90 м²", photo: "/images/group_hall.jpg" },
-            { name: "2 часа аренды (90 м²)", price: "3 000 ₽", desc: "Для мастер-классов и практики", tag: "90 м²", photo: "/images/group_hall.jpg" },
-            { name: "3 часа аренды (90 м²)", price: "4 400 ₽", desc: "Длительная аренда под мероприятия", tag: "90 м²", photo: "/images/group_hall.jpg" }
+            { name: "1 час аренды (90 м²)", price: "1 800 ₽", desc: "Зеркальная стена, коврики, станки", tag: "90 м²", photo: "/images/bolshoyzal.jpg" },
+            { name: "1.5 часа аренды (90 м²)", price: "2 400 ₽", desc: "Зеркальная стена, акустическая система", tag: "90 м²", photo: "/images/bolshoyzal.jpg" },
+            { name: "2 часа аренды (90 м²)", price: "3 000 ₽", desc: "Для мастер-классов и практики", tag: "90 м²", photo: "/images/bolshoyzal.jpg" },
+            { name: "3 часа аренды (90 м²)", price: "4 400 ₽", desc: "Длительная аренда под мероприятия", tag: "90 м²", photo: "/images/bolshoyzal.jpg" }
           ]
         },
         {
           title: "Малый зал (50 м²)",
           items: [
-            { name: "1 час аренды (50 м²)", price: "1 500 ₽", desc: "Уютный зал для 1-5 человек", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
-            { name: "1.5 часа аренды (50 м²)", price: "2 000 ₽", desc: "Для малых групп и репетиций", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
-            { name: "2 часа аренды (50 м²)", price: "2 700 ₽", desc: "Оборудован звуком и зеркалами", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
-            { name: "3 часа аренды (50 м²)", price: "3 900 ₽", desc: "Выгодная цена при длительной аренде", tag: "50 м²", photo: "/images/trainer_inga.jpg" },
-            { name: "4 часа аренды (50 м²)", price: "5 000 ₽", desc: "Максимальный пакет аренды", tag: "50 м²", photo: "/images/trainer_inga.jpg" }
+            { name: "1 час аренды (50 м²)", price: "1 500 ₽", desc: "Уютный зал для 1-5 человек", tag: "50 м²", photo: "/images/malizal.jpg" },
+            { name: "1.5 часа аренды (50 м²)", price: "2 000 ₽", desc: "Для малых групп и репетиций", tag: "50 м²", photo: "/images/malizal.jpg" },
+            { name: "2 часа аренды (50 м²)", price: "2 700 ₽", desc: "Оборудован звуком и зеркалами", tag: "50 м²", photo: "/images/malizal.jpg" },
+            { name: "3 часа аренды (50 м²)", price: "3 900 ₽", desc: "Выгодная цена при длительной аренде", tag: "50 м²", photo: "/images/malizal.jpg" },
+            { name: "4 часа аренды (50 м²)", price: "5 000 ₽", desc: "Максимальный пакет аренды", tag: "50 м²", photo: "/images/malizal.jpg" }
           ]
         }
       ]
@@ -333,7 +333,7 @@ function getDefaultServiceSections() {
         {
           title: "Прайс на солярий",
           items: [
-            { name: "1 минута инсоляции", price: "60 ₽/мин", desc: "Шапочка, стикини и коврик включены", tag: "Загар", photo: "" }
+            { name: "1 минута инсоляции", price: "60 ₽/мин", desc: "Шапочка, стикини и коврик включены", tag: "Загар", photo: "/images/solyar.jpg" }
           ]
         }
       ]
@@ -343,16 +343,17 @@ function getDefaultServiceSections() {
       num: "04",
       tag: "Тело и Релакс",
       title: "Массаж и СПА-уход",
-      desc: "Антицеллюлитный, лимфодренажный, классический и массаж спины от дипломированных специалистов.",
+      desc: "Антицеллюлитный, лимфодренажный, классический, мадеротерапия и массаж спины от дипломированных специалистов.",
       subcategories: [
         {
           title: "Классический и Корректирующий массаж",
           items: [
-            { name: "Классический массаж (60 мин)", price: "от 3 200 ₽", desc: "Женский: 3200 ₽ / Мужской: 3700 ₽", tag: "60 мин", photo: "" },
-            { name: "Классический массаж (90 мин)", price: "от 3 900 ₽", desc: "Женский: 3900 ₽ / Мужской: 4400 ₽", tag: "90 мин", photo: "" },
-            { name: "Антицеллюлитный / Лимфодренажный (60 мин)", price: "от 3 700 ₽", desc: "Женский: 3700 ₽ / Мужской: 4200 ₽", tag: "60 мин", photo: "" },
-            { name: "Массаж спины и ШВЗ (40 мин)", price: "от 2 200 ₽", desc: "Женский: 2200 ₽ / Мужской: 2700 ₽", tag: "40 мин", photo: "" },
-            { name: "Массаж лица (30 мин)", price: "от 2 000 ₽", desc: "Женский: 2000 ₽ / Мужской: 2500 ₽", tag: "30 мин", photo: "" }
+            { name: "Классический массаж (60 мин)", price: "от 3 200 ₽", desc: "Женский: 3200 ₽ / Мужской: 3700 ₽", tag: "60 мин", photo: "/images/cabinetmassage.jpg" },
+            { name: "Мадеротерапия (60 мин)", price: "от 3 700 ₽", desc: "Женский: 3700 ₽ / Мужской: 4200 ₽", tag: "60 мин", photo: "/images/cabinetmassage.jpg" },
+            { name: "Мадеротерапия (90 мин)", price: "от 4 400 ₽", desc: "Женский: 4400 ₽ / Мужской: 4900 ₽", tag: "90 мин", photo: "/images/cabinetmassage.jpg" },
+            { name: "Антицеллюлитный / Лимфодренажный (60 мин)", price: "от 3 700 ₽", desc: "Женский: 3700 ₽ / Мужской: 4200 ₽", tag: "60 мин", photo: "/images/cabinetmassage.jpg" },
+            { name: "Массаж спины и ШВЗ (40 мин)", price: "от 2 200 ₽", desc: "Женский: 2200 ₽ / Мужской: 2700 ₽", tag: "40 мин", photo: "/images/cabinetmassage.jpg" },
+            { name: "Массаж лица (30 мин)", price: "от 2 000 ₽", desc: "Женский: 2000 ₽ / Мужской: 2500 ₽", tag: "30 мин", photo: "/images/cabinetmassage.jpg" }
           ]
         }
       ]
@@ -367,10 +368,10 @@ function getDefaultServiceSections() {
         {
           title: "Выгодные комбо-комплексы",
           items: [
-            { name: "Комплекс МИНИ", price: "2 700 ₽", desc: "Глубокое бикини + подмышки", tag: "Хит", photo: "" },
-            { name: "Комплекс СТАНДАРТ", price: "3 900 ₽", desc: "Глубокое бикини + подмышки + голени", tag: "Популярно", photo: "" },
-            { name: "Комплекс ПОПУЛЯРНЫЙ", price: "5 000 ₽", desc: "Глубокое бикини + подмышки + ноги полностью", tag: "Макс", photo: "" },
-            { name: "Комплекс ВСЕ ТЕЛО", price: "7 000 ₽", desc: "Полная обработка тела", tag: "Всё включено", photo: "" }
+            { name: "Комплекс МИНИ", price: "2 700 ₽", desc: "Глубокое бикини + подмышки", tag: "Хит", photo: "/images/apparat.jpg" },
+            { name: "Комплекс СТАНДАРТ", price: "3 900 ₽", desc: "Глубокое бикини + подмышки + голени", tag: "Популярно", photo: "/images/apparat.jpg" },
+            { name: "Комплекс ПОПУЛЯРНЫЙ", price: "5 000 ₽", desc: "Глубокое бикини + подмышки + ноги полностью", tag: "Макс", photo: "/images/apparat.jpg" },
+            { name: "Комплекс ВСЕ ТЕЛО", price: "7 000 ₽", desc: "Полная обработка тела", tag: "Всё включено", photo: "/images/apparat.jpg" }
           ]
         }
       ]

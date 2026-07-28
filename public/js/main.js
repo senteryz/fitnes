@@ -47,9 +47,13 @@ function initQuickWidget() {
           <span>Связаться & Запись</span>
           <button type="button" class="quick-widget-close" id="quickWidgetClose">✕</button>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=79037977739&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%AF+%D0%BD%D0%B0%D1%81%D1%87%D1%91%D1%82+%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8+%D0%B2+%D1%84%D0%B8%D1%82%D0%BD%D0%B5%D1%81-%D0%BA%D0%BB%D1%83%D0%B1" target="_blank" rel="noopener" class="quick-widget-item wa">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984 0 1.763.459 3.486 1.332 5.001l-1.417 5.176 5.297-1.389c1.458.796 3.097 1.214 4.774 1.215h.004c5.505 0 9.988-4.478 9.989-9.985 0-2.667-1.037-5.175-2.924-7.062s-4.394-2.94-7.065-2.940zm5.666 14.168c-.234.656-1.365 1.252-1.898 1.309-.504.053-1.157.085-3.673-.956-3.219-1.331-5.289-4.596-5.45-4.81-.161-.214-1.307-1.739-1.307-3.316 0-1.577.828-2.353 1.12-2.67.293-.317.643-.396.857-.396.214 0 .428.002.615.011.197.009.462-.075.723.551.268.643.914 2.227.994 2.388.08.161.134.348.027.562-.107.214-.161.348-.321.536-.161.188-.339.393-.483.527-.161.149-.328.312-.141.633.187.321.832 1.373 1.785 2.222 1.226 1.093 2.259 1.432 2.58 1.593.321.161.509.134.696-.08.187-.214.803-.937 1.017-1.258.214-.321.428-.268.723-.161.294.107 1.874.883 2.195 1.044.321.161.535.241.615.375.08.134.08.777-.154 1.433z"/></svg>
-          <span>WhatsApp</span>
+        <a href="https://t.me/FitnesscenterAura" target="_blank" rel="noopener" class="quick-widget-item tg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+          <span>Telegram</span>
+        </a>
+        <a href="https://max.ru/join/hMsYRZJwLWOrTIuzHLBYySpwmK6H3SlUQPBJT-Xufik" target="_blank" rel="noopener" class="quick-widget-item max">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.05.62 3.96 1.69 5.54L2.05 22l4.63-1.6c1.6.86 3.42 1.35 5.32 1.35 5.52 0 10-4.48 10-10S17.52 2 12 2zm4 12.5h-2v-3.7l-2 3-2-3v3.7H8V8h2.2l1.8 2.7L13.8 8H16v6.5z"/></svg>
+          <span>MAX канал</span>
         </a>
         <a href="https://vk.com/club46230813" target="_blank" rel="noopener" class="quick-widget-item vk">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C3.724 0 0 3.724 0 8.316v7.368C0 20.276 3.724 24 8.316 24h7.368C20.276 24 24 20.276 24 15.684V8.316C24 3.724 20.276 0 15.684 0zm3.692 17.143h-1.644c-.624 0-.816-.495-1.938-1.618-1.026-0.99-1.48-1.12-1.734-1.12-.358 0-.462.103-.462.597v1.442c0 .412-.132.657-1.218.657-1.802 0-3.799-1.093-5.208-3.13-2.128-3.023-2.709-5.302-2.709-5.76 0-.251.097-.487.594-.487h1.644c.446 0 .614.204.786.685.86 2.49 2.304 4.675 2.902 4.675.226 0 .33-.103.33-.668V11.23c-.094-1.493-.868-1.617-.868-2.148 0-.251.214-.504.562-.504h2.576c.371 0 .504.195.504.639v3.456c0 .375.163.504.275.504.226 0 .412-.129.83-.548 1.288-1.455 2.203-3.708 2.203-3.708.117-.251.332-.487.778-.487h1.644c.494 0 .6.251.494.639-.208.972-2.253 3.864-2.253 3.864-.176.275-.246.402 0 .727.176.233.754.744 1.139 1.196.711.815 1.258 1.496 1.403 1.966.147.466-.075.711-.564.711z"/></svg>
@@ -169,7 +173,7 @@ function openLightboxByIndex(index) {
 
   lightboxImg.src = item.url || '/images/hero.jpg';
   lightboxImg.alt = item.caption || '';
-  if (lightboxCat) lightboxCat.textContent = item.category || 'Аура Фитнес';
+  if (lightboxCat) lightboxCat.textContent = item.category || 'Фитнес-центр «Аура»';
   if (lightboxTitle) lightboxTitle.textContent = item.caption || item.category || '';
 
   lightbox.classList.add('open');
@@ -386,14 +390,14 @@ function renderTrainersList(trainers) {
       <div class="trainer-card-ios-content">
         <h3 class="trainer-ios-name">
           ${t.name}
-          <span class="trainer-ios-verified" title="Сертифицированный специалист Аура Фитнес">
+          <span class="trainer-ios-verified" title="Сертифицированный специалист Фитнес-центра «Аура»">
             <svg viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
             </svg>
           </span>
         </h3>
 
-        <div class="trainer-ios-spec">${t.specialization || 'Инструктор фитнес-клуба'}</div>
+        <div class="trainer-ios-spec">${t.specialization || 'Инструктор фитнес-центра'}</div>
 
         <div class="trainer-ios-details">
           ${t.education ? `

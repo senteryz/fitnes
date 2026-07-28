@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Tenor+Sans&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Golos+Text:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap');
 
 /* ═══════════════════════════════════════════════
-   UI/UX PRO MAX — СВЕТЛАЯ ДИЗАЙН-СИСТЕМА (Аура Фитнес)
+   UI/UX PRO MAX — СВЕТЛАЯ ДИЗАЙН-СИСТЕМА (Фитнес-центр «Аура»)
 ═══════════════════════════════════════════════ */
 :root {
   --bg-deep: #fafaf7;
@@ -18,10 +18,10 @@
   --text-muted: #475569;
   --text-light: #64748b;
   
-  /* ПРЕМИАЛЬНАЯ ТИПОГРАФИКА: Oswald (Спортивный дисплей) + Plus Jakarta Sans */
-  --font-display: 'Oswald', sans-serif;
+  /* ЭЛЕГАНТНАЯ СПОРТИВНАЯ ТИПОГРАФИКА: Montserrat + Golos Text */
+  --font-display: 'Montserrat', 'Oswald', sans-serif;
   --font-serif: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-body: 'Golos Text', 'Montserrat', system-ui, sans-serif;
   
   --border-subtle: 1px solid #e2e8f0;
   --border-olive: 1px solid rgba(84, 102, 61, 0.25);
@@ -386,15 +386,19 @@ a.eq-panel-btn {
   align-items: center;
   text-align: center;
   padding: 6rem 2rem;
-  background: url('/images/1block.png') center/cover no-repeat;
+  background: radial-gradient(circle at 50% 30%, #54663d 0%, #354224 55%, #1e2814 100%);
   box-sizing: border-box;
+  overflow: hidden;
 }
 
 .hero-fullbleed-banner::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(14, 18, 12, 0.4) 0%, rgba(14, 18, 12, 0.8) 100%);
+  background: 
+    radial-gradient(ellipse at center, rgba(168, 197, 131, 0.15) 0%, rgba(0,0,0,0) 70%),
+    linear-gradient(180deg, rgba(15, 23, 14, 0.2) 0%, rgba(15, 23, 14, 0.5) 100%);
+  pointer-events: none;
 }
 
 .hero-fullbleed-content {
@@ -5166,7 +5170,8 @@ a.eq-panel-btn {
   border-color: #54663d;
 }
 
-.quick-widget-item.wa:hover { background: #25d366; border-color: #25d366; color: #fff; }
+.quick-widget-item.tg:hover { background: #0088cc; border-color: #0088cc; color: #fff; }
+.quick-widget-item.max:hover { background: #7a33ff; border-color: #7a33ff; color: #fff; }
 .quick-widget-item.vk:hover { background: #0077ff; border-color: #0077ff; color: #fff; }
 .quick-widget-item.phone:hover { background: #c4a96a; border-color: #c4a96a; color: #0b110a; }
 .quick-widget-item.book-btn {
@@ -5367,8 +5372,8 @@ a.eq-panel-btn {
 }
 
 [data-theme="dark"] .athlete-img-silhouette {
-  filter: brightness(0) invert(1) drop-shadow(0 0 35px rgba(255, 255, 255, 0.55)) !important;
-  opacity: 0.92;
+  filter: drop-shadow(0 0 25px rgba(168, 197, 131, 0.35)) !important;
+  opacity: 1;
 }
 
 .join-us-section:hover .athlete-img-silhouette {

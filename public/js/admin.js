@@ -1,5 +1,5 @@
 /* =================================================
-   admin.js — Аура Fitness Admin Panel Logic
+   admin.js — Фитнес-центр «Аура» Admin Panel Logic
 ================================================= */
 
 const TOKEN_KEY = 'aura_admin_token';

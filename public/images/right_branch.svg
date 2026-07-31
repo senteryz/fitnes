@@ -1,0 +1,244 @@
+<svg viewBox="0 0 300 800" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <!-- Градиент для золотых листьев -->
+    <linearGradient id="hero-gold-leaf-r" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffe8a3" />
+      <stop offset="50%" stop-color="#d6b258" />
+      <stop offset="100%" stop-color="#9e7d2e" />
+    </linearGradient>
+    
+    <!-- Градиент для оливковых листьев -->
+    <linearGradient id="hero-green-leaf-r" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cce0b4" />
+      <stop offset="50%" stop-color="#809c5d" />
+      <stop offset="100%" stop-color="#4a5d30" />
+    </linearGradient>
+    
+    <!-- Градиент для стебля -->
+    <linearGradient id="hero-stem-right" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stop-color="#4a5d30" stop-opacity="0.8" />
+      <stop offset="50%" stop-color="#9e7d2e" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#d6b258" />
+    </linearGradient>
+
+    <!-- Фильтр свечения / тени для премиальности -->
+    <filter id="hero-leaf-shadow-r" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="1" dy="3" stdDeviation="3" flood-color="#000" flood-opacity="0.25"/>
+    </filter>
+  </defs>
+
+  <!-- Главный стебель -->
+  <path d="M 350 850 C 200 700, 120 550, 230 400 C 320 280, 150 180, 190 50 C 200 20, 170 -20, 150 -50" stroke="url(#hero-stem-right)" stroke-width="4.5" stroke-linecap="round" filter="url(#hero-leaf-shadow-r)" />
+
+  <!-- Веточки и прикрепленные к ним листья -->
+  <g>
+    <!-- Плавное колыхание веточки относительно ствола -->
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 215 640; -1.5 215 640; 0.8999999999999999 215 640; 0 215 640" 
+      dur="8s" 
+      begin="-0s" 
+      repeatCount="indefinite" 
+    />
+    <path d="M 215 640 C 170 630, 100 580, 90 500" stroke="url(#hero-stem-right)" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+    <path d="M 90 500 Q 85.0 472.5 60 460 Q 65.0 487.5 90 500 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 90 500; -4 90 500; 2 90 500; 0 90 500" 
+        dur="4.5s" 
+        begin="-0s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+    <path d="M 140 560 Q 115.0 560.0 100 580 Q 125.0 580.0 140 560 Z" fill="url(#hero-green-leaf-r)" stroke="#4a5d30" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 140 560; -6 140 560; 3 140 560; 0 140 560" 
+        dur="5.3s" 
+        begin="-1.2s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+  </g>
+  <g>
+    <!-- Плавное колыхание веточки относительно ствола -->
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 228 410; -2 228 410; 1.2 228 410; 0 228 410" 
+      dur="9.5s" 
+      begin="-2s" 
+      repeatCount="indefinite" 
+    />
+    <path d="M 228 410 C 280 400, 290 320, 310 280" stroke="url(#hero-stem-right)" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+    <path d="M 310 280 Q 332.5 260.0 330 230 Q 307.5 250.0 310 280 Z" fill="url(#hero-green-leaf-r)" stroke="#4a5d30" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 310 280; -4 310 280; 2 310 280; 0 310 280" 
+        dur="4.5s" 
+        begin="-0s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+    <path d="M 270 350 Q 295.0 337.5 300 310 Q 275.0 322.5 270 350 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 270 350; -6 270 350; 3 270 350; 0 270 350" 
+        dur="5.3s" 
+        begin="-1.2s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+  </g>
+  <g>
+    <!-- Плавное колыхание веточки относительно ствола -->
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 182 240; -2.5 182 240; 1.5 182 240; 0 182 240" 
+      dur="11s" 
+      begin="-4s" 
+      repeatCount="indefinite" 
+    />
+    <path d="M 182 240 C 140 210, 80 180, 70 110" stroke="url(#hero-stem-right)" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+    <path d="M 70 110 Q 65.0 82.5 40 70 Q 45.0 97.5 70 110 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 70 110; -4 70 110; 2 70 110; 0 70 110" 
+        dur="4.5s" 
+        begin="-0s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+    <path d="M 120 190 Q 95.0 190.0 80 210 Q 105.0 210.0 120 190 Z" fill="url(#hero-green-leaf-r)" stroke="#4a5d30" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 120 190; -6 120 190; 3 120 190; 0 120 190" 
+        dur="5.3s" 
+        begin="-1.2s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+  </g>
+  <g>
+    <!-- Плавное колыхание веточки относительно ствола -->
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 188 110; -3 188 110; 1.7999999999999998 188 110; 0 188 110" 
+      dur="12.5s" 
+      begin="-6s" 
+      repeatCount="indefinite" 
+    />
+    <path d="M 188 110 C 230 90, 250 40, 240 0" stroke="url(#hero-stem-right)" stroke-width="2" stroke-linecap="round" opacity="0.85" />
+    <path d="M 240 0 Q 260.0 -15.0 260 -40 Q 240.0 -25.0 240 0 Z" fill="url(#hero-green-leaf-r)" stroke="#4a5d30" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 240 0; -4 240 0; 2 240 0; 0 240 0" 
+        dur="4.5s" 
+        begin="-0s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+    <path d="M 220 55 Q 241.3 50.0 250 30 Q 228.8 35.0 220 55 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+      <animateTransform 
+        attributeName="transform" 
+        type="rotate" 
+        values="0 220 55; -6 220 55; 3 220 55; 0 220 55" 
+        dur="5.3s" 
+        begin="-1.2s" 
+        repeatCount="indefinite" 
+      />
+    </path>
+  </g>
+
+  <!-- Листья на основном стволе -->
+  <path d="M 270 750 Q 252.5 722.5 220 720 Q 237.5 747.5 270 750 Z" fill="url(#hero-green-leaf-r)" stroke="#4a5d30" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 270 750; -3.5 270 750; 1.75 270 750; 0 270 750" 
+      dur="5s" 
+      begin="-0s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+  <path d="M 215 680 Q 185.0 671.3 160 690 Q 190.0 698.8 215 680 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 215 680; -4.5 215 680; 2.25 215 680; 0 215 680" 
+      dur="5.7s" 
+      begin="-1.5s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+  <path d="M 190 490 Q 175.0 457.5 140 450 Q 155.0 482.5 190 490 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 190 490; -5.5 190 490; 2.75 190 490; 0 190 490" 
+      dur="6.4s" 
+      begin="-3s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+  <path d="M 222 430 Q 241.0 452.0 270 450 Q 251.0 428.0 222 430 Z" fill="url(#hero-green-leaf-r)" stroke="#4a5d30" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 222 430; -3.5 222 430; 1.75 222 430; 0 222 430" 
+      dur="7.1s" 
+      begin="-0s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+  <path d="M 200 330 Q 225.0 330.0 240 310 Q 215.0 310.0 200 330 Z" fill="url(#hero-green-leaf-r)" stroke="#4a5d30" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 200 330; -4.5 200 330; 2.25 200 330; 0 200 330" 
+      dur="5s" 
+      begin="-1.5s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+  <path d="M 178 280 Q 151.5 273.0 130 290 Q 156.5 297.0 178 280 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 178 280; -5.5 178 280; 2.75 178 280; 0 178 280" 
+      dur="5.7s" 
+      begin="-3s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+  <path d="M 185 140 Q 175.0 116.3 150 110 Q 160.0 133.8 185 140 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 185 140; -3.5 185 140; 1.75 185 140; 0 185 140" 
+      dur="6.4s" 
+      begin="-0s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+  <path d="M 170 10 Q 172.5 -13.8 155 -30 Q 152.5 -6.3 170 10 Z" fill="url(#hero-gold-leaf-r)" stroke="#9e7d2e" stroke-width="0.8" class="hero-leaf" filter="url(#hero-leaf-shadow-r)">
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      values="0 170 10; -4.5 170 10; 2.25 170 10; 0 170 10" 
+      dur="7.1s" 
+      begin="-1.5s" 
+      repeatCount="indefinite" 
+    />
+  </path>
+</svg>

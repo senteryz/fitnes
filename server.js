@@ -307,7 +307,7 @@ app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.ht
 // ─── Запуск сервера ─────────────────────────────────────────────────────────
 function startServer(port) {
   const server = app.listen(port, () => {
-    console.log(`\n🌿 Аура Фитнес сервер успешно запущен: http://localhost:${port}`);
+    console.log(`\n🌿 Фитнес-центр «Аура» сервер успешно запущен: http://localhost:${port}`);
     console.log(`🔐 Секретная панель управления: http://localhost:${port}/aura-control-7739\n`);
   });
 

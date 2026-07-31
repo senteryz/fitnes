@@ -573,9 +573,7 @@
       </svg>
     </div>
     <div class="hero-fullbleed-content reveal">
-      <div class="hero-eyebrow">я есть</div>
-      <h1 class="hero-giant-title">Аура</h1>
-      <div class="hero-fitness-label">FITNESS</div>
+      <h1 class="hero-giant-title">Фитнес-центр «Аура»</h1>
       <div class="hero-divider"></div>
       <p class="hero-subtitle-text">
         Доступный камерный фитнес центр в Мытищах.<br>Индивидуальный подход, квалифицированные тренеры, просторные залы 90 м² и 50 м², финская сауна, солярий и массаж.
@@ -593,7 +591,7 @@
 </section>
 
 <!-- ПРЕИМУЩЕСТВА (UI/UX PRO MAX SPLIT С ИКОНКАМИ) -->
-<section class="section" style="overflow: hidden;">
+<section class="section benefits-sticky-scroll" id="benefits-section" style="overflow: visible; position: relative;">
   <!-- Дополнительные оливковые листья -->
   <div class="leaf-deco" style="top: 15%; left: -60px; width: 180px; opacity: 0.18; transform: rotate(35deg); z-index: 1;">
     <svg viewBox="0 0 100 150" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -644,69 +642,73 @@
       <path d="M60 58 C 63 54, 67 46, 73 30 Z" fill="#ffffff" fill-opacity="0.25"/>
     </svg>
   </div>
-  <div class="container">
-    <div class="pro-reasons-split">
-      <div class="pro-reasons-sticky-header reveal-left" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
-        <h2 class="section-title" style="text-align:center;">О ФИТНЕС-ЦЕНТРЕ «АУРА»</h2>
-        <p class="section-subtitle" style="text-align:center; max-width:520px;">Всё продумано до мелочей для ваших комфортных и безопасных тренировок.</p>
-        <div style="margin-top:2.2rem; display:flex; justify-content:center; width:100%;">
-          <a href="https://t.me/FitnesscenterAura" target="_blank" class="btn btn-gold">Связаться с администратором</a>
-        </div>
-      </div>
-
-      <div class="pro-reasons-list">
-        <div class="pro-reason-card reveal delay-1">
-          <div class="pro-reason-marker"></div>
-          <div>
-            <h3 class="pro-reason-title">Уютная атмосфера</h3>
-            <p class="pro-reason-desc">Камерный клуб без очередей и переполненности. Чистый комфортный зал, где приятно заниматься каждый день.</p>
+  <div class="benefits-sticky-wrapper">
+    <div class="container">
+      <div class="pro-reasons-split">
+        <div class="pro-reasons-sticky-header reveal-left" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+          <h2 class="section-title" style="text-align:center;">О ФИТНЕС-ЦЕНТРЕ «АУРА»</h2>
+          <p class="section-subtitle" style="text-align:center; max-width:520px;">Всё продумано до мелочей для ваших комфортных и безопасных тренировок.</p>
+          <div style="margin-top:2.2rem; display:flex; justify-content:center; width:100%;">
+            <a href="https://t.me/FitnesscenterAura" target="_blank" class="btn btn-outline-gold">Связаться с администратором</a>
           </div>
-          <div class="pro-reason-num">01</div>
         </div>
 
-        <div class="pro-reason-card reveal delay-2">
-          <div class="pro-reason-marker"></div>
-          <div>
-            <h3 class="pro-reason-title">Опытные тренеры</h3>
-            <p class="pro-reason-desc">Дипломированные специалисты с многолетним стажем. Составят грамотный план нагрузки под ваши цели.</p>
-          </div>
-          <div class="pro-reason-num">02</div>
-        </div>
+        <div class="pro-reasons-list-viewport">
+          <div class="pro-reasons-list">
+            <div class="pro-reason-card reveal delay-1">
+              <div class="pro-reason-marker"></div>
+              <div>
+                <h3 class="pro-reason-title">Уютная атмосфера</h3>
+                <p class="pro-reason-desc">Камерный клуб без очередей и переполненности. Чистый комфортный зал, где приятно заниматься каждый день.</p>
+              </div>
+              <div class="pro-reason-num">01</div>
+            </div>
 
-        <div class="pro-reason-card reveal delay-3">
-          <div class="pro-reason-marker"></div>
-          <div>
-            <h3 class="pro-reason-title">Индивидуальный подход</h3>
-            <p class="pro-reason-desc">Персональное внимание к каждому клиенту, контроль техники безопасности и постоянная поддержка.</p>
-          </div>
-          <div class="pro-reason-num">03</div>
-        </div>
+            <div class="pro-reason-card reveal delay-2">
+              <div class="pro-reason-marker"></div>
+              <div>
+                <h3 class="pro-reason-title">Опытные тренеры</h3>
+                <p class="pro-reason-desc">Дипломированные специалисты с многолетним стажем. Составят грамотный план нагрузки под ваши цели.</p>
+              </div>
+              <div class="pro-reason-num">02</div>
+            </div>
 
-        <div class="pro-reason-card reveal delay-1">
-          <div class="pro-reason-marker"></div>
-          <div>
-            <h3 class="pro-reason-title">Удобное расположение</h3>
-            <p class="pro-reason-desc">Мытищи, ул. Колпакова 24А (2 этаж бизнес-центра). Удобный доступ на транспорте и автомобиле.</p>
-          </div>
-          <div class="pro-reason-num">04</div>
-        </div>
+            <div class="pro-reason-card reveal delay-3">
+              <div class="pro-reason-marker"></div>
+              <div>
+                <h3 class="pro-reason-title">Индивидуальный подход</h3>
+                <p class="pro-reason-desc">Персональное внимание к каждому клиенту, контроль техники безопасности и постоянная поддержка.</p>
+              </div>
+              <div class="pro-reason-num">03</div>
+            </div>
 
-        <div class="pro-reason-card reveal delay-2">
-          <div class="pro-reason-marker"></div>
-          <div>
-            <h3 class="pro-reason-title">Собственная парковка</h3>
-            <p class="pro-reason-desc">Бесплатная вместительная парковка прямо возле здания клуба. Вы всегда найдете место.</p>
-          </div>
-          <div class="pro-reason-num">05</div>
-        </div>
+            <div class="pro-reason-card reveal delay-1">
+              <div class="pro-reason-marker"></div>
+              <div>
+                <h3 class="pro-reason-title">Удобное расположение</h3>
+                <p class="pro-reason-desc">Мытищи, ул. Колпакова 24А (2 этаж бизнес-центра). Удобный доступ на транспорте и автомобиле.</p>
+              </div>
+              <div class="pro-reason-num">04</div>
+            </div>
 
-        <div class="pro-reason-card reveal delay-3">
-          <div class="pro-reason-marker"></div>
-          <div>
-            <h3 class="pro-reason-title">Финская сауна</h3>
-            <p class="pro-reason-desc">Горячая финская сауна для глубокого расслабления и восстановления мышц после каждой тренировки.</p>
+            <div class="pro-reason-card reveal delay-2">
+              <div class="pro-reason-marker"></div>
+              <div>
+                <h3 class="pro-reason-title">Собственная парковка</h3>
+                <p class="pro-reason-desc">Бесплатная вместительная парковка прямо возле здания клуба. Вы всегда найдете место.</p>
+              </div>
+              <div class="pro-reason-num">05</div>
+            </div>
+
+            <div class="pro-reason-card reveal delay-3">
+              <div class="pro-reason-marker"></div>
+              <div>
+                <h3 class="pro-reason-title">Финская сауна</h3>
+                <p class="pro-reason-desc">Горячая финская сауна для глубокого расслабления и восстановления мышц после каждой тренировки.</p>
+              </div>
+              <div class="pro-reason-num">06</div>
+            </div>
           </div>
-          <div class="pro-reason-num">06</div>
         </div>
       </div>
     </div>
@@ -719,7 +721,7 @@
     <blockquote class="parallax-quote-text">
       «Каждая тренировка — это шаг к лучшей версии себя в атмосфере уюта и комфорта»
     </blockquote>
-    <a href="https://t.me/FitnesscenterAura" target="_blank" class="btn btn-gold">
+    <a href="https://t.me/FitnesscenterAura" target="_blank" class="btn btn-outline-gold">
       Связаться с администратором
     </a>
   </div>
@@ -1101,6 +1103,67 @@
       if (panel) panel.classList.add('active');
     });
   });
+
+  // Скролл-анимация преимуществ (скролл-пиннинг)
+  (function() {
+    const benefitsSec = document.getElementById('benefits-section');
+    const stickyWrapper = benefitsSec ? benefitsSec.querySelector('.benefits-sticky-wrapper') : null;
+    const listViewport = benefitsSec ? benefitsSec.querySelector('.pro-reasons-list-viewport') : null;
+    const listEl = benefitsSec ? benefitsSec.querySelector('.pro-reasons-list') : null;
+    const cards = benefitsSec ? benefitsSec.querySelectorAll('.pro-reason-card') : [];
+
+    if (benefitsSec && stickyWrapper && listViewport && listEl && cards.length) {
+      function handleStickyScroll() {
+        if (window.innerWidth <= 1024) {
+          listEl.style.transform = 'none';
+          cards.forEach(c => {
+            c.classList.remove('active');
+            c.style.opacity = '';
+            c.style.transform = '';
+          });
+          return;
+        }
+
+        const secTop = benefitsSec.getBoundingClientRect().top + window.scrollY;
+        const secHeight = benefitsSec.offsetHeight;
+        const winHeight = window.innerHeight;
+
+        const start = secTop;
+        const end = secTop + secHeight - winHeight;
+        const current = window.scrollY;
+
+        let progress = (current - start) / (end - start);
+        progress = Math.max(0, Math.min(1, progress));
+
+        const index = Math.min(cards.length - 1, Math.floor(progress * cards.length));
+
+        cards.forEach((c, idx) => {
+          if (idx === index) {
+            c.classList.add('active');
+          } else {
+            c.classList.remove('active');
+          }
+        });
+
+        const activeCard = cards[index];
+        const viewportHeight = listViewport.offsetHeight;
+        const cardCenter = activeCard.offsetTop + activeCard.offsetHeight / 2;
+        let transY = viewportHeight / 2 - cardCenter;
+
+        const maxTrans = 0;
+        const minTrans = -(listEl.scrollHeight - viewportHeight);
+        transY = Math.max(minTrans, Math.min(maxTrans, transY));
+
+        listEl.style.transform = `translateY(${transY}px)`;
+      }
+
+      window.addEventListener('scroll', handleStickyScroll, { passive: true });
+      window.addEventListener('resize', handleStickyScroll, { passive: true });
+      // Call after page load to prevent incorrect offset calculation
+      window.addEventListener('load', handleStickyScroll);
+      handleStickyScroll();
+    }
+  })();
 </script>
 </body>
 </html>

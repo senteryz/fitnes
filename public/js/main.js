@@ -739,3 +739,41 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// ─── ДИНАМИЧЕСКИЙ ИНЖЕКТОР АНИМИРОВАННЫХ ВЕТОК ───────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const pageHero = document.querySelector('.page-hero');
+  const gallerySec = document.querySelector('.gallery-luxury-section');
+  const contactsSplit = document.querySelector('.contacts-split-info');
+  const newsSingle = document.querySelector('.news-single-content')?.parentElement;
+
+  function injectBranch(container, position, svgPath, width = '150px', opacity = '0.35') {
+    if (!container) return;
+    const div = document.createElement('div');
+    div.className = position === 'left' ? 'leaf-hero-left' : 'leaf-hero-right';
+    div.style.width = width;
+    div.style.opacity = opacity;
+    container.style.position = 'relative';
+    container.style.overflow = 'hidden';
+    container.appendChild(div);
+    
+    fetch(svgPath)
+      .then(res => res.text())
+      .then(data => {
+        div.innerHTML = data;
+      })
+      .catch(err => console.error('Error loading leaf SVG:', err));
+  }
+
+  if (pageHero) {
+    injectBranch(pageHero, 'left', '/images/left_branch.svg', '160px', '0.32');
+    injectBranch(pageHero, 'right', '/images/right_branch.svg', '160px', '0.32');
+  } else if (gallerySec) {
+    injectBranch(gallerySec, 'left', '/images/left_branch.svg', '140px', '0.28');
+    injectBranch(gallerySec, 'right', '/images/right_branch.svg', '140px', '0.28');
+  } else if (contactsSplit) {
+    injectBranch(contactsSplit, 'right', '/images/right_branch.svg', '140px', '0.25');
+  } else if (newsSingle) {
+    injectBranch(newsSingle, 'right', '/images/right_branch.svg', '130px', '0.22');
+  }
+});
+

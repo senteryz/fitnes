@@ -112,7 +112,7 @@
       .svc-shell{ grid-template-columns:1fr; gap:2rem; padding:2rem 0 4rem; }
       .svc-nav {
         position: sticky !important;
-        top: 80px !important;
+        top: 54px !important; /* Perfect sticky alignment right under mobile header (54px) */
         z-index: 100 !important;
         background: var(--bg-surface) !important;
         padding: 0.8rem 1rem !important;
@@ -123,6 +123,10 @@
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         align-self: stretch !important;
+        width: 100vw !important; /* Lock to viewport width to prevent page horizontal overflow */
+        max-width: 100vw !important;
+        overflow: hidden !important; /* Restrict child element sizing to force horizontal scroll port */
+        box-sizing: border-box !important;
       }
       .svc-nav-title {
         display: none !important;
@@ -136,6 +140,8 @@
         padding: 0.2rem 0 !important;
         margin: 0 !important;
         scrollbar-width: none;
+        width: 100% !important;
+        -webkit-overflow-scrolling: touch !important; /* Smooth touch inertial scroll on iOS */
       }
       .svc-nav ol::-webkit-scrollbar {
         display: none !important;
@@ -1578,6 +1584,19 @@
     navLinks.forEach(link => {
       if (link.getAttribute('href') === '#' + activeId) {
         link.classList.add('active');
+        // Auto-scroll the horizontal navigation on mobile/tablet to center active category
+        if (window.innerWidth <= 1024) {
+          const ol = link.parentElement.parentElement;
+          if (ol) {
+            const activeLeft = link.offsetLeft;
+            const activeWidth = link.offsetWidth;
+            const olWidth = ol.offsetWidth;
+            ol.scrollTo({
+              left: activeLeft - olWidth / 2 + activeWidth / 2,
+              behavior: 'smooth'
+            });
+          }
+        }
       } else {
         link.classList.remove('active');
       }
@@ -1595,7 +1614,7 @@
       const el = document.querySelector(href);
       if (!el) return;
       e.preventDefault();
-      const offset = window.innerWidth > 1024 ? 165 : 140;
+      const offset = window.innerWidth > 1024 ? 165 : 108;
       window.scrollTo({ top: el.offsetTop - offset, behavior: 'smooth' });
       history.replaceState(null, '', href);
     }

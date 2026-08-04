@@ -683,18 +683,66 @@ a.eq-panel-btn {
   opacity: 1;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.hero-title-container {
+  position: relative;
+  display: block;
+  margin: 0 auto 2rem;
+  width: 100%;
+  max-width: 800px;
+}
+
+.hero-main-logo-title {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
 .hero-giant-title {
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 6.2vw, 5.5rem);
   font-weight: 400;
-  line-height: 1.15;
+  line-height: 1.1;
   letter-spacing: 0.02em;
   text-transform: none;
   background: linear-gradient(135deg, #ffe8a3 0%, #d6b258 50%, #9e7d2e 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  position: relative;
+  z-index: 2;
   filter: drop-shadow(0 2px 4px rgba(44, 38, 30, 0.4)) drop-shadow(0 8px 16px rgba(44, 38, 30, 0.22));
+}
+
+@keyframes wreath-sway {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(-1deg) scale(1.01);
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-title-container {
+    max-width: 480px;
+    margin-bottom: -1rem;
+  }
 }
 
 /* Подтекст FITNESS как на логотипе */

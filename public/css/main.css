@@ -780,6 +780,118 @@ a.eq-panel-btn {
   text-shadow: 0 1px 4px rgba(44, 38, 30, 0.25);
 }
 
+/* ИКОНКИ УСЛУГ НА ГЛАВНОМ ЭКРАНЕ (HERO ICONS) */
+.hero-services-icons {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  max-width: 780px;
+  margin: 0 auto 2.5rem;
+  width: 100%;
+  padding: 0.5rem 0;
+}
+
+.hero-service-icon-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-decoration: none;
+  padding: 0 0.5rem;
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.hero-service-icon-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(214, 178, 88, 0.3), transparent);
+}
+
+.hero-service-icon-circle {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: 1px solid var(--gold, #c9a84c);
+  background: rgba(20, 26, 16, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold, #d6b258);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(214, 178, 88, 0.1);
+  transition: all 0.35s ease;
+}
+
+.hero-service-icon-item:hover .hero-service-icon-circle {
+  border-color: #ffe8a3;
+  color: #ffe8a3;
+  background: rgba(45, 56, 29, 0.85);
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 8px 25px rgba(201, 168, 76, 0.4), inset 0 0 15px rgba(255, 232, 163, 0.2);
+}
+
+.hero-service-icon-label {
+  margin-top: 0.75rem;
+  font-family: 'Golos Text', 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ffffff;
+  line-height: 1.25;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  transition: color 0.3s ease;
+}
+
+.hero-service-icon-item:hover .hero-service-icon-label {
+  color: var(--gold, #d6b258);
+}
+
+@media (max-width: 640px) {
+  .hero-services-icons {
+    margin-bottom: 2rem;
+    padding: 0;
+  }
+  .hero-service-icon-item {
+    padding: 0 0.2rem;
+  }
+  .hero-service-icon-circle {
+    width: 48px;
+    height: 48px;
+  }
+  .hero-service-icon-circle svg {
+    width: 22px;
+    height: 22px;
+  }
+  .hero-service-icon-label {
+    font-size: 0.62rem;
+    margin-top: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-service-icon-circle {
+    width: 40px;
+    height: 40px;
+  }
+  .hero-service-icon-circle svg {
+    width: 19px;
+    height: 19px;
+  }
+  .hero-service-icon-label {
+    font-size: 0.55rem;
+  }
+}
+
 .hero-btn-row {
   display: flex;
   gap: 1.2rem;

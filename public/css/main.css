@@ -74,7 +74,7 @@ html { scroll-behavior: smooth; font-size: 16px; background: var(--bg-deep); ove
 /* Позиционирование ветвей в Hero-баннере */
 .leaf-hero-left {
   position: absolute;
-  top: 65px;
+  top: 130px;
   left: -15px;
   bottom: 0;
   width: clamp(340px, 36vw, 620px);
@@ -87,7 +87,7 @@ html { scroll-behavior: smooth; font-size: 16px; background: var(--bg-deep); ove
 }
 .leaf-hero-right {
   position: absolute;
-  top: 65px;
+  top: 130px;
   right: -15px;
   bottom: 0;
   width: clamp(340px, 36vw, 620px);
@@ -209,15 +209,16 @@ html { scroll-behavior: smooth; font-size: 16px; background: var(--bg-deep); ove
     margin-left: 0 !important;
     margin-right: 0 !important;
     position: relative !important;
+    padding-top: 0 !important;
   }
 
-  /* Ветки в Hero — на мобильных растягиваются вдоль краев и обрамляют экран */
+  /* Ветки в Hero — полноростовое фоновое обрамление краев экрана как на 2-й картинке */
   .leaf-hero-left {
     top: 0 !important;
     left: -10px !important;
     bottom: 0 !important;
     width: clamp(140px, 38vw, 240px) !important;
-    max-width: 42vw !important;
+    max-width: 40vw !important;
     height: 100% !important;
   }
   .leaf-hero-right {
@@ -225,11 +226,12 @@ html { scroll-behavior: smooth; font-size: 16px; background: var(--bg-deep); ove
     right: -10px !important;
     bottom: 0 !important;
     width: clamp(140px, 38vw, 240px) !important;
-    max-width: 42vw !important;
+    max-width: 40vw !important;
     height: 100% !important;
   }
   .leaf-hero-left .leaf-hero-img-left,
   .leaf-hero-right .leaf-hero-img-right {
+    width: 100% !important;
     height: 100% !important;
     max-height: 100% !important;
     object-fit: cover !important;
@@ -251,7 +253,7 @@ html { scroll-behavior: smooth; font-size: 16px; background: var(--bg-deep); ove
   /* Hero-баннер на мобильных */
   .hero-fullbleed-banner {
     min-height: 100svh;
-    padding: 6rem 1.5rem 3rem;
+    padding: 5rem 1.2rem 3rem;
   }
 
   .hero-giant-title {
@@ -651,7 +653,7 @@ a.eq-panel-btn {
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  padding-top: 100px;
+  padding-top: 0;
 }
 
 .hero-fullbleed-banner {
@@ -701,6 +703,7 @@ html:not([data-theme="dark"]) .hero-fullbleed-banner {
   z-index: 2;
   max-width: 1000px;
   margin: 0 auto;
+  padding-top: 2.8rem;
 }
 
 /* Маленький надтекст «я есть» как на логотипе */

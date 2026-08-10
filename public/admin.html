@@ -280,13 +280,23 @@
             <div class="db-action-icon">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             </div>
-            <div class="db-action-title">Загрузить базу</div>
-            <div class="db-action-desc">Загрузите ранее сохранённую базу данных. <strong style="color:var(--danger)">Внимание!</strong> Текущие данные будут заменены.</div>
+            <div class="db-action-title">Загрузить файл с ПК</div>
+            <div class="db-action-desc">Загрузите db.json с компьютера. <strong style="color:var(--danger)">Внимание!</strong> Облачная база Upstash будет заменена.</div>
             <label class="btn btn-ghost" style="cursor:pointer;" id="import-db-label">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
               Загрузить db.json
               <input type="file" accept=".json" style="display:none" id="import-db-file" onchange="importDB(event)">
             </label>
+          </div>
+          <div class="db-action-card">
+            <div class="db-action-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+            </div>
+            <div class="db-action-title">Обновить из Git (db.json)</div>
+            <div class="db-action-desc">Перезаписать Upstash KV данными из файла db.json, закоденого в Git.</div>
+            <button class="btn btn-primary" onclick="resetDBFromCode()">
+              Синхронизировать с db.json
+            </button>
           </div>
         </div>
         <div class="card">

@@ -306,19 +306,14 @@ function getDefaultServiceSections() {
           title: "Большой зал (90 м²)",
           items: [
             { name: "1 час аренды (90 м²)", price: "1 800 ₽", desc: "Зеркальная стена, коврики, станки", tag: "90 м²", photo: "/images/bolshoyzal.jpg" },
-            { name: "1.5 часа аренды (90 м²)", price: "2 400 ₽", desc: "Зеркальная стена, акустическая система", tag: "90 м²", photo: "/images/bolshoyzal.jpg" },
-            { name: "2 часа аренды (90 м²)", price: "3 000 ₽", desc: "Для мастер-классов и практики", tag: "90 м²", photo: "/images/bolshoyzal.jpg" },
-            { name: "3 часа аренды (90 м²)", price: "4 400 ₽", desc: "Длительная аренда под мероприятия", tag: "90 м²", photo: "/images/bolshoyzal.jpg" }
+            { name: "1.5 часа аренды (90 м²)", price: "2 400 ₽", desc: "Зеркальная стена, акустическая система", tag: "90 м²", photo: "/images/bolshoyzal.jpg" }
           ]
         },
         {
           title: "Малый зал (50 м²)",
           items: [
             { name: "1 час аренды (50 м²)", price: "1 500 ₽", desc: "Уютный зал для 1-5 человек", tag: "50 м²", photo: "/images/malizal.jpg" },
-            { name: "1.5 часа аренды (50 м²)", price: "2 000 ₽", desc: "Для малых групп и репетиций", tag: "50 м²", photo: "/images/malizal.jpg" },
-            { name: "2 часа аренды (50 м²)", price: "2 700 ₽", desc: "Оборудован звуком и зеркалами", tag: "50 м²", photo: "/images/malizal.jpg" },
-            { name: "3 часа аренды (50 м²)", price: "3 900 ₽", desc: "Выгодная цена при длительной аренде", tag: "50 м²", photo: "/images/malizal.jpg" },
-            { name: "4 часа аренды (50 м²)", price: "5 000 ₽", desc: "Максимальный пакет аренды", tag: "50 м²", photo: "/images/malizal.jpg" }
+            { name: "1.5 часа аренды (50 м²)", price: "2 000 ₽", desc: "Для малых групп и репетиций", tag: "50 м²", photo: "/images/malizal.jpg" }
           ]
         }
       ]
@@ -944,6 +939,21 @@ async function importDB(event) {
     toast('Ошибка чтения файла: ' + e.message, 'error');
   }
   event.target.value = '';
+}
+
+async function resetDBFromCode() {
+  if (!confirm('Синхронизировать облачную базу Upstash KV с файлом db.json из кода?')) return;
+  try {
+    const res = await apiPost('/api/db/reset-to-default', {});
+    if (res.ok) {
+      toast('Upstash KV успешно обновлен из db.json', 'success');
+      await loadDB();
+    } else {
+      toast('Ошибка: ' + (res.error || 'ошибка синхронизации'), 'error');
+    }
+  } catch (e) {
+    toast('Ошибка: ' + e.message, 'error');
+  }
 }
 
 // ─── Auto login check ────────────────────────────────────────

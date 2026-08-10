@@ -288,6 +288,16 @@ app.post('/api/db/import', adminAuth, (req, res) => {
   }
 });
 
+app.post('/api/db/reset-to-default', adminAuth, (req, res) => {
+  try {
+    const defaultData = getFallbackDB();
+    writeDB(defaultData);
+    res.json({ ok: true, message: 'База данных Vercel KV успешно обновлена из файла db.json' });
+  } catch (e) {
+    res.status(400).json({ error: e.message });
+  }
+});
+
 // ─── Страницы ───────────────────────────────────────────────────────────────
 app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'public', 'about.html')));
 app.get('/services', (req, res) => res.sendFile(path.join(__dirname, 'public', 'services.html')));

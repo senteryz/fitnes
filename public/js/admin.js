@@ -106,6 +106,7 @@ async function apiDelete(url) {
 async function loadDB() {
   db = await apiGet('/api/data');
   renderDashboard();
+  renderLeadsTable();
   renderTrainersTable();
   renderPricesEditor();
   renderNewsTable();
@@ -118,6 +119,7 @@ async function loadDB() {
 // ─── Navigation ─────────────────────────────────────────────────
 const panelTitles = {
   dashboard: 'Дашборд',
+  leads: 'Заявки с сайта',
   trainers: 'Тренеры',
   prices: 'Цены',
   news: 'Новости',
@@ -134,8 +136,10 @@ document.querySelectorAll('.nav-item').forEach(item => {
 function switchPanel(name) {
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById(`panel-${name}`).classList.add('active');
-  document.getElementById(`nav-${name}`).classList.add('active');
+  const panel = document.getElementById(`panel-${name}`);
+  const nav = document.getElementById(`nav-${name}`);
+  if (panel) panel.classList.add('active');
+  if (nav) nav.classList.add('active');
   document.getElementById('topbar-title').textContent = panelTitles[name] || name;
 }
 
@@ -155,6 +159,22 @@ document.querySelectorAll('.modal-overlay').forEach(m => {
 // ─── Dashboard ──────────────────────────────────────────────────
 function renderDashboard() {
   if (!db) return;
+  const leads = db.leads || [];
+  const newLeadsCount = leads.filter(l => l.status === 'new').length;
+  
+  const statLeadsEl = document.getElementById('stat-leads');
+  if (statLeadsEl) statLeadsEl.textContent = leads.length;
+
+  const badgeEl = document.getElementById('nav-leads-badge');
+  if (badgeEl) {
+    if (newLeadsCount > 0) {
+      badgeEl.textContent = newLeadsCount;
+      badgeEl.style.display = 'inline-block';
+    } else {
+      badgeEl.style.display = 'none';
+    }
+  }
+
   document.getElementById('stat-trainers').textContent = db.trainers.length;
   document.getElementById('stat-news').textContent = db.news.length;
   document.getElementById('stat-reviews').textContent = db.reviews.length;
@@ -904,6 +924,76 @@ function renderDBPreview() {
     schedule: db.schedule.length
   };
   pre.textContent = JSON.stringify(summary, null, 2) + '\n\n// Полный файл доступен по кнопке "Скачать db.json"';
+}
+
+// ─── Leads Management ─────────────────────────────────────────
+function renderLeadsTable() {
+  const tbody = document.getElementById('leads-tbody');
+  if (!db || !tbody) return;
+  const leads = db.leads || [];
+
+  if (!leads.length) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--gray); padding:2.5rem;">Заявок пока нет. Новые заявки с сайта появятся здесь автоматически.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = leads.map(l => {
+    const isNew = l.status === 'new';
+    const statusBadge = isNew
+      ? `<span style="display:inline-block; padding:0.25rem 0.6rem; border-radius:12px; background:rgba(212,175,55,0.18); border:1px solid var(--gold); color:var(--gold); font-size:0.75rem; font-weight:700;">Новая</span>`
+      : `<span style="display:inline-block; padding:0.25rem 0.6rem; border-radius:12px; background:rgba(255,255,255,0.08); color:var(--gray); font-size:0.75rem;">Обработана</span>`;
+
+    const cleanPhone = (l.phone || '').replace(/\D/g, '');
+
+    return `
+    <tr style="${isNew ? 'background:rgba(196,169,106,0.05);' : ''}">
+      <td style="font-size:0.8rem; color:var(--gray); white-space:nowrap;">${l.date || '—'}</td>
+      <td style="font-weight:600; color:#fff;">${l.name || 'Клиент'}</td>
+      <td>
+        <a href="tel:+${cleanPhone}" class="btn btn-ghost btn-sm" style="display:inline-flex; align-items:center; gap:0.4rem; color:var(--gold); font-weight:600; text-decoration:none;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          ${l.phone || '—'}
+        </a>
+      </td>
+      <td style="font-size:0.85rem;">${l.service || 'Общая заявка'}</td>
+      <td>${statusBadge}</td>
+      <td>
+        <div class="td-actions">
+          <button class="btn ${isNew ? 'btn-primary' : 'btn-ghost'} btn-sm" onclick="toggleLeadStatus(${l.id})">
+            ${isNew ? 'Отметить обработанной' : 'В новые'}
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="deleteLead(${l.id})" title="Удалить заявку">
+            ✕
+          </button>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function toggleLeadStatus(id) {
+  try {
+    const res = await apiPut(`/api/leads/${id}/status`, {});
+    if (res && res.id) {
+      toast('Статус заявки обновлен', 'success');
+      await loadDB();
+    }
+  } catch (err) {
+    toast('Ошибка обновления статуса', 'error');
+  }
+}
+
+async function deleteLead(id) {
+  if (!confirm('Удалить эту заявку?')) return;
+  try {
+    const res = await apiDelete(`/api/leads/${id}`);
+    if (res.ok) {
+      toast('Заявка удалена', 'info');
+      await loadDB();
+    }
+  } catch (err) {
+    toast('Ошибка удаления', 'error');
+  }
 }
 
 async function exportDB() {

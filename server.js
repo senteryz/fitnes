@@ -39,7 +39,7 @@ function getFallbackDB() {
     const raw = fs.readFileSync(DB_PATH, 'utf8');
     return JSON.parse(raw);
   } catch (e) {
-    return { club: {}, prices: {}, reviews: [], gallery: [], settings: { adminPassword: "aura2026", rating: 4.9 } };
+    return { club: {}, prices: {}, reviews: [], gallery: [], leads: [], settings: { adminPassword: "aura2026", rating: 4.9 } };
   }
 }
 
@@ -253,6 +253,58 @@ app.put('/api/schedule', adminAuth, (req, res) => {
   db.schedule = req.body;
   writeDB(db);
   res.json(db.schedule);
+});
+
+// ─── Заявки с сайта (Leads) ───────────────────────────────────────────────
+app.get('/api/leads', adminAuth, (req, res) => {
+  const db = readDB();
+  res.json(db.leads || []);
+});
+
+app.post('/api/leads', (req, res) => {
+  try {
+    const db = readDB();
+    if (!db.leads) db.leads = [];
+    const { name, phone, service, comment } = req.body || {};
+    if (!phone || String(phone).trim().length < 5) {
+      return res.status(400).json({ error: 'Пожалуйста, укажите контактный номер телефона' });
+    }
+    const newLead = {
+      id: nextId(db.leads),
+      name: String(name || 'Клиент').trim(),
+      phone: String(phone).trim(),
+      service: String(service || 'Общая консультация').trim(),
+      comment: String(comment || '').trim(),
+      date: new Date().toLocaleString('ru-RU', { timeZone: 'Europe/Moscow' }),
+      status: 'new'
+    };
+    db.leads.unshift(newLead);
+    writeDB(db);
+    res.status(201).json({ ok: true, lead: newLead });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.delete('/api/leads/:id', adminAuth, (req, res) => {
+  const db = readDB();
+  if (!db.leads) db.leads = [];
+  db.leads = db.leads.filter(l => l.id !== parseInt(req.params.id));
+  writeDB(db);
+  res.json({ ok: true });
+});
+
+app.put('/api/leads/:id/status', adminAuth, (req, res) => {
+  const db = readDB();
+  if (!db.leads) db.leads = [];
+  const lead = db.leads.find(l => l.id === parseInt(req.params.id));
+  if (lead) {
+    lead.status = req.body.status || (lead.status === 'processed' ? 'new' : 'processed');
+    writeDB(db);
+    res.json(lead);
+  } else {
+    res.status(404).json({ error: 'Заявка не найдена' });
+  }
 });
 
 app.post('/api/upload', adminAuth, upload.single('image'), (req, res) => {

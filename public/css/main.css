@@ -4780,18 +4780,18 @@ html:not([data-theme="dark"]) .hero-btn-row .btn-outline:hover {
   margin: 0 auto;
 }
 
-/* Сетка каналов связи */
-.aura-channels-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.85rem;
-  margin-bottom: 1.6rem;
+/* Список каналов связи для мгновенного перехода */
+.aura-channels-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.8rem;
 }
-.aura-channel-card {
+.aura-channel-row {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  padding: 0.95rem 1rem;
+  gap: 1rem;
+  padding: 1.05rem 1.25rem;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -4801,256 +4801,115 @@ html:not([data-theme="dark"]) .hero-btn-row .btn-outline:hover {
   position: relative;
   overflow: hidden;
 }
-.aura-channel-card:hover {
-  transform: translateY(-3px);
+.aura-channel-row:hover {
+  transform: translateY(-2px);
   background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(196, 169, 106, 0.5);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
-.aura-channel-card.phone-card {
+
+.aura-channel-row.phone-row {
   border-color: rgba(84, 102, 61, 0.45);
   background: rgba(84, 102, 61, 0.12);
 }
-.aura-channel-card.phone-card:hover {
-  border-color: #7a9c54;
+.aura-channel-row.phone-row:hover {
+  border-color: #8bb55f;
   background: rgba(84, 102, 61, 0.22);
 }
-.aura-channel-card.max-card {
+.aura-channel-row.max-row {
   border-color: rgba(45, 140, 240, 0.35);
   background: rgba(45, 140, 240, 0.08);
 }
-.aura-channel-card.max-card:hover {
+.aura-channel-row.max-row:hover {
   border-color: #2d8cf0;
-  background: rgba(45, 140, 240, 0.16);
+  background: rgba(45, 140, 240, 0.18);
 }
-.aura-channel-card.tg-card {
+.aura-channel-row.tg-row {
   border-color: rgba(36, 161, 222, 0.35);
   background: rgba(36, 161, 222, 0.08);
 }
-.aura-channel-card.tg-card:hover {
+.aura-channel-row.tg-row:hover {
   border-color: #24A1DE;
-  background: rgba(36, 161, 222, 0.16);
+  background: rgba(36, 161, 222, 0.18);
 }
-.aura-channel-card.vk-card {
+.aura-channel-row.vk-row {
   border-color: rgba(76, 117, 163, 0.35);
   background: rgba(76, 117, 163, 0.08);
 }
-.aura-channel-card.vk-card:hover {
+.aura-channel-row.vk-row:hover {
   border-color: #4C75A3;
-  background: rgba(76, 117, 163, 0.16);
+  background: rgba(76, 117, 163, 0.18);
+}
+.aura-channel-row.wa-row {
+  border-color: rgba(37, 211, 102, 0.35);
+  background: rgba(37, 211, 102, 0.08);
+}
+.aura-channel-row.wa-row:hover {
+  border-color: #25D366;
+  background: rgba(37, 211, 102, 0.18);
 }
 
-.aura-channel-icon {
-  width: 42px;
-  height: 42px;
+.aura-channel-row-icon {
+  width: 44px;
+  height: 44px;
   border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
-.phone-card .aura-channel-icon { background: rgba(84, 102, 61, 0.35); color: #9ec96c; }
-.max-card .aura-channel-icon { background: rgba(45, 140, 240, 0.25); color: #57a6ff; }
-.tg-card .aura-channel-icon { background: rgba(36, 161, 222, 0.25); color: #5bc8ff; }
-.vk-card .aura-channel-icon { background: rgba(76, 117, 163, 0.25); color: #7da5d9; }
+.phone-row .aura-channel-row-icon { background: rgba(84, 102, 61, 0.35); color: #9ec96c; }
+.max-row .aura-channel-row-icon { background: rgba(45, 140, 240, 0.25); color: #57a6ff; }
+.tg-row .aura-channel-row-icon { background: rgba(36, 161, 222, 0.25); color: #5bc8ff; }
+.vk-row .aura-channel-row-icon { background: rgba(76, 117, 163, 0.25); color: #7da5d9; }
+.wa-row .aura-channel-row-icon { background: rgba(37, 211, 102, 0.25); color: #4ee087; }
 
-.aura-channel-info {
+.aura-channel-row-info {
   display: flex;
   flex-direction: column;
+  flex: 1;
   min-width: 0;
 }
-.aura-channel-title {
+.aura-channel-row-title {
   font-weight: 700;
-  font-size: 0.9rem;
-  line-height: 1.2;
+  font-size: 1rem;
+  line-height: 1.25;
   margin-bottom: 0.2rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  color: #ffffff;
 }
-.aura-channel-sub {
-  font-size: 0.72rem;
-  color: var(--white-muted, rgba(255, 255, 255, 0.6));
-  line-height: 1.2;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.aura-channel-row-desc {
+  font-size: 0.78rem;
+  color: var(--white-muted, rgba(255, 255, 255, 0.65));
+  line-height: 1.25;
 }
-.aura-channel-pill {
+.aura-channel-row-arrow {
+  color: rgba(255, 255, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, color 0.25s ease;
+}
+.aura-channel-row:hover .aura-channel-row-arrow {
+  color: var(--gold, #c4a96a);
+  transform: translateX(4px);
+}
+.aura-channel-badge-novpn {
   position: absolute;
-  top: 0.5rem;
-  right: 0.5rem;
-  font-size: 0.62rem;
-  padding: 0.15rem 0.45rem;
+  top: 0.6rem;
+  right: 0.8rem;
+  font-size: 0.65rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 10px;
   background: rgba(45, 140, 240, 0.25);
   color: #57a6ff;
+  border: 1px solid rgba(45, 140, 240, 0.4);
   font-weight: 700;
   text-transform: uppercase;
-}
-
-/* Разделитель */
-.aura-booking-divider {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  margin: 1.4rem 0 1.2rem;
-  color: var(--white-muted, rgba(255, 255, 255, 0.5));
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-.aura-booking-divider::before,
-.aura-booking-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(196, 169, 106, 0.35), transparent);
-}
-
-/* Форма обратного звонка */
-.aura-callback-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-.aura-form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.85rem;
-}
-.aura-form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-.aura-form-label {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--gold, #c4a96a);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.aura-form-input {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  font-size: 0.92rem;
-  font-family: inherit;
-  transition: all 0.25s ease;
-  outline: none;
-}
-.aura-form-input:focus {
-  border-color: var(--gold, #c4a96a);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 15px rgba(196, 169, 106, 0.2);
-}
-.aura-form-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
-}
-
-.aura-form-consent {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.6rem;
-  font-size: 0.75rem;
-  color: var(--white-muted, rgba(255, 255, 255, 0.6));
-  line-height: 1.4;
-  margin-top: 0.2rem;
-}
-.aura-form-consent input[type="checkbox"] {
-  accent-color: var(--gold, #c4a96a);
-  margin-top: 0.15rem;
-  cursor: pointer;
-}
-
-.aura-booking-submit-btn {
-  width: 100%;
-  padding: 1rem 1.4rem;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #d4af37, #aa8528);
-  color: #0b1009;
-  border: none;
-  font-weight: 700;
-  font-size: 0.95rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.6rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 6px 22px rgba(212, 175, 55, 0.35);
-  margin-top: 0.4rem;
-}
-.aura-booking-submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(212, 175, 55, 0.5);
-  filter: brightness(1.08);
-}
-.aura-booking-submit-btn:disabled {
-  opacity: 0.65;
-  cursor: not-allowed;
-  transform: none;
-}
-
-/* Экран успеха */
-.aura-booking-success {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 1.5rem 0.5rem;
-}
-.aura-booking-success.show {
-  display: flex;
-  animation: aura-fade-in 0.35s ease forwards;
-}
-.aura-success-icon-wrap {
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  background: rgba(196, 169, 106, 0.15);
-  border: 2px solid var(--gold, #c4a96a);
-  color: var(--gold, #c4a96a);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.2rem;
-  animation: aura-modal-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-.aura-success-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--text-main, #ffffff);
-  margin-bottom: 0.6rem;
-}
-.aura-success-desc {
-  font-size: 0.95rem;
-  color: var(--white-muted, rgba(255, 255, 255, 0.75));
-  line-height: 1.6;
-  max-width: 440px;
-  margin-bottom: 1.6rem;
 }
 
 @media (max-width: 580px) {
   .aura-booking-modal-dialog {
     padding: 1.6rem 1.2rem;
     border-radius: 20px;
-  }
-  .aura-channels-grid {
-    grid-template-columns: 1fr;
-    gap: 0.65rem;
-  }
-  .aura-form-row {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
   }
 }
 /* ═══════════════════════════════════════════════

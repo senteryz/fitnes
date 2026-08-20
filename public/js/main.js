@@ -38,7 +38,7 @@ if (document.readyState === 'loading') {
   initBookingModalSystem();
 }
 
-// ─── УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО ЗАПИСИ И СВЯЗИ С КЛУБОМ ─────────────
+// ─── УНИВЕРСАЛЬНОЕ ОКНО ВЫБОРА СПОСОБА СВЯЗИ (МГНОВЕННЫЙ ПЕРЕХОД) ─────────────
 function initBookingModalSystem() {
   if (document.getElementById('auraBookingModal')) return;
 
@@ -48,117 +48,99 @@ function initBookingModalSystem() {
       <div class="aura-booking-modal-dialog">
         <button type="button" class="aura-booking-close-btn" id="auraBookingClose" aria-label="Закрыть окно">✕</button>
         
-        <div id="auraBookingFormView">
-          <div class="aura-booking-header">
-            <div class="aura-booking-badge" id="auraBookingBadge">🌿 Запись & Консультация</div>
-            <h2 class="aura-booking-title" id="auraBookingTitle">ЗАПИСЬ В КЛУБ</h2>
-            <p class="aura-booking-subtitle" id="auraBookingSubtitle">
-              Выберите удобный мессенджер или закажите бесплатный обратный звонок:
-            </p>
-          </div>
-
-          <!-- КАНАЛЫ СВЯЗИ ДЛЯ КЛИЕНТОВ -->
-          <div class="aura-channels-grid">
-            <a href="tel:+79037977739" class="aura-channel-card phone-card" id="modalChannelPhone">
-              <div class="aura-channel-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-              </div>
-              <div class="aura-channel-info">
-                <span class="aura-channel-title">Позвонить</span>
-                <span class="aura-channel-sub">+7 (903) 797-77-39</span>
-              </div>
-            </a>
-
-            <a href="https://max.ru/join/hMsYRZJwLWOrTIuzHLBYySpwmK6H3SlUQPBJT-Xufik" target="_blank" rel="noopener" class="aura-channel-card max-card" id="modalChannelMax">
-              <span class="aura-channel-pill">Без VPN</span>
-              <div class="aura-channel-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12c0 2.05.62 3.96 1.69 5.54L2.05 22l4.63-1.6c1.6.86 3.42 1.35 5.32 1.35 5.52 0 10-4.48 10-10S17.52 2 12 2zm4 12.5h-2v-3.7l-2 3-2-3v3.7H8V8h2.2l1.8 2.7L13.8 8H16v6.5z"/>
-                </svg>
-              </div>
-              <div class="aura-channel-info">
-                <span class="aura-channel-title">Мессенджер MAX</span>
-                <span class="aura-channel-sub">Чат и канал в РФ</span>
-              </div>
-            </a>
-
-            <a href="https://t.me/FitnesscenterAura" target="_blank" rel="noopener" class="aura-channel-card tg-card" id="modalChannelTg">
-              <div class="aura-channel-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-                </svg>
-              </div>
-              <div class="aura-channel-info">
-                <span class="aura-channel-title">Telegram</span>
-                <span class="aura-channel-sub">Написать в чат</span>
-              </div>
-            </a>
-
-            <a href="https://vk.com/club46230813" target="_blank" rel="noopener" class="aura-channel-card vk-card" id="modalChannelVk">
-              <div class="aura-channel-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M15.684 0H8.316C3.724 0 0 3.724 0 8.316v7.368C0 20.276 3.724 24 8.316 24h7.368C20.276 24 24 20.276 24 15.684V8.316C24 3.724 20.276 0 15.684 0zm3.692 17.143h-1.644c-.624 0-.816-.495-1.938-1.618-1.026-0.99-1.48-1.12-1.734-1.12-.358 0-.462.103-.462.597v1.442c0 .412-.132.657-1.218.657-1.802 0-3.799-1.093-5.208-3.13-2.128-3.023-2.709-5.302-2.709-5.76 0-.251.097-.487.594-.487h1.644c.446 0 .614.204.786.685.86 2.49 2.304 4.675 2.902 4.675.226 0 .33-.103.33-.668V11.23c-.094-1.493-.868-1.617-.868-2.148 0-.251.214-.504.562-.504h2.576c.371 0 .504.195.504.639v3.456c0 .375.163.504.275.504.226 0 .412-.129.83-.548 1.288-1.455 2.203-3.708 2.203-3.708.117-.251.332-.487.778-.487h1.644c.494 0 .6.251.494.639-.208.972-2.253 3.864-2.253 3.864-.176.275-.246.402 0 .727.176.233.754.744 1.139 1.196.711.815 1.258 1.496 1.403 1.966.147.466-.075.711-.564.711z"/>
-                </svg>
-              </div>
-              <div class="aura-channel-info">
-                <span class="aura-channel-title">ВКонтакте</span>
-                <span class="aura-channel-sub">Чат сообщества</span>
-              </div>
-            </a>
-          </div>
-
-          <div class="aura-booking-divider">или закажите обратный звонок</div>
-
-          <!-- ФОРМА ОБРАТНОГО ЗВОНКА -->
-          <form class="aura-callback-form" id="auraCallbackForm">
-            <input type="hidden" id="modalServiceInput" value="Общая заявка">
-            
-            <div class="aura-form-row">
-              <div class="aura-form-group">
-                <label class="aura-form-label" for="modalClientName">Ваше имя</label>
-                <input type="text" class="aura-form-input" id="modalClientName" placeholder="Например, Анна" required autocomplete="name">
-              </div>
-              <div class="aura-form-group">
-                <label class="aura-form-label" for="modalClientPhone">Телефон</label>
-                <input type="tel" class="aura-form-input" id="modalClientPhone" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
-              </div>
-            </div>
-
-            <div class="aura-form-consent">
-              <input type="checkbox" id="modalConsentCheck" checked required>
-              <label for="modalConsentCheck">
-                Нажимая кнопку, вы даете согласие на обработку персональных данных в соответствии с 152-ФЗ
-              </label>
-            </div>
-
-            <button type="submit" class="aura-booking-submit-btn" id="modalSubmitBtn">
-              <span>Заказать звонок администратора</span>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </button>
-          </form>
-        </div>
-
-        <!-- ЭКРАН УСПЕХА -->
-        <div class="aura-booking-success" id="auraBookingSuccessView">
-          <div class="aura-success-icon-wrap">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <h3 class="aura-success-title">ЗАЯВКА ПРИНЯТА!</h3>
-          <p class="aura-success-desc">
-            Спасибо! Администратор фитнес-центра «Аура» уже получил ваше обращение и перезвонит вам в течение 10–15 минут.
+        <div class="aura-booking-header">
+          <div class="aura-booking-badge" id="auraBookingBadge">🌿 Связь & Запись</div>
+          <h2 class="aura-booking-title" id="auraBookingTitle">ВЫБЕРИТЕ СПОСОБ СВЯЗИ</h2>
+          <p class="aura-booking-subtitle" id="auraBookingSubtitle">
+            Нажмите на удобный вариант — вас сразу перенаправит для связи с администратором:
           </p>
-          <button type="button" class="btn btn-gold" id="auraSuccessCloseBtn" style="padding: 0.85rem 2rem;">
-            Отлично, закрыть
-          </button>
         </div>
 
+        <!-- КАНАЛЫ СВЯЗИ С МГНОВЕННЫМ ПЕРЕХОДОМ -->
+        <div class="aura-channels-list">
+          
+          <!-- 1. ПОЗВОНИТЬ -->
+          <a href="tel:+79037977739" class="aura-channel-row phone-row" id="modalChannelPhone">
+            <div class="aura-channel-row-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </div>
+            <div class="aura-channel-row-info">
+              <div class="aura-channel-row-title">Позвонить в клуб</div>
+              <div class="aura-channel-row-desc">+7 (903) 797-77-39 · Прямой звонок</div>
+            </div>
+            <div class="aura-channel-row-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </a>
+
+          <!-- 2. МЕССЕНДЖЕР MAX -->
+          <a href="https://max.ru/join/hMsYRZJwLWOrTIuzHLBYySpwmK6H3SlUQPBJT-Xufik" target="_blank" rel="noopener" class="aura-channel-row max-row" id="modalChannelMax">
+            <span class="aura-channel-badge-novpn">Без VPN</span>
+            <div class="aura-channel-row-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12c0 2.05.62 3.96 1.69 5.54L2.05 22l4.63-1.6c1.6.86 3.42 1.35 5.32 1.35 5.52 0 10-4.48 10-10S17.52 2 12 2zm4 12.5h-2v-3.7l-2 3-2-3v3.7H8V8h2.2l1.8 2.7L13.8 8H16v6.5z"/>
+              </svg>
+            </div>
+            <div class="aura-channel-row-info">
+              <div class="aura-channel-row-title">Мессенджер MAX</div>
+              <div class="aura-channel-row-desc">Быстрый чат и канал · Работает в РФ</div>
+            </div>
+            <div class="aura-channel-row-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </a>
+
+          <!-- 3. TELEGRAM -->
+          <a href="https://t.me/FitnesscenterAura" target="_blank" rel="noopener" class="aura-channel-row tg-row" id="modalChannelTg">
+            <div class="aura-channel-row-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+              </svg>
+            </div>
+            <div class="aura-channel-row-info">
+              <div class="aura-channel-row-title">Telegram</div>
+              <div class="aura-channel-row-desc">Написать в Telegram</div>
+            </div>
+            <div class="aura-channel-row-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </a>
+
+          <!-- 4. ВКОНТАКТЕ -->
+          <a href="https://vk.com/club46230813" target="_blank" rel="noopener" class="aura-channel-row vk-row" id="modalChannelVk">
+            <div class="aura-channel-row-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M15.684 0H8.316C3.724 0 0 3.724 0 8.316v7.368C0 20.276 3.724 24 8.316 24h7.368C20.276 24 24 20.276 24 15.684V8.316C24 3.724 20.276 0 15.684 0zm3.692 17.143h-1.644c-.624 0-.816-.495-1.938-1.618-1.026-0.99-1.48-1.12-1.734-1.12-.358 0-.462.103-.462.597v1.442c0 .412-.132.657-1.218.657-1.802 0-3.799-1.093-5.208-3.13-2.128-3.023-2.709-5.302-2.709-5.76 0-.251.097-.487.594-.487h1.644c.446 0 .614.204.786.685.86 2.49 2.304 4.675 2.902 4.675.226 0 .33-.103.33-.668V11.23c-.094-1.493-.868-1.617-.868-2.148 0-.251.214-.504.562-.504h2.576c.371 0 .504.195.504.639v3.456c0 .375.163.504.275.504.226 0 .412-.129.83-.548 1.288-1.455 2.203-3.708 2.203-3.708.117-.251.332-.487.778-.487h1.644c.494 0 .6.251.494.639-.208.972-2.253 3.864-2.253 3.864-.176.275-.246.402 0 .727.176.233.754.744 1.139 1.196.711.815 1.258 1.496 1.403 1.966.147.466-.075.711-.564.711z"/>
+              </svg>
+            </div>
+            <div class="aura-channel-row-info">
+              <div class="aura-channel-row-title">ВКонтакте</div>
+              <div class="aura-channel-row-desc">Написать в группу клуба</div>
+            </div>
+            <div class="aura-channel-row-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </a>
+
+          <!-- 5. WHATSAPP -->
+          <a href="https://wa.me/79037977739" target="_blank" rel="noopener" class="aura-channel-row wa-row" id="modalChannelWa">
+            <div class="aura-channel-row-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.04 7.29C8.86 7.29 8.56 7.36 8.31 7.63C8.06 7.9 7.36 8.56 7.36 9.89C7.36 11.22 8.33 12.5 8.47 12.69C8.61 12.87 10.38 15.58 13.1 16.76C13.75 17.04 14.25 17.21 14.65 17.34C15.3 17.55 15.9 17.52 16.37 17.45C16.89 17.37 17.97 16.8 18.2 16.15C18.43 15.5 18.43 14.95 18.36 14.83C18.29 14.71 18.11 14.65 17.83 14.51C17.55 14.37 16.2 13.7 15.95 13.61C15.7 13.52 15.52 13.47 15.33 13.75C15.15 14.03 14.64 14.65 14.49 14.83C14.34 15 14.19 15.03 13.91 14.89C13.63 14.75 12.75 14.46 11.7 13.53C10.89 12.81 10.34 11.91 10.2 11.66C10.05 11.41 10.18 11.27 10.32 11.13C10.45 11 10.61 10.8 10.75 10.63C10.89 10.46 10.94 10.34 11.03 10.16C11.12 9.97 11.08 9.81 11.01 9.67C10.94 9.53 10.4 8.2 10.18 7.66C9.96 7.13 9.74 7.21 9.58 7.2C9.43 7.19 9.25 7.19 9.07 7.19L9.04 7.29Z"/>
+              </svg>
+            </div>
+            <div class="aura-channel-row-info">
+              <div class="aura-channel-row-title">WhatsApp</div>
+              <div class="aura-channel-row-desc">Написать в WhatsApp</div>
+            </div>
+            <div class="aura-channel-row-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+            </div>
+          </a>
+
+        </div>
       </div>
     </div>
   `;
@@ -168,16 +150,9 @@ function initBookingModalSystem() {
   const modal = document.getElementById('auraBookingModal');
   const backdrop = document.getElementById('auraBookingBackdrop');
   const closeBtn = document.getElementById('auraBookingClose');
-  const form = document.getElementById('auraCallbackForm');
-  const phoneInput = document.getElementById('modalClientPhone');
-  const formView = document.getElementById('auraBookingFormView');
-  const successView = document.getElementById('auraBookingSuccessView');
-  const successCloseBtn = document.getElementById('auraSuccessCloseBtn');
   const titleEl = document.getElementById('auraBookingTitle');
   const subtitleEl = document.getElementById('auraBookingSubtitle');
   const badgeEl = document.getElementById('auraBookingBadge');
-  const serviceInput = document.getElementById('modalServiceInput');
-  const submitBtn = document.getElementById('modalSubmitBtn');
 
   // Закрытие
   function closeModal() {
@@ -186,17 +161,11 @@ function initBookingModalSystem() {
     setTimeout(() => {
       modal.classList.remove('open', 'closing');
       document.body.style.overflow = '';
-      if (formView && successView) {
-        formView.style.display = 'block';
-        successView.classList.remove('show');
-        successView.style.display = 'none';
-      }
-    }, 240);
+    }, 200);
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeModal);
   if (backdrop) backdrop.addEventListener('click', closeModal);
-  if (successCloseBtn) successCloseBtn.addEventListener('click', closeModal);
 
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('open')) {
@@ -204,100 +173,23 @@ function initBookingModalSystem() {
     }
   });
 
-  // Маска ввода телефона
-  if (phoneInput) {
-    phoneInput.addEventListener('input', function(e) {
-      let x = e.target.value.replace(/\D/g, '');
-      if (x.startsWith('7') || x.startsWith('8')) x = x.substring(1);
-      x = x.substring(0, 10);
-      let formatted = '+7';
-      if (x.length > 0) formatted += ' (' + x.substring(0, 3);
-      if (x.length >= 3) formatted += ') ' + x.substring(3, 6);
-      if (x.length >= 6) formatted += '-' + x.substring(6, 8);
-      if (x.length >= 8) formatted += '-' + x.substring(8, 10);
-      e.target.value = x.length > 0 ? formatted : '';
-    });
-  }
-
-  // Отправка формы заявки
-  if (form) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const name = (document.getElementById('modalClientName').value || '').trim();
-      const phone = (document.getElementById('modalClientPhone').value || '').trim();
-      const service = (serviceInput.value || 'Общая заявка').trim();
-
-      if (!phone || phone.length < 10) {
-        alert('Пожалуйста, введите корректный номер телефона.');
-        return;
-      }
-
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<span>Отправляем...</span>';
-      }
-
-      try {
-        const res = await fetch('/api/leads', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name, phone, service })
-        });
-        
-        if (res.ok) {
-          form.reset();
-          if (formView && successView) {
-            formView.style.display = 'none';
-            successView.style.display = 'flex';
-            successView.classList.add('show');
-          }
-        } else {
-          const err = await res.json();
-          alert(err.error || 'Произошла ошибка при отправке. Пожалуйста, позвоните нам напрямую: +7 (903) 797-77-39');
-        }
-      } catch (err) {
-        alert('Не удалось отправить заявку. Пожалуйста, позвоните нам напрямую: +7 (903) 797-77-39');
-      } finally {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = `
-            <span>Заказать звонок администратора</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"></line>
-              <polyline points="12 5 19 12 12 19"></polyline>
-            </svg>
-          `;
-        }
-      }
-    });
-  }
-
   // Функция открытия
   window.openAuraBookingModal = function(opts = {}) {
     const serviceName = opts.service || 'Общая запись в клуб';
     const trainerName = opts.trainer || '';
-    const badgeText = opts.badge || '🌿 Запись & Консультация';
+    const badgeText = opts.badge || '🌿 Связь & Запись';
 
     if (badgeEl) badgeEl.textContent = badgeText;
     
     if (trainerName) {
       if (titleEl) titleEl.textContent = 'ЗАПИСЬ К ТРЕНЕРУ';
-      if (subtitleEl) subtitleEl.textContent = `Вы выбрали тренера: ${trainerName}. Выберите способ связи или оставьте телефон:`;
-      if (serviceInput) serviceInput.value = `Тренер: ${trainerName}`;
+      if (subtitleEl) subtitleEl.textContent = `Вы выбрали тренера: ${trainerName}. Нажмите на удобный способ связи:`;
     } else if (opts.service && opts.service !== 'Общая запись в клуб') {
       if (titleEl) titleEl.textContent = 'ЗАПИСЬ НА УСЛУГУ';
-      if (subtitleEl) subtitleEl.textContent = `Вы выбрали направление: ${serviceName}. Выберите способ связи или оставьте телефон:`;
-      if (serviceInput) serviceInput.value = serviceName;
+      if (subtitleEl) subtitleEl.textContent = `Вы выбрали направление: ${serviceName}. Нажмите на удобный способ связи:`;
     } else {
-      if (titleEl) titleEl.textContent = 'ЗАПИСЬ В КЛУБ';
-      if (subtitleEl) subtitleEl.textContent = 'Выберите удобный мессенджер или закажите бесплатный обратный звонок:';
-      if (serviceInput) serviceInput.value = 'Общая консультация / Запись';
-    }
-
-    if (formView && successView) {
-      formView.style.display = 'block';
-      successView.classList.remove('show');
-      successView.style.display = 'none';
+      if (titleEl) titleEl.textContent = 'ВЫБЕРИТЕ СПОСОБ СВЯЗИ';
+      if (subtitleEl) subtitleEl.textContent = 'Нажмите на удобный вариант — вас сразу перенаправит для связи с администратором:';
     }
 
     modal.classList.remove('closing');
@@ -323,6 +215,11 @@ function initBookingModalSystem() {
 
     window.openAuraBookingModal({
       service: service,
+      trainer: trainerName,
+      badge: isTrainer ? '🏋️ Персональный тренинг' : '🌿 Связь & Запись'
+    });
+  });
+}
       trainer: trainerName,
       badge: isTrainer ? '🏋️ Персональный тренинг' : '🌿 Запись & Консультация'
     });

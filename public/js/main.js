@@ -220,11 +220,6 @@ function initBookingModalSystem() {
     });
   });
 }
-      trainer: trainerName,
-      badge: isTrainer ? '🏋️ Персональный тренинг' : '🌿 Запись & Консультация'
-    });
-  });
-}
 
 // ─── ФЛОАТИНГ-ВИДЖЕТ БЫСТРОЙ ЗАПИСИ (ПРАВЫЙ НИЖНИЙ УГОЛ) ───
 function initQuickWidget() {

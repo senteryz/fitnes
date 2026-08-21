@@ -48,8 +48,8 @@ function initBookingModalSystem() {
       <div class="aura-booking-modal-dialog">
         <button type="button" class="aura-booking-close-btn" id="auraBookingClose" aria-label="Закрыть окно">✕</button>
         
-        <!-- КАРТИНКА / БАННЕР УСЛУГИ ИЛИ ТРЕНЕРА -->
-        <div class="aura-modal-banner-wrap" id="modalBannerWrap">
+        <!-- КАРТИНКА / БАННЕР УСЛУГИ (ОТОБРАЖАЕТСЯ ТОЛЬКО НА СТРАНИЦЕ УСЛУГ) -->
+        <div class="aura-modal-banner-wrap" id="modalBannerWrap" style="display:none;">
           <img src="/images/1block.png" alt="Услуга" class="aura-modal-banner-img" id="modalBannerImg">
           <div class="aura-modal-banner-overlay"></div>
           <div class="aura-modal-banner-top">
@@ -59,6 +59,7 @@ function initBookingModalSystem() {
         </div>
 
         <div class="aura-booking-header">
+          <div class="aura-modal-badge" id="auraBookingHeaderBadge" style="display:inline-flex; margin-bottom:0.8rem;">СВЯЗЬ И ЗАПИСЬ</div>
           <h2 class="aura-booking-title" id="auraBookingTitle">ЗАПИСЬ В КЛУБ</h2>
           <p class="aura-booking-subtitle" id="auraBookingSubtitle">
             Выберите удобный вариант связи с администратором:
@@ -191,6 +192,8 @@ window.openAuraBookingModal = function(opts = {}) {
   const titleEl = document.getElementById('auraBookingTitle');
   const subtitleEl = document.getElementById('auraBookingSubtitle');
   const badgeEl = document.getElementById('auraBookingBadge');
+  const headerBadgeEl = document.getElementById('auraBookingHeaderBadge');
+  const bannerWrap = document.getElementById('modalBannerWrap');
   const bannerImg = document.getElementById('modalBannerImg');
   const priceEl = document.getElementById('auraBookingPrice');
 
@@ -200,13 +203,14 @@ window.openAuraBookingModal = function(opts = {}) {
   const badgeText = opts.badge || (trainerName ? 'ПЕРСОНАЛЬНЫЙ ТРЕНИНГ' : 'СВЯЗЬ И ЗАПИСЬ');
 
   if (badgeEl) badgeEl.textContent = badgeText;
+  if (headerBadgeEl) headerBadgeEl.textContent = badgeText;
   
-  // Подбор подходящей картинки
-  let photo = opts.img || opts.photo || '';
-  if (!photo) {
-    if (opts.trainerPhoto) {
-      photo = opts.trainerPhoto;
-    } else {
+  // Картинка отображается ТОЛЬКО на странице услуг (services.html)
+  const isServicesPage = window.location.pathname.includes('services') || document.body.classList.contains('svc-page');
+  
+  if (isServicesPage) {
+    let photo = opts.img || opts.photo || '';
+    if (!photo) {
       const s = serviceName.toLowerCase();
       if (s.includes('тренажер') || s.includes('разовое') || s.includes('абонемент') || s.includes('силов') || s.includes('клуб')) photo = '/images/8bl.webp';
       else if (s.includes('зал') || s.includes('аренд') || s.includes('90') || s.includes('50') || s.includes('йог') || s.includes('antigravity')) photo = '/images/4bl.webp';
@@ -215,17 +219,22 @@ window.openAuraBookingModal = function(opts = {}) {
       else if (s.includes('эпил') || s.includes('лазер')) photo = '/images/epil.webp';
       else photo = '/images/1block.png';
     }
-  }
+    if (bannerImg) bannerImg.src = photo;
+    if (bannerWrap) bannerWrap.style.display = 'block';
+    if (headerBadgeEl) headerBadgeEl.style.display = 'none';
 
-  if (bannerImg) bannerImg.src = photo;
-
-  if (priceEl) {
-    if (priceText && priceText !== '—' && priceText !== 'Консультация') {
-      priceEl.textContent = priceText;
-      priceEl.style.display = 'inline-flex';
-    } else {
-      priceEl.style.display = 'none';
+    if (priceEl) {
+      if (priceText && priceText !== '—' && priceText !== 'Консультация') {
+        priceEl.textContent = priceText;
+        priceEl.style.display = 'inline-flex';
+      } else {
+        priceEl.style.display = 'none';
+      }
     }
+  } else {
+    // На всех остальных страницах (главная, тренеры и т.д.) фото скрыто
+    if (bannerWrap) bannerWrap.style.display = 'none';
+    if (headerBadgeEl) headerBadgeEl.style.display = 'inline-flex';
   }
 
   if (trainerName) {

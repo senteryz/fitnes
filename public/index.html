@@ -753,8 +753,8 @@
   <div class="aura-booking-modal-dialog">
     <button type="button" class="aura-booking-close-btn" id="auraBookingClose" aria-label="Закрыть окно">✕</button>
     
-    <!-- КАРТИНКА / БАННЕР УСЛУГИ ИЛИ ТРЕНЕРА -->
-    <div class="aura-modal-banner-wrap" id="modalBannerWrap">
+    <!-- КАРТИНКА / БАННЕР УСЛУГИ (ОТОБРАЖАЕТСЯ ТОЛЬКО НА SERVICES.HTML) -->
+    <div class="aura-modal-banner-wrap" id="modalBannerWrap" style="display:none;">
       <img src="/images/1block.png" alt="Услуга" class="aura-modal-banner-img" id="modalBannerImg">
       <div class="aura-modal-banner-overlay"></div>
       <div class="aura-modal-banner-top">
@@ -764,6 +764,7 @@
     </div>
 
     <div class="aura-booking-header">
+      <div class="aura-modal-badge" id="auraBookingHeaderBadge" style="display:inline-flex; margin-bottom:0.8rem;">СВЯЗЬ И ЗАПИСЬ</div>
       <h2 class="aura-booking-title" id="auraBookingTitle">ЗАПИСЬ В КЛУБ</h2>
       <p class="aura-booking-subtitle" id="auraBookingSubtitle">
         Выберите удобный вариант связи с администратором:

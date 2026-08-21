@@ -1450,64 +1450,9 @@
 </footer>
 
 
-<!-- ═══════════ MODAL ═══════════ -->
-<div class="modal-backdrop" id="bookingModal" role="dialog" aria-modal="true" aria-labelledby="modalServiceTitle" aria-hidden="true">
-  <div class="modal-window" role="document">
-    <button type="button" class="modal-close" id="modalClose" aria-label="Закрыть">✕</button>
-
-    <div id="modalForm">
-      <!-- 1. IMAGE BANNER -->
-      <div class="modal-banner-wrap">
-        <img id="modalBannerImg" src="/images/1block.png" alt="Услуга" class="modal-banner-img">
-      </div>
-
-      <!-- 2. NAME, PRICE & DESCRIPTION -->
-      <div class="modal-service-info">
-        <div class="modal-service-top">
-          <h3 class="modal-service-title" id="modalServiceTitle">Разовое посещение</h3>
-          <span class="modal-price-badge" id="modalServicePrice">800 ₽</span>
-        </div>
-        <p class="modal-service-desc" id="modalServiceDesc">Доступ в клуб на весь день без ограничений ко всем тренажёрным и кардио зонам.</p>
-      </div>
-
-      <!-- 3. ROUNDED MESSENGER BUTTONS -->
-      <div class="modal-social-sec">
-        <span class="modal-social-label">Быстрая запись через мессенджеры:</span>
-        <div class="modal-social-grid">
-          <a href="https://vk.com" id="modalVk" target="_blank" rel="noopener" class="modal-pill-btn vk">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M15.684 0H8.316C3.724 0 0 3.724 0 8.316v7.368C0 20.276 3.724 24 8.316 24h7.368C20.276 24 24 20.276 24 15.684V8.316C24 3.724 20.276 0 15.684 0zm4.015 17.229h-1.636c-.619 0-.81-.493-1.92-1.603-1.002-.977-1.442-1.101-1.693-1.101-.352 0-.455.102-.455.592v1.492c0 .393-.127.62-1.17.62-1.727 0-3.644-1.045-4.992-2.986-2.025-2.888-2.584-5.06-2.584-5.503 0-.243.093-.467.545-.467h1.636c.408 0 .563.187.719.62.784 2.278 2.096 4.275 2.64 4.275.204 0 .298-.093.298-.606V9.824c-.068-1.087-.636-1.18-.636-1.569 0-.187.155-.374.408-.374h2.569c.345 0 .468.179.468.583v3.136c0 .341.15.46.246.46.204 0 .376-.119.754-.496 1.168-1.309 2.003-3.328 2.003-3.328.11-.24.301-.468.709-.468h1.636c.491 0 .6.247.491.593-.207.962-2.227 3.842-2.227 3.842-.178.272-.248.396 0 .727.172.241.745.727 1.127 1.171.701.802 1.238 1.472 1.382 1.936.115.344-.069.529-.56.529z"/></svg>
-            ВКонтакте
-          </a>
-          <a href="https://t.me/" id="modalTg" target="_blank" rel="noopener" class="modal-pill-btn tg">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
-            Telegram
-          </a>
-          <a href="https://max.ru/join/hMsYRZJwLWOrTIuzHLBYySpwmK6H3SlUQPBJT-Xufik" id="modalWa" target="_blank" rel="noopener" class="modal-pill-btn max">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12c0 2.05.62 3.96 1.69 5.54L2.05 22l4.63-1.6c1.6.86 3.42 1.35 5.32 1.35 5.52 0 10-4.48 10-10S17.52 2 12 2zm4 12.5h-2v-3.7l-2 3-2-3v3.7H8V8h2.2l1.8 2.7L13.8 8H16v6.5z"/></svg>
-            MAX канал
-          </a>
-        </div>
-      </div>
-
-
-    </div>
-
-    <div id="modalSuccess" style="display:none;">
-      <div class="modal-success" style="padding: 1rem 0; text-align: center;">
-        <div class="check" style="width:48px; height:48px; border-radius:50%; background:rgba(84,102,61,0.12); color:var(--olive); display:flex; align-items:center; justify-content:center; margin:0 auto 1rem;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-        </div>
-        <h3 style="font-family:'Oswald',sans-serif; font-size:1.8rem; text-transform:uppercase; margin:0 0 0.4rem; color:var(--ink);">Заявка принята!</h3>
-        <p class="modal-service-desc" style="text-align:center; margin-bottom:1.2rem;">Администратор перезвонит вам в течение 15 минут.</p>
-        <button type="button" class="modal-submit" id="modalDone" style="max-width:200px; margin:0 auto;">Закрыть</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <script src="/js/main.js"></script>
 
-<!-- ═══════════ SCROLLSPY + REVEAL + MODAL ═══════════ -->
+<!-- ═══════════ SCROLLSPY & ACCORDION ═══════════ -->
 <script>
 (function(){
   // ── Scrollspy & Smooth Scroll ──
@@ -1542,7 +1487,6 @@
     navLinks.forEach(link => {
       if (link.getAttribute('href') === '#' + activeId) {
         link.classList.add('active');
-        // Auto-scroll the horizontal navigation on mobile/tablet to center active category
         if (window.innerWidth <= 1024) {
           const ol = link.parentElement.parentElement;
           if (ol) {
@@ -1584,83 +1528,14 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.svc-section').forEach(el => io.observe(el));
 
-  // ── MODAL ──
-  const modal = document.getElementById('bookingModal');
-  const closeBtn = document.getElementById('modalClose');
-  const titleEl = document.getElementById('modalServiceTitle');
-  const priceEl = document.getElementById('modalServicePrice');
-  const descEl = document.getElementById('modalServiceDesc');
-  const bannerImg = document.getElementById('modalBannerImg');
-  const waLink = document.getElementById('modalWa');
-  const tgLink = document.getElementById('modalTg');
-  const vkLink = document.getElementById('modalVk');
-  const PHONE = '79037977739';
-
-  function openModal(service, price, desc, img){
-    if (!modal) return;
-    const s = service || 'Консультация';
-    const p = price || '—';
-    let d = desc || '';
-    let i = img || '';
-
-    if (!d) {
-      if (s.includes('Разовое')) d = 'Полный доступ в клуб на весь день без ограничений ко всем тренажёрным и кардио зонам.';
-      else if (s.includes('Абонемент')) d = 'Безлимитные посещения клуба, возможность заморозки и доступ ко всем зонам.';
-      else if (s.toLowerCase().includes('массаж')) d = 'Глубокая проработка мышц, снятие усталости, улучшение тонуса кожи и полное восстановление.';
-      else if (s.includes('зала') || s.includes('зал')) d = 'Просторное светлое пространство 50-90 м² с аудиосистемой, зеркалами и климат-контролем.';
-      else if (s.includes('Солярий')) d = 'Мощный турбо-солярий для ровного и красивого загара. Стикини, шапочка и коврик входят в стоимость.';
-      else if (s.includes('эпиляция') || s.includes('Комплекс') || s.includes('Мини') || s.includes('Стандарт')) d = 'Эффективное и безболезненное удаление волос на профессиональном лазере с системой охлаждения.';
-      else d = 'Персональный подбор программы и индивидуальное сопровождение экспертного инструктора.';
-    }
-
-    if (!i) {
-      i = '/images/1block.png';
-    }
-
-    if (titleEl) titleEl.textContent = s;
-    if (priceEl) priceEl.textContent = p;
-    if (descEl) descEl.textContent = d;
-    if (bannerImg) bannerImg.src = i;
-
-    const msgText = encodeURIComponent('Здравствуйте! Хочу записаться на услугу: ' + s + ' (' + p + ')');
-    if (waLink) waLink.href = 'https://max.ru/join/hMsYRZJwLWOrTIuzHLBYySpwmK6H3SlUQPBJT-Xufik';
-    if (tgLink) tgLink.href = 'https://t.me/FitnesscenterAura?text=' + msgText;
-    if (vkLink) vkLink.href = 'https://vk.com/club46230813';
-
-    modal.classList.add('open');
-    modal.setAttribute('aria-hidden','false');
-  }
-
-  function closeModal(){
-    if (!modal) return;
-    modal.classList.remove('open');
-    modal.setAttribute('aria-hidden','true');
-  }
-
+  // Аккордеон
   document.addEventListener('click', e => {
     const accHeader = e.target.closest('.svc-acc-header');
     if (accHeader) {
       const item = accHeader.closest('.svc-acc-item');
       if (item) item.classList.toggle('active');
-      return;
-    }
-    const trigger = e.target.closest('[data-modal-open]');
-    if (trigger){
-      e.preventDefault();
-      const cardSub = trigger.querySelector('.svc-card-sub');
-      const desc = trigger.getAttribute('data-desc') || (cardSub ? cardSub.textContent.trim() : '');
-      const img = trigger.getAttribute('data-img') || trigger.getAttribute('data-photo') || '';
-      openModal(trigger.getAttribute('data-service'), trigger.getAttribute('data-price'), desc, img);
     }
   });
-
-  const doneBtn = document.getElementById('modalDone');
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (doneBtn) doneBtn.addEventListener('click', closeModal);
-  if (modal) {
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-  }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && modal && modal.classList.contains('open')) closeModal(); });
 })();
 </script>
 

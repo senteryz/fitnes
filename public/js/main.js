@@ -38,7 +38,7 @@ if (document.readyState === 'loading') {
   initBookingModalSystem();
 }
 
-// ─── УНИВЕРСАЛЬНОЕ ОКНО ВЫБОРА СПОСОБА СВЯЗИ (МГНОВЕННЫЙ ПЕРЕХОД) ─────────────
+// ─── УНИВЕРСАЛЬНОЕ ОКНО ВЫБОРА СПОСОБА СВЯЗИ ─────────────────────────────────
 function initBookingModalSystem() {
   if (document.getElementById('auraBookingModal')) return;
 
@@ -67,7 +67,6 @@ function initBookingModalSystem() {
 
         <!-- КАНАЛЫ СВЯЗИ С МГНОВЕННЫМ ПЕРЕХОДОМ -->
         <div class="aura-channels-list">
-          
           <!-- 1. ПОЗВОНИТЬ -->
           <a href="tel:+79037977739" class="aura-channel-row phone-row" id="modalChannelPhone">
             <div class="aura-channel-row-icon">
@@ -147,138 +146,137 @@ function initBookingModalSystem() {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
             </div>
           </a>
-
         </div>
       </div>
     </div>
   `;
 
   document.body.insertAdjacentHTML('beforeend', modalHTML);
+}
 
+// Закрытие модального окна
+function closeAuraBookingModal() {
   const modal = document.getElementById('auraBookingModal');
-  const backdrop = document.getElementById('auraBookingBackdrop');
-  const closeBtn = document.getElementById('auraBookingClose');
+  if (!modal) return;
+  modal.classList.add('closing');
+  setTimeout(() => {
+    modal.classList.remove('open', 'closing');
+    document.body.style.overflow = '';
+  }, 180);
+}
+
+// Глобальное закрытие по клику на крестик или фон
+document.addEventListener('click', (e) => {
+  if (e.target.closest('#auraBookingClose') || e.target.closest('#auraBookingBackdrop')) {
+    e.preventDefault();
+    closeAuraBookingModal();
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    const modal = document.getElementById('auraBookingModal');
+    if (modal && modal.classList.contains('open')) {
+      closeAuraBookingModal();
+    }
+  }
+});
+
+// Глобальная функция открытия
+window.openAuraBookingModal = function(opts = {}) {
+  initBookingModalSystem();
+  const modal = document.getElementById('auraBookingModal');
+  if (!modal) return;
+
   const titleEl = document.getElementById('auraBookingTitle');
   const subtitleEl = document.getElementById('auraBookingSubtitle');
   const badgeEl = document.getElementById('auraBookingBadge');
   const bannerImg = document.getElementById('modalBannerImg');
   const priceEl = document.getElementById('auraBookingPrice');
 
-  // Закрытие
-  function closeModal() {
-    if (!modal) return;
-    modal.classList.add('closing');
-    setTimeout(() => {
-      modal.classList.remove('open', 'closing');
-      document.body.style.overflow = '';
-    }, 200);
+  const serviceName = opts.service || 'Общая запись в клуб';
+  const trainerName = opts.trainer || '';
+  const priceText = opts.price || '';
+  const badgeText = opts.badge || (trainerName ? 'ПЕРСОНАЛЬНЫЙ ТРЕНИНГ' : 'СВЯЗЬ И ЗАПИСЬ');
+
+  if (badgeEl) badgeEl.textContent = badgeText;
+  
+  // Подбор подходящей картинки
+  let photo = opts.img || opts.photo || '';
+  if (!photo) {
+    if (opts.trainerPhoto) {
+      photo = opts.trainerPhoto;
+    } else {
+      const s = serviceName.toLowerCase();
+      if (s.includes('тренажер') || s.includes('разовое') || s.includes('абонемент') || s.includes('силов') || s.includes('клуб')) photo = '/images/8bl.webp';
+      else if (s.includes('зал') || s.includes('аренд') || s.includes('90') || s.includes('50') || s.includes('йог') || s.includes('antigravity')) photo = '/images/4bl.webp';
+      else if (s.includes('массаж') || s.includes('спа') || s.includes('уход')) photo = '/images/5bl.webp';
+      else if (s.includes('саун') || s.includes('соляр') || s.includes('загар')) photo = '/images/6bl.webp';
+      else if (s.includes('эпил') || s.includes('лазер')) photo = '/images/epil.webp';
+      else photo = '/images/1block.png';
+    }
   }
 
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  if (backdrop) backdrop.addEventListener('click', closeModal);
+  if (bannerImg) bannerImg.src = photo;
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) {
-      closeModal();
-    }
-  });
-
-  // Функция открытия
-  window.openAuraBookingModal = function(opts = {}) {
-    initBookingModalSystem();
-    const modal = document.getElementById('auraBookingModal');
-    if (!modal) return;
-
-    const titleEl = document.getElementById('auraBookingTitle');
-    const subtitleEl = document.getElementById('auraBookingSubtitle');
-    const badgeEl = document.getElementById('auraBookingBadge');
-    const bannerImg = document.getElementById('modalBannerImg');
-    const priceEl = document.getElementById('auraBookingPrice');
-
-    const serviceName = opts.service || 'Общая запись в клуб';
-    const trainerName = opts.trainer || '';
-    const priceText = opts.price || '';
-    const badgeText = opts.badge || (trainerName ? 'ПЕРСОНАЛЬНЫЙ ТРЕНИНГ' : 'СВЯЗЬ И ЗАПИСЬ');
-
-    if (badgeEl) badgeEl.textContent = badgeText;
-    
-    // Подбор подходящей картинки
-    let photo = opts.img || opts.photo || '';
-    if (!photo) {
-      if (opts.trainerPhoto) {
-        photo = opts.trainerPhoto;
-      } else {
-        const s = serviceName.toLowerCase();
-        if (s.includes('тренажер') || s.includes('разовое') || s.includes('абонемент') || s.includes('силов') || s.includes('клуб')) photo = '/images/8bl.webp';
-        else if (s.includes('зал') || s.includes('аренд') || s.includes('90') || s.includes('50') || s.includes('йог') || s.includes('antigravity')) photo = '/images/4bl.webp';
-        else if (s.includes('массаж') || s.includes('спа') || s.includes('уход')) photo = '/images/5bl.webp';
-        else if (s.includes('саун') || s.includes('соляр') || s.includes('загар')) photo = '/images/6bl.webp';
-        else if (s.includes('эпил') || s.includes('лазер')) photo = '/images/epil.webp';
-        else photo = '/images/1block.png';
-      }
-    }
-
-    if (bannerImg) bannerImg.src = photo;
-
-    if (priceEl) {
-      if (priceText && priceText !== '—' && priceText !== 'Консультация') {
-        priceEl.textContent = priceText;
-        priceEl.style.display = 'inline-flex';
-      } else {
-        priceEl.style.display = 'none';
-      }
-    }
-
-    if (trainerName) {
-      if (titleEl) titleEl.textContent = trainerName;
-      if (subtitleEl) subtitleEl.textContent = 'Выберите удобный канал для связи и записи к специалисту:';
-    } else if (opts.service && opts.service !== 'Общая запись в клуб' && opts.service !== 'Связь с администратором') {
-      if (titleEl) titleEl.textContent = serviceName;
-      if (subtitleEl) subtitleEl.textContent = 'Выберите удобный канал для консультации и бронирования:';
+  if (priceEl) {
+    if (priceText && priceText !== '—' && priceText !== 'Консультация') {
+      priceEl.textContent = priceText;
+      priceEl.style.display = 'inline-flex';
     } else {
-      if (titleEl) titleEl.textContent = 'СВЯЗЬ С АДМИНИСТРАТОРОМ';
-      if (subtitleEl) subtitleEl.textContent = 'Выберите удобный вариант для связи с фитнес-центром «Аура»:';
+      priceEl.style.display = 'none';
     }
+  }
 
-    modal.classList.remove('closing');
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  };
+  if (trainerName) {
+    if (titleEl) titleEl.textContent = trainerName;
+    if (subtitleEl) subtitleEl.textContent = 'Выберите удобный канал для связи и записи к специалисту:';
+  } else if (opts.service && opts.service !== 'Общая запись в клуб' && opts.service !== 'Связь с администратором') {
+    if (titleEl) titleEl.textContent = serviceName;
+    if (subtitleEl) subtitleEl.textContent = 'Выберите удобный канал для консультации и бронирования:';
+  } else {
+    if (titleEl) titleEl.textContent = 'СВЯЗЬ С АДМИНИСТРАТОРОМ';
+    if (subtitleEl) subtitleEl.textContent = 'Выберите удобный вариант для связи с фитнес-центром «Аура»:';
+  }
 
-  // Глобальный перехват кликов по кнопкам записи
-  document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-modal-open], .trainer-ios-btn, .svc-card-luxury, .quick-widget-item.book-btn, a[href*="t.me/FitnesscenterAura"], .btn-outline-gold, .eq-panel-btn, .price-btn-gold, .svc-acc-book-btn');
-    if (!btn) return;
+  modal.classList.remove('closing');
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+};
 
-    // Если это ссылка в хедере или соцсетях, не перехватываем
-    if (btn.classList.contains('quick-widget-item') && !btn.classList.contains('book-btn')) return;
-    if (btn.classList.contains('header-phone-link') || btn.closest('.footer-socials')) return;
+// Глобальный перехват кликов по кнопкам записи
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('[data-modal-open], .trainer-ios-btn, .svc-card-luxury, .quick-widget-item.book-btn, a[href*="t.me/FitnesscenterAura"], .btn-outline-gold, .eq-panel-btn, .price-btn-gold, .svc-acc-book-btn');
+  if (!btn) return;
 
-    e.preventDefault();
-    e.stopPropagation();
+  // Если это ссылка в хедере или соцсетях, не перехватываем
+  if (btn.classList.contains('quick-widget-item') && !btn.classList.contains('book-btn')) return;
+  if (btn.classList.contains('header-phone-link') || btn.closest('.footer-socials')) return;
 
-    const service = btn.getAttribute('data-service') || btn.getAttribute('data-title') || btn.textContent.trim();
-    const price = btn.getAttribute('data-price') || btn.querySelector('.svc-card-price')?.textContent.trim() || '';
-    
-    // Определение тренера
-    const trainerCard = btn.closest('.trainer-card-ios');
-    const isTrainer = service.includes('Тренер:') || trainerCard || btn.classList.contains('trainer-ios-btn');
-    const trainerName = isTrainer ? (btn.getAttribute('data-service')?.replace('Тренер:', '').trim() || trainerCard?.querySelector('.trainer-ios-name')?.textContent.trim()) : '';
-    const trainerPhoto = trainerCard?.querySelector('img')?.getAttribute('src') || '';
+  e.preventDefault();
+  e.stopPropagation();
 
-    // Определение фото
-    const cardImg = btn.getAttribute('data-img') || btn.getAttribute('data-photo') || btn.querySelector('img')?.getAttribute('src') || trainerPhoto;
+  const service = btn.getAttribute('data-service') || btn.getAttribute('data-title') || btn.textContent.trim();
+  const price = btn.getAttribute('data-price') || btn.querySelector('.svc-card-price')?.textContent.trim() || '';
+  
+  // Определение тренера
+  const trainerCard = btn.closest('.trainer-card-ios');
+  const isTrainer = service.includes('Тренер:') || trainerCard || btn.classList.contains('trainer-ios-btn');
+  const trainerName = isTrainer ? (btn.getAttribute('data-service')?.replace('Тренер:', '').trim() || trainerCard?.querySelector('.trainer-ios-name')?.textContent.trim()) : '';
+  const trainerPhoto = trainerCard?.querySelector('img')?.getAttribute('src') || '';
 
-    window.openAuraBookingModal({
-      service: service,
-      trainer: trainerName,
-      trainerPhoto: trainerPhoto,
-      img: cardImg,
-      price: price,
-      badge: isTrainer ? 'ПЕРСОНАЛЬНЫЙ ТРЕНИНГ' : 'СВЯЗЬ И ЗАПИСЬ'
-    });
+  // Определение фото
+  const cardImg = btn.getAttribute('data-img') || btn.getAttribute('data-photo') || btn.querySelector('img')?.getAttribute('src') || trainerPhoto;
+
+  window.openAuraBookingModal({
+    service: service,
+    trainer: trainerName,
+    trainerPhoto: trainerPhoto,
+    img: cardImg,
+    price: price,
+    badge: isTrainer ? 'ПЕРСОНАЛЬНЫЙ ТРЕНИНГ' : 'СВЯЗЬ И ЗАПИСЬ'
   });
-}
+});
 
 // ─── ФЛОАТИНГ-ВИДЖЕТ БЫСТРОЙ ЗАПИСИ (ПРАВЫЙ НИЖНИЙ УГОЛ) ───
 function initQuickWidget() {

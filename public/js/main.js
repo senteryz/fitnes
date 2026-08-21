@@ -199,7 +199,7 @@ function initBookingModalSystem() {
 
   // Глобальный перехват кликов по кнопкам записи
   document.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-modal-open], .trainer-ios-btn, .svc-card-luxury, .quick-widget-item.book-btn, a[href*="t.me/FitnesscenterAura"], .btn-outline-gold');
+    const btn = e.target.closest('[data-modal-open], .trainer-ios-btn, .svc-card-luxury, .quick-widget-item.book-btn, a[href*="t.me/FitnesscenterAura"], .btn-outline-gold, .eq-panel-btn, .price-btn-gold, .svc-acc-book-btn');
     if (!btn) return;
 
     // Если это ссылка в хедере или соцсетях, не перехватываем

@@ -4868,78 +4868,89 @@ html:not([data-theme="dark"]) .hero-btn-row .btn-outline:hover {
 .aura-channel-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.1rem;
   padding: 1.05rem 1.25rem;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   text-decoration: none;
   color: var(--text-main, #ffffff);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
   position: relative;
   overflow: hidden;
+  transform: none !important;
 }
 .aura-channel-row:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transform: none !important;
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.35);
 }
 
 .aura-channel-row.phone-row {
-  border-color: rgba(84, 102, 61, 0.45);
-  background: rgba(84, 102, 61, 0.12);
+  border-color: rgba(196, 169, 106, 0.38);
+  background: linear-gradient(135deg, rgba(84, 102, 61, 0.2) 0%, rgba(196, 169, 106, 0.12) 100%);
 }
 .aura-channel-row.phone-row:hover {
-  border-color: #8bb55f;
-  background: rgba(84, 102, 61, 0.22);
+  border-color: rgba(196, 169, 106, 0.85);
+  background: linear-gradient(135deg, rgba(84, 102, 61, 0.32) 0%, rgba(196, 169, 106, 0.22) 100%);
+  box-shadow: 0 0 25px rgba(196, 169, 106, 0.22);
 }
+
 .aura-channel-row.max-row {
-  border-color: rgba(45, 140, 240, 0.35);
-  background: rgba(45, 140, 240, 0.08);
+  border-color: rgba(45, 140, 240, 0.32);
+  background: linear-gradient(135deg, rgba(45, 140, 240, 0.12) 0%, rgba(20, 30, 48, 0.45) 100%);
 }
 .aura-channel-row.max-row:hover {
-  border-color: #2d8cf0;
-  background: rgba(45, 140, 240, 0.18);
+  border-color: rgba(45, 140, 240, 0.8);
+  background: linear-gradient(135deg, rgba(45, 140, 240, 0.22) 0%, rgba(20, 30, 48, 0.65) 100%);
+  box-shadow: 0 0 25px rgba(45, 140, 240, 0.2);
 }
+
 .aura-channel-row.tg-row {
-  border-color: rgba(36, 161, 222, 0.35);
-  background: rgba(36, 161, 222, 0.08);
+  border-color: rgba(36, 161, 222, 0.32);
+  background: linear-gradient(135deg, rgba(36, 161, 222, 0.12) 0%, rgba(18, 32, 45, 0.45) 100%);
 }
 .aura-channel-row.tg-row:hover {
-  border-color: #24A1DE;
-  background: rgba(36, 161, 222, 0.18);
+  border-color: rgba(36, 161, 222, 0.8);
+  background: linear-gradient(135deg, rgba(36, 161, 222, 0.22) 0%, rgba(18, 32, 45, 0.65) 100%);
+  box-shadow: 0 0 25px rgba(36, 161, 222, 0.2);
 }
+
 .aura-channel-row.vk-row {
-  border-color: rgba(76, 117, 163, 0.35);
-  background: rgba(76, 117, 163, 0.08);
+  border-color: rgba(76, 117, 163, 0.32);
+  background: linear-gradient(135deg, rgba(76, 117, 163, 0.12) 0%, rgba(22, 30, 42, 0.45) 100%);
 }
 .aura-channel-row.vk-row:hover {
-  border-color: #4C75A3;
-  background: rgba(76, 117, 163, 0.18);
+  border-color: rgba(76, 117, 163, 0.8);
+  background: linear-gradient(135deg, rgba(76, 117, 163, 0.22) 0%, rgba(22, 30, 42, 0.65) 100%);
+  box-shadow: 0 0 25px rgba(76, 117, 163, 0.2);
 }
+
 .aura-channel-row.wa-row {
-  border-color: rgba(37, 211, 102, 0.35);
-  background: rgba(37, 211, 102, 0.08);
+  border-color: rgba(37, 211, 102, 0.32);
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.12) 0%, rgba(15, 35, 24, 0.45) 100%);
 }
 .aura-channel-row.wa-row:hover {
-  border-color: #25D366;
-  background: rgba(37, 211, 102, 0.18);
+  border-color: rgba(37, 211, 102, 0.8);
+  background: linear-gradient(135deg, rgba(37, 211, 102, 0.22) 0%, rgba(15, 35, 24, 0.65) 100%);
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.2);
 }
 
 .aura-channel-row-icon {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: border-color 0.22s ease, background 0.22s ease;
 }
-.phone-row .aura-channel-row-icon { background: rgba(84, 102, 61, 0.35); color: #9ec96c; }
-.max-row .aura-channel-row-icon { background: rgba(45, 140, 240, 0.25); color: #57a6ff; }
-.tg-row .aura-channel-row-icon { background: rgba(36, 161, 222, 0.25); color: #5bc8ff; }
-.vk-row .aura-channel-row-icon { background: rgba(76, 117, 163, 0.25); color: #7da5d9; }
-.wa-row .aura-channel-row-icon { background: rgba(37, 211, 102, 0.25); color: #4ee087; }
+.phone-row .aura-channel-row-icon { background: rgba(84, 102, 61, 0.45); color: #e8d59d; border-color: rgba(196, 169, 106, 0.45); }
+.max-row .aura-channel-row-icon { background: rgba(45, 140, 240, 0.3); color: #78baff; border-color: rgba(45, 140, 240, 0.45); }
+.tg-row .aura-channel-row-icon { background: rgba(36, 161, 222, 0.3); color: #82d4ff; border-color: rgba(36, 161, 222, 0.45); }
+.vk-row .aura-channel-row-icon { background: rgba(76, 117, 163, 0.3); color: #9bc0ee; border-color: rgba(76, 117, 163, 0.45); }
+.wa-row .aura-channel-row-icon { background: rgba(37, 211, 102, 0.3); color: #6eeaa1; border-color: rgba(37, 211, 102, 0.45); }
 
 .aura-channel-row-info {
   display: flex;
@@ -4953,35 +4964,26 @@ html:not([data-theme="dark"]) .hero-btn-row .btn-outline:hover {
   line-height: 1.25;
   margin-bottom: 0.2rem;
   color: #ffffff;
+  letter-spacing: 0.01em;
+}
+.phone-row .aura-channel-row-title {
+  color: #f7e8c6;
 }
 .aura-channel-row-desc {
-  font-size: 0.78rem;
-  color: var(--white-muted, rgba(255, 255, 255, 0.65));
-  line-height: 1.25;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.3;
 }
 .aura-channel-row-arrow {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s ease, color 0.25s ease;
+  transition: transform 0.22s ease, color 0.22s ease;
 }
 .aura-channel-row:hover .aura-channel-row-arrow {
-  color: var(--gold, #c4a96a);
+  color: #ffffff;
   transform: translateX(4px);
-}
-.aura-channel-badge-novpn {
-  position: absolute;
-  top: 0.6rem;
-  right: 0.8rem;
-  font-size: 0.65rem;
-  padding: 0.15rem 0.5rem;
-  border-radius: 10px;
-  background: rgba(45, 140, 240, 0.25);
-  color: #57a6ff;
-  border: 1px solid rgba(45, 140, 240, 0.4);
-  font-weight: 700;
-  text-transform: uppercase;
 }
 
 @media (max-width: 580px) {

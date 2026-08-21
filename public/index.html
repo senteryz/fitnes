@@ -617,8 +617,8 @@
       Начни путь к сильному и здоровому телу уже сегодня. Запишись на бесплатный первый визит или подбери удобный абонемент.
     </p>
 
-    <div style="margin-top:1.4rem; display:flex; justify-content:center; width:100%;">
-      <button type="button" class="btn btn-gold" data-modal-open data-service="Бесплатный первый визит" style="padding:1rem 2.2rem; font-size:0.95rem;">
+    <div style="margin-top:1.4rem; text-align:center !important; display:flex !important; justify-content:center !important; align-items:center !important; width:100% !important;">
+      <button type="button" class="btn btn-gold" data-modal-open data-service="Бесплатный первый визит" style="padding:1rem 2.2rem; font-size:0.95rem; margin:0 auto !important; display:inline-flex !important; justify-content:center !important; align-items:center !important;">
         Записаться на бесплатный визит
       </button>
     </div>
@@ -747,5 +747,113 @@
     }
   })();
 </script>
+<!-- ═══════════ УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО ЗАПИСИ ═══════════ -->
+<div class="aura-booking-modal" id="auraBookingModal" role="dialog" aria-modal="true">
+  <div class="aura-booking-modal-backdrop" id="auraBookingBackdrop"></div>
+  <div class="aura-booking-modal-dialog">
+    <button type="button" class="aura-booking-close-btn" id="auraBookingClose" aria-label="Закрыть окно">✕</button>
+    
+    <!-- КАРТИНКА / БАННЕР УСЛУГИ ИЛИ ТРЕНЕРА -->
+    <div class="aura-modal-banner-wrap" id="modalBannerWrap">
+      <img src="/images/1block.png" alt="Услуга" class="aura-modal-banner-img" id="modalBannerImg">
+      <div class="aura-modal-banner-overlay"></div>
+      <div class="aura-modal-banner-top">
+        <span class="aura-modal-badge" id="auraBookingBadge">СВЯЗЬ И ЗАПИСЬ</span>
+        <span class="aura-modal-price" id="auraBookingPrice" style="display:none;"></span>
+      </div>
+    </div>
+
+    <div class="aura-booking-header">
+      <h2 class="aura-booking-title" id="auraBookingTitle">ЗАПИСЬ В КЛУБ</h2>
+      <p class="aura-booking-subtitle" id="auraBookingSubtitle">
+        Выберите удобный вариант связи с администратором:
+      </p>
+    </div>
+
+    <!-- КАНАЛЫ СВЯЗИ С МГНОВЕННЫМ ПЕРЕХОДОМ -->
+    <div class="aura-channels-list">
+      <!-- 1. ПОЗВОНИТЬ -->
+      <a href="tel:+79037977739" class="aura-channel-row phone-row" id="modalChannelPhone">
+        <div class="aura-channel-row-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+          </svg>
+        </div>
+        <div class="aura-channel-row-info">
+          <div class="aura-channel-row-title">Позвонить в клуб</div>
+          <div class="aura-channel-row-desc">+7 (903) 797-77-39 · Прямой звонок</div>
+        </div>
+        <div class="aura-channel-row-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <!-- 2. МЕССЕНДЖЕР MAX -->
+      <a href="https://max.ru/join/hMsYRZJwLWOrTIuzHLBYySpwmK6H3SlUQPBJT-Xufik" target="_blank" rel="noopener" class="aura-channel-row max-row" id="modalChannelMax">
+        <div class="aura-channel-row-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12c0 2.05.62 3.96 1.69 5.54L2.05 22l4.63-1.6c1.6.86 3.42 1.35 5.32 1.35 5.52 0 10-4.48 10-10S17.52 2 12 2zm4 12.5h-2v-3.7l-2 3-2-3v3.7H8V8h2.2l1.8 2.7L13.8 8H16v6.5z"/>
+          </svg>
+        </div>
+        <div class="aura-channel-row-info">
+          <div class="aura-channel-row-title">Мессенджер MAX</div>
+          <div class="aura-channel-row-desc">Официальный чат и канал клуба</div>
+        </div>
+        <div class="aura-channel-row-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <!-- 3. TELEGRAM -->
+      <a href="https://t.me/FitnesscenterAura" target="_blank" rel="noopener" class="aura-channel-row tg-row" id="modalChannelTg">
+        <div class="aura-channel-row-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+          </svg>
+        </div>
+        <div class="aura-channel-row-info">
+          <div class="aura-channel-row-title">Telegram</div>
+          <div class="aura-channel-row-desc">Написать в Telegram</div>
+        </div>
+        <div class="aura-channel-row-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <!-- 4. ВКОНТАКТЕ -->
+      <a href="https://vk.com/club46230813" target="_blank" rel="noopener" class="aura-channel-row vk-row" id="modalChannelVk">
+        <div class="aura-channel-row-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M15.684 0H8.316C3.724 0 0 3.724 0 8.316v7.368C0 20.276 3.724 24 8.316 24h7.368C20.276 24 24 20.276 24 15.684V8.316C24 3.724 20.276 0 15.684 0zm3.692 17.143h-1.644c-.624 0-.816-.495-1.938-1.618-1.026-0.99-1.48-1.12-1.734-1.12-.358 0-.462.103-.462.597v1.442c0 .412-.132.657-1.218.657-1.802 0-3.799-1.093-5.208-3.13-2.128-3.023-2.709-5.302-2.709-5.76 0-.251.097-.487.594-.487h1.644c.446 0 .614.204.786.685.86 2.49 2.304 4.675 2.902 4.675.226 0 .33-.103.33-.668V11.23c-.094-1.493-.868-1.617-.868-2.148 0-.251.214-.504.562-.504h2.576c.371 0 .504.195.504.639v3.456c0 .375.163.504.275.504.226 0 .412-.129.83-.548 1.288-1.455 2.203-3.708 2.203-3.708.117-.251.332-.487.778-.487h1.644c.494 0 .6.251.494.639-.208.972-2.253 3.864-2.253 3.864-.176.275-.246.402 0 .727.176.233.754.744 1.139 1.196.711.815 1.258 1.496 1.403 1.966.147.466-.075.711-.564.711z"/>
+          </svg>
+        </div>
+        <div class="aura-channel-row-info">
+          <div class="aura-channel-row-title">ВКонтакте</div>
+          <div class="aura-channel-row-desc">Написать в группу клуба</div>
+        </div>
+        <div class="aura-channel-row-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+      </a>
+
+      <!-- 5. WHATSAPP -->
+      <a href="https://wa.me/79037977739" target="_blank" rel="noopener" class="aura-channel-row wa-row" id="modalChannelWa">
+        <div class="aura-channel-row-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.04 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M9.04 7.29C8.86 7.29 8.56 7.36 8.31 7.63C8.06 7.9 7.36 8.56 7.36 9.89C7.36 11.22 8.33 12.5 8.47 12.69C8.61 12.87 10.38 15.58 13.1 16.76C13.75 17.04 14.25 17.21 14.65 17.34C15.3 17.55 15.9 17.52 16.37 17.45C16.89 17.37 17.97 16.8 18.2 16.15C18.43 15.5 18.43 14.95 18.36 14.83C18.29 14.71 18.11 14.65 17.83 14.51C17.55 14.37 16.2 13.7 15.95 13.61C15.7 13.52 15.52 13.47 15.33 13.75C15.15 14.03 14.64 14.65 14.49 14.83C14.34 15 14.19 15.03 13.91 14.89C13.63 14.75 12.75 14.46 11.7 13.53C10.89 12.81 10.34 11.91 10.2 11.66C10.05 11.41 10.18 11.27 10.32 11.13C10.45 11 10.61 10.8 10.75 10.63C10.89 10.46 10.94 10.34 11.03 10.16C11.12 9.97 11.08 9.81 11.01 9.67C10.94 9.53 10.4 8.2 10.18 7.66C9.96 7.13 9.74 7.21 9.58 7.2C9.43 7.19 9.25 7.19 9.07 7.19L9.04 7.29Z"/>
+          </svg>
+        </div>
+        <div class="aura-channel-row-info">
+          <div class="aura-channel-row-title">WhatsApp</div>
+          <div class="aura-channel-row-desc">Написать в WhatsApp</div>
+        </div>
+        <div class="aura-channel-row-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m9 18 6-6-6-6"/></svg>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

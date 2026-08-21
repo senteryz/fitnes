@@ -185,6 +185,16 @@ function initBookingModalSystem() {
 
   // Функция открытия
   window.openAuraBookingModal = function(opts = {}) {
+    initBookingModalSystem();
+    const modal = document.getElementById('auraBookingModal');
+    if (!modal) return;
+
+    const titleEl = document.getElementById('auraBookingTitle');
+    const subtitleEl = document.getElementById('auraBookingSubtitle');
+    const badgeEl = document.getElementById('auraBookingBadge');
+    const bannerImg = document.getElementById('modalBannerImg');
+    const priceEl = document.getElementById('auraBookingPrice');
+
     const serviceName = opts.service || 'Общая запись в клуб';
     const trainerName = opts.trainer || '';
     const priceText = opts.price || '';

@@ -4672,6 +4672,35 @@ html:not([data-theme="dark"]) .hero-btn-row .btn-outline:hover {
 /* ═══════════════════════════════════════════════
    🪟 УНИВЕРСАЛЬНОЕ МОДАЛЬНОЕ ОКНО ЗАПИСИ И СВЯЗИ
 ═══════════════════════════════════════════════ */
+@keyframes aura-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes aura-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes aura-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes aura-modal-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
 .aura-booking-modal {
   position: fixed;
   inset: 0;
@@ -4679,43 +4708,43 @@ html:not([data-theme="dark"]) .hero-btn-row .btn-outline:hover {
   align-items: center;
   justify-content: center;
   padding: 1.2rem;
-  z-index: 10000;
+  z-index: 999999;
 }
 .aura-booking-modal.open {
-  display: flex;
+  display: flex !important;
 }
 .aura-booking-modal-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(8, 12, 8, 0.78);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  opacity: 0;
-  animation: aura-fade-in 0.3s ease forwards;
+  background: rgba(6, 10, 6, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 1;
+  animation: aura-fade-in 0.25s ease forwards;
 }
 .aura-booking-modal-dialog {
   position: relative;
   width: 100%;
-  max-width: 580px;
+  max-width: 540px;
   max-height: 92vh;
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: rgba(196, 169, 106, 0.3) transparent;
-  background: var(--bg-card, #171d15);
-  border: 1px solid rgba(196, 169, 106, 0.35);
+  background: #141a12;
+  border: 1px solid rgba(196, 169, 106, 0.4);
   border-radius: 24px;
-  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.55), 0 0 40px rgba(196, 169, 106, 0.12);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.75), 0 0 40px rgba(196, 169, 106, 0.2);
   padding: 2rem 2.2rem;
-  transform: translateY(20px) scale(0.95);
-  opacity: 0;
-  animation: aura-modal-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation: aura-modal-in 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   z-index: 2;
 }
 .aura-booking-modal.closing .aura-booking-modal-dialog {
-  animation: aura-modal-out 0.25s ease forwards;
+  animation: aura-modal-out 0.2s ease forwards;
 }
 .aura-booking-modal.closing .aura-booking-modal-backdrop {
-  animation: aura-fade-out 0.25s ease forwards;
+  animation: aura-fade-out 0.2s ease forwards;
 }
 
 .aura-booking-close-btn {

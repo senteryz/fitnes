@@ -31,11 +31,13 @@ if (document.readyState === 'loading') {
     initThemeManager();
     initQuickWidget();
     initBookingModalSystem();
+    initPromoPopup();
   });
 } else {
   initThemeManager();
   initQuickWidget();
   initBookingModalSystem();
+  initPromoPopup();
 }
 
 // ─── УНИВЕРСАЛЬНОЕ ОКНО ВЫБОРА СПОСОБА СВЯЗИ ─────────────────────────────────
@@ -1027,4 +1029,149 @@ document.addEventListener('DOMContentLoaded', () => {
     injectBranch(newsSingle, 'right', '/images/right_branch.svg', '130px', '0.22');
   }
 });
+
+// ─── БАННЕР СОГЛАСИЯ НА COOKIE (152-ФЗ) ──────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  const COOKIE_CONSENT_KEY = 'aura_cookie_consent_v1';
+  
+  if (localStorage.getItem(COOKIE_CONSENT_KEY)) {
+    return;
+  }
+
+  setTimeout(() => {
+    if (document.getElementById('auraCookieBanner')) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'auraCookieBanner';
+    banner.className = 'aura-cookie-banner';
+    banner.innerHTML = `
+      <div class="aura-cookie-inner">
+        <div class="aura-cookie-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5"/>
+            <path d="M8.5 8.5v.01"/>
+            <path d="M7.5 15.5v.01"/>
+            <path d="M15.5 15.5v.01"/>
+          </svg>
+        </div>
+        <div class="aura-cookie-text">
+          Мы используем файлы cookie и локальные данные для корректной работы сайта и персонализации настроек. Подробнее в нашей <a href="/privacy">Политике конфиденциальности</a>.
+        </div>
+        <div class="aura-cookie-actions">
+          <button type="button" class="btn btn-gold btn-sm aura-cookie-btn" id="auraAcceptCookie">Принять</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(banner);
+    requestAnimationFrame(() => {
+      banner.classList.add('aura-cookie-visible');
+    });
+
+    const acceptBtn = document.getElementById('auraAcceptCookie');
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => {
+        localStorage.setItem(COOKIE_CONSENT_KEY, 'accepted_' + new Date().toISOString());
+        banner.classList.remove('aura-cookie-visible');
+        banner.classList.add('aura-cookie-hidden');
+        setTimeout(() => banner.remove(), 400);
+      });
+    }
+  }, 1000);
+});
+
+// ─── ВСПЛЫВАЮЩЕЕ ОКНО АКЦИЙ ДЛЯ ГЛАВНОЙ СТРАНИЦЫ ───────────────────────────
+function initPromoPopup() {
+  const path = window.location.pathname.replace(/\/index\.html$/, '/');
+  const isHomePage = path === '/' || path === '';
+  if (!isHomePage) return;
+
+  const DISMISS_KEY = 'aura_promo_popup_dismissed_at';
+  const lastDismissed = localStorage.getItem(DISMISS_KEY);
+  if (lastDismissed) {
+    const elapsed = Date.now() - parseInt(lastDismissed, 10);
+    // Не показывать повторно в течение 24 часов
+    if (elapsed < 24 * 60 * 60 * 1000) return;
+  }
+
+  fetch('/api/settings')
+    .then(r => r.json())
+    .then(settings => {
+      const promo = settings && settings.promoPopup;
+      if (!promo || promo.enabled === false) return;
+
+      setTimeout(() => {
+        showPromoModal(promo);
+      }, 2500);
+    })
+    .catch(() => {});
+}
+
+function showPromoModal(promo) {
+  if (document.getElementById('auraPromoModal')) return;
+
+  const modal = document.createElement('div');
+  modal.id = 'auraPromoModal';
+  modal.className = 'aura-promo-modal';
+  modal.setAttribute('role', 'dialog');
+  modal.setAttribute('aria-modal', 'true');
+
+  const badgeText = promo.badge || 'СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ';
+  const titleText = promo.title || 'Первая тренировка — бесплатно!';
+  const descText = promo.desc || 'Запишитесь на первое пробное занятие или получите консультацию в фитнес-центре «Аура».';
+  const btnText = promo.buttonText || 'Записаться на бесплатный визит';
+  const noteText = promo.note || 'Акция действует для новых гостей клуба';
+
+  modal.innerHTML = `
+    <div class="aura-promo-backdrop" id="auraPromoBackdrop"></div>
+    <div class="aura-promo-dialog">
+      <div class="aura-promo-glow"></div>
+      <button type="button" class="aura-promo-close-btn" id="auraPromoClose" aria-label="Закрыть">✕</button>
+      <div class="aura-promo-badge">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        ${badgeText}
+      </div>
+      <h3 class="aura-promo-title">${titleText}</h3>
+      <p class="aura-promo-desc">${descText}</p>
+      <button type="button" class="btn btn-gold aura-promo-btn" id="auraPromoActionBtn">
+        ${btnText}
+      </button>
+      ${noteText ? `<div class="aura-promo-note">${noteText}</div>` : ''}
+      <button type="button" class="aura-promo-dismiss-link" id="auraPromoDismissBtn">Спасибо, позже</button>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  requestAnimationFrame(() => modal.classList.add('open'));
+
+  const dismissModal = () => {
+    localStorage.setItem('aura_promo_popup_dismissed_at', Date.now().toString());
+    modal.classList.add('closing');
+    setTimeout(() => {
+      modal.remove();
+    }, 250);
+  };
+
+  const closeBtn = document.getElementById('auraPromoClose');
+  const backdrop = document.getElementById('auraPromoBackdrop');
+  const dismissLink = document.getElementById('auraPromoDismissBtn');
+  const actionBtn = document.getElementById('auraPromoActionBtn');
+
+  if (closeBtn) closeBtn.addEventListener('click', dismissModal);
+  if (backdrop) backdrop.addEventListener('click', dismissModal);
+  if (dismissLink) dismissLink.addEventListener('click', dismissModal);
+
+  if (actionBtn) {
+    actionBtn.addEventListener('click', () => {
+      dismissModal();
+      if (typeof window.openAuraBookingModal === 'function') {
+        window.openAuraBookingModal({
+          service: promo.buttonService || 'Бесплатный первый визит',
+          badge: promo.badge || 'СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ'
+        });
+      }
+    });
+  }
+}
+
 

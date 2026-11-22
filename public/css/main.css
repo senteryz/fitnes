@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Golos+Text:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap');
+@import url('fonts.css');
 
 /* ═══════════════════════════════════════════════
    UI/UX PRO MAX — СВЕТЛАЯ ДИЗАЙН-СИСТЕМА (Фитнес-центр «Аура»)
@@ -6569,4 +6569,285 @@ html:not([data-theme="dark"]) .hero-btn-row .btn-outline:hover {
 .gallery-lux-card:hover .gallery-lux-inner img,
 .gallery-card-item:hover .gallery-card-inner img {
   transform: none !important;
+}
+
+/* ─── БАННЕР COOKIE (152-ФЗ) ─── */
+.aura-cookie-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translate(-50%, 120%);
+  width: calc(100% - 2rem);
+  max-width: 720px;
+  z-index: 9999;
+  background: rgba(14, 22, 12, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(196, 169, 106, 0.35);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), 0 0 20px rgba(196, 169, 106, 0.1);
+  border-radius: 14px;
+  padding: 1rem 1.4rem;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  opacity: 0;
+}
+
+[data-theme="light"] .aura-cookie-banner {
+  background: rgba(245, 247, 242, 0.94);
+  border: 1px solid rgba(84, 102, 61, 0.3);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15), 0 0 20px rgba(84, 102, 61, 0.1);
+}
+
+.aura-cookie-banner.aura-cookie-visible {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
+
+.aura-cookie-banner.aura-cookie-hidden {
+  transform: translate(-50%, 120%);
+  opacity: 0;
+}
+
+.aura-cookie-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aura-cookie-icon {
+  color: var(--gold, #d4b26f);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(196, 169, 106, 0.15);
+  border-radius: 50%;
+}
+
+[data-theme="light"] .aura-cookie-icon {
+  color: var(--olive, #54663d);
+  background: rgba(84, 102, 61, 0.15);
+}
+
+.aura-cookie-text {
+  font-family: var(--font-body, 'Montserrat', sans-serif);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--text-base, #e0e4d9);
+  flex: 1;
+}
+
+[data-theme="light"] .aura-cookie-text {
+  color: #2b3323;
+}
+
+.aura-cookie-text a {
+  color: var(--gold, #d4b26f);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.2s;
+}
+
+[data-theme="light"] .aura-cookie-text a {
+  color: var(--olive, #54663d);
+}
+
+.aura-cookie-text a:hover {
+  opacity: 0.8;
+}
+
+.aura-cookie-actions {
+  flex-shrink: 0;
+}
+
+.aura-cookie-btn {
+  padding: 0.5rem 1.4rem !important;
+  font-size: 0.85rem !important;
+  border-radius: 20px !important;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .aura-cookie-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.8rem;
+  }
+  .aura-cookie-actions {
+    width: 100%;
+  }
+  .aura-cookie-btn {
+    width: 100%;
+    text-align: center;
+  }
+  .aura-cookie-banner {
+    bottom: 1rem;
+    padding: 1rem;
+  }
+}
+
+/* ─── ВСПЛЫВАЮЩЕЕ ОКНО АКЦИЙ (PROMO POPUP) ─────────────────────────────────── */
+.aura-promo-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1.2rem;
+  z-index: 999980;
+}
+.aura-promo-modal.open {
+  display: flex !important;
+}
+.aura-promo-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 25, 16, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: aura-fade-in 0.3s ease forwards;
+}
+.aura-promo-dialog {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: linear-gradient(145deg, #182417, #0e170d);
+  border: 1px solid rgba(201, 168, 76, 0.45);
+  border-radius: 24px;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(201, 168, 76, 0.22);
+  padding: 2.2rem 2rem 2rem;
+  text-align: center;
+  color: #f7f9f2;
+  transform: translateY(0) scale(1);
+  animation: aura-modal-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  z-index: 2;
+  overflow: hidden;
+}
+[data-theme="light"] .aura-promo-dialog {
+  background: linear-gradient(145deg, #ffffff, #f4f6ee);
+  border: 1px solid rgba(90, 110, 64, 0.35);
+  box-shadow: 0 25px 70px rgba(35, 45, 25, 0.3), 0 0 35px rgba(201, 168, 76, 0.2);
+  color: #1a2215;
+}
+.aura-promo-glow {
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 260px;
+  height: 160px;
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.35) 0%, rgba(201, 168, 76, 0) 70%);
+  pointer-events: none;
+}
+.aura-promo-close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #e0e4d9;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 3;
+}
+[data-theme="light"] .aura-promo-close-btn {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: #404838;
+}
+.aura-promo-close-btn:hover {
+  background: rgba(201, 168, 76, 0.25);
+  border-color: var(--gold, #c9a84c);
+  color: #fff;
+  transform: scale(1.08);
+}
+.aura-promo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.95rem;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(201, 168, 76, 0.18);
+  border: 1px solid rgba(201, 168, 76, 0.45);
+  color: var(--gold, #d4b26f);
+  margin-bottom: 1.1rem;
+}
+.aura-promo-title {
+  font-family: 'Cinzel', 'Cormorant Garamond', serif;
+  font-size: clamp(1.45rem, 3.2vw, 1.85rem);
+  font-weight: 700;
+  color: var(--gold-light, #f0d59e);
+  line-height: 1.25;
+  margin-bottom: 0.85rem;
+}
+[data-theme="light"] .aura-promo-title {
+  color: #54663d;
+}
+.aura-promo-desc {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: rgba(247, 249, 242, 0.85);
+  margin-bottom: 1.5rem;
+}
+[data-theme="light"] .aura-promo-desc {
+  color: #4a5442;
+}
+.aura-promo-btn {
+  width: 100%;
+  padding: 1rem 1.6rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(201, 168, 76, 0.3);
+  transition: all 0.25s ease;
+  margin-bottom: 0.75rem;
+}
+.aura-promo-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(201, 168, 76, 0.45);
+}
+.aura-promo-note {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.4rem;
+}
+[data-theme="light"] .aura-promo-note {
+  color: rgba(60, 70, 50, 0.6);
+}
+.aura-promo-dismiss-link {
+  display: inline-block;
+  background: none;
+  border: none;
+  color: var(--gold, #c9a84c);
+  opacity: 0.8;
+  font-size: 0.82rem;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  margin-top: 0.4rem;
+  padding: 0.2rem 0.5rem;
+}
+.aura-promo-dismiss-link:hover {
+  opacity: 1;
+}
+.aura-promo-modal.closing .aura-promo-dialog {
+  animation: aura-modal-out 0.2s ease forwards;
+}
+.aura-promo-modal.closing .aura-promo-backdrop {
+  animation: aura-fade-out 0.2s ease forwards;
 }

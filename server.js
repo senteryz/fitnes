@@ -4,6 +4,30 @@ const path = require('path');
 const multer = require('multer');
 const crypto = require('crypto');
 
+// ─── Загрузка переменных окружения из .env ──────────────────────────────────
+try {
+  if (typeof process.loadEnvFile === 'function') {
+    process.loadEnvFile();
+  } else if (fs.existsSync(path.join(__dirname, '.env'))) {
+    const envContent = fs.readFileSync(path.join(__dirname, '.env'), 'utf8');
+    envContent.split('\n').forEach(line => {
+      const match = line.match(/^\s*([\w.-]+)\s*=\s*(.*)?\s*$/);
+      if (match) {
+        const key = match[1];
+        let val = (match[2] || '').trim();
+        if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+          val = val.slice(1, -1);
+        }
+        if (!process.env[key]) process.env[key] = val;
+      }
+    });
+  }
+} catch (e) {
+  // Игнорируем отсутствие .env
+}
+
+const githubDB = require('./github-db');
+
 const app = express();
 const DEFAULT_PORT = parseInt(process.env.PORT || '3000', 10);
 const DB_PATH = path.join(__dirname, 'data', 'db.json');
@@ -19,12 +43,14 @@ app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 app.use('/uploads', express.static(path.join(__dirname, 'public', 'uploads')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Middleware для гибридной базы данных (Vercel KV / local file)
+// Middleware для базы данных (GitHub API / Vercel KV / local file)
 const isKVEnabled = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
 const KV_KEY = (process.env.KV_PREFIX || 'aura') + '_db';
 let kvClient = null;
 
-if (isKVEnabled) {
+if (githubDB.isEnabled()) {
+  console.log(`⚡ GitHub API Database подключен: ${githubDB.getStatus().repo} (${githubDB.getStatus().path})`);
+} else if (isKVEnabled) {
   try {
     const { kv } = require('@vercel/kv');
     kvClient = kv;
@@ -32,6 +58,8 @@ if (isKVEnabled) {
   } catch (err) {
     console.error('⚠️ Ошибка инициализации Vercel KV:', err.message);
   }
+} else {
+  console.log('ℹ️ Локальная файловая БД (data/db.json). Для синхронизации с GitHub задайте GITHUB_TOKEN в .env');
 }
 
 function getFallbackDB() {
@@ -45,18 +73,25 @@ function getFallbackDB() {
 
 async function initDBMiddleware(req, res, next) {
   try {
-    if (isKVEnabled && kvClient) {
-      const cached = await kvClient.get(KV_KEY);
-      if (cached) {
-        inMemoryDB = typeof cached === 'string' ? JSON.parse(cached) : cached;
+    if (!inMemoryDB) {
+      if (githubDB.isEnabled()) {
+        try {
+          inMemoryDB = await githubDB.loadFromGitHub();
+        } catch (ghErr) {
+          console.warn('⚠️ Ошибка первичной загрузки из GitHub, пробуем локальную БД:', ghErr.message);
+          inMemoryDB = getFallbackDB();
+        }
+      } else if (isKVEnabled && kvClient) {
+        const cached = await kvClient.get(KV_KEY);
+        if (cached) {
+          inMemoryDB = typeof cached === 'string' ? JSON.parse(cached) : cached;
+        } else {
+          console.log(`🌱 Инициализация Vercel KV начальными данными из db.json (ключ: ${KV_KEY})...`);
+          const initial = getFallbackDB();
+          await kvClient.set(KV_KEY, JSON.stringify(initial));
+          inMemoryDB = initial;
+        }
       } else {
-        console.log(`🌱 Инициализация Vercel KV начальными данными из db.json (ключ: ${KV_KEY})...`);
-        const initial = getFallbackDB();
-        await kvClient.set(KV_KEY, JSON.stringify(initial));
-        inMemoryDB = initial;
-      }
-    } else {
-      if (!inMemoryDB) {
         inMemoryDB = getFallbackDB();
       }
     }
@@ -84,18 +119,28 @@ function readDB() {
   return inMemoryDB;
 }
 
-function writeDB(data) {
+function writeDB(data, commitMsg = 'Update db.json from Aura Admin') {
   inMemoryDB = data;
+
+  // 1. Асинхронный коммит в GitHub API
+  if (githubDB.isEnabled()) {
+    githubDB.commitToGitHub(data, commitMsg).catch((err) => {
+      console.error('⚠️ Ошибка асинхронного коммита в GitHub:', err.message);
+    });
+  }
+
+  // 2. Vercel KV (если активен)
   if (isKVEnabled && kvClient) {
     kvClient.set(KV_KEY, JSON.stringify(data)).catch((err) => {
       console.error('⚠️ Ошибка асинхронной записи в Vercel KV:', err.message);
     });
-  } else {
-    try {
-      fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
-    } catch (err) {
-      console.warn('⚠️ Ошибка записи в файл DB:', err.message);
-    }
+  }
+
+  // 3. Локальный файл db.json
+  try {
+    fs.writeFileSync(DB_PATH, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    // На Vercel файловая система read-only
   }
 }
 
@@ -151,7 +196,7 @@ app.get('/api/club', (req, res) => res.json(readDB().club));
 app.put('/api/club', adminAuth, (req, res) => {
   const db = readDB();
   db.club = { ...db.club, ...req.body };
-  writeDB(db);
+  writeDB(db, 'Обновление информации о клубе');
   res.json(db.club);
 });
 
@@ -159,7 +204,7 @@ app.get('/api/prices', (req, res) => res.json(readDB().prices));
 app.put('/api/prices', adminAuth, (req, res) => {
   const db = readDB();
   db.prices = { ...db.prices, ...req.body };
-  writeDB(db);
+  writeDB(db, 'Обновление прайс-листа');
   res.json(db.prices);
 });
 
@@ -168,7 +213,7 @@ app.post('/api/trainers', adminAuth, (req, res) => {
   const db = readDB();
   const trainer = { id: nextId(db.trainers), ...req.body };
   db.trainers.push(trainer);
-  writeDB(db);
+  writeDB(db, `Добавление тренера: ${trainer.name || 'новый'}`);
   res.status(201).json(trainer);
 });
 app.put('/api/trainers/:id', adminAuth, (req, res) => {
@@ -176,13 +221,13 @@ app.put('/api/trainers/:id', adminAuth, (req, res) => {
   const idx = db.trainers.findIndex(t => t.id === parseInt(req.params.id));
   if (idx === -1) return res.status(404).json({ error: 'Не найдено' });
   db.trainers[idx] = { ...db.trainers[idx], ...req.body };
-  writeDB(db);
+  writeDB(db, `Обновление тренера: ${db.trainers[idx].name || req.params.id}`);
   res.json(db.trainers[idx]);
 });
 app.delete('/api/trainers/:id', adminAuth, (req, res) => {
   const db = readDB();
   db.trainers = db.trainers.filter(t => t.id !== parseInt(req.params.id));
-  writeDB(db);
+  writeDB(db, `Удаление тренера #${req.params.id}`);
   res.json({ ok: true });
 });
 
@@ -191,7 +236,7 @@ app.post('/api/news', adminAuth, (req, res) => {
   const db = readDB();
   const item = { id: nextId(db.news), date: new Date().toISOString().slice(0, 10), ...req.body };
   db.news.unshift(item);
-  writeDB(db);
+  writeDB(db, `Добавление новости: ${item.title || 'новая'}`);
   res.status(201).json(item);
 });
 app.put('/api/news/:id', adminAuth, (req, res) => {
@@ -199,13 +244,13 @@ app.put('/api/news/:id', adminAuth, (req, res) => {
   const idx = db.news.findIndex(n => n.id === parseInt(req.params.id));
   if (idx === -1) return res.status(404).json({ error: 'Не найдено' });
   db.news[idx] = { ...db.news[idx], ...req.body };
-  writeDB(db);
+  writeDB(db, `Обновление новости #${req.params.id}`);
   res.json(db.news[idx]);
 });
 app.delete('/api/news/:id', adminAuth, (req, res) => {
   const db = readDB();
   db.news = db.news.filter(n => n.id !== parseInt(req.params.id));
-  writeDB(db);
+  writeDB(db, `Удаление новости #${req.params.id}`);
   res.json({ ok: true });
 });
 
@@ -214,7 +259,7 @@ app.post('/api/reviews', adminAuth, (req, res) => {
   const db = readDB();
   const item = { id: nextId(db.reviews), date: new Date().toLocaleDateString('ru-RU'), ...req.body };
   db.reviews.unshift(item);
-  writeDB(db);
+  writeDB(db, `Новый отзыв от: ${item.author || 'Гость'}`);
   res.status(201).json(item);
 });
 app.put('/api/reviews/:id', adminAuth, (req, res) => {
@@ -222,13 +267,13 @@ app.put('/api/reviews/:id', adminAuth, (req, res) => {
   const idx = db.reviews.findIndex(r => r.id === parseInt(req.params.id));
   if (idx === -1) return res.status(404).json({ error: 'Не найдено' });
   db.reviews[idx] = { ...db.reviews[idx], ...req.body };
-  writeDB(db);
+  writeDB(db, `Обновление отзыва #${req.params.id}`);
   res.json(db.reviews[idx]);
 });
 app.delete('/api/reviews/:id', adminAuth, (req, res) => {
   const db = readDB();
   db.reviews = db.reviews.filter(r => r.id !== parseInt(req.params.id));
-  writeDB(db);
+  writeDB(db, `Удаление отзыва #${req.params.id}`);
   res.json({ ok: true });
 });
 
@@ -237,13 +282,13 @@ app.post('/api/gallery', adminAuth, (req, res) => {
   const db = readDB();
   const item = { id: nextId(db.gallery), ...req.body };
   db.gallery.push(item);
-  writeDB(db);
+  writeDB(db, `Добавление фото в галерею #${item.id}`);
   res.status(201).json(item);
 });
 app.delete('/api/gallery/:id', adminAuth, (req, res) => {
   const db = readDB();
   db.gallery = db.gallery.filter(g => g.id !== parseInt(req.params.id));
-  writeDB(db);
+  writeDB(db, `Удаление фото из галереи #${req.params.id}`);
   res.json({ ok: true });
 });
 
@@ -251,7 +296,7 @@ app.get('/api/schedule', (req, res) => res.json(readDB().schedule));
 app.put('/api/schedule', adminAuth, (req, res) => {
   const db = readDB();
   db.schedule = req.body;
-  writeDB(db);
+  writeDB(db, 'Обновление расписания');
   res.json(db.schedule);
 });
 
@@ -279,7 +324,7 @@ app.post('/api/leads', (req, res) => {
       status: 'new'
     };
     db.leads.unshift(newLead);
-    writeDB(db);
+    writeDB(db, `Новая заявка с сайта: ${newLead.name} (${newLead.phone})`);
     res.status(201).json({ ok: true, lead: newLead });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -290,7 +335,7 @@ app.delete('/api/leads/:id', adminAuth, (req, res) => {
   const db = readDB();
   if (!db.leads) db.leads = [];
   db.leads = db.leads.filter(l => l.id !== parseInt(req.params.id));
-  writeDB(db);
+  writeDB(db, `Удаление заявки #${req.params.id}`);
   res.json({ ok: true });
 });
 
@@ -300,7 +345,7 @@ app.put('/api/leads/:id/status', adminAuth, (req, res) => {
   const lead = db.leads.find(l => l.id === parseInt(req.params.id));
   if (lead) {
     lead.status = req.body.status || (lead.status === 'processed' ? 'new' : 'processed');
-    writeDB(db);
+    writeDB(db, `Изменение статуса заявки #${req.params.id} на ${lead.status}`);
     res.json(lead);
   } else {
     res.status(404).json({ error: 'Заявка не найдена' });
@@ -320,6 +365,40 @@ app.post('/api/upload', adminAuth, upload.single('image'), (req, res) => {
   }
 });
 
+// ─── Настройки сайта и всплывающего окна акций ─────────────────────────────
+app.get('/api/settings', (req, res) => {
+  const db = readDB();
+  res.json(db.settings || {});
+});
+
+app.put('/api/settings', adminAuth, (req, res) => {
+  const db = readDB();
+  db.settings = { ...db.settings, ...req.body };
+  writeDB(db, 'Обновление настроек сайта и акций');
+  res.json(db.settings);
+});
+
+// ─── Статус и синхронизация GitHub API DB ──────────────────────────────────
+app.get('/api/admin/github-status', adminAuth, (req, res) => {
+  res.json(githubDB.getStatus());
+});
+
+app.post('/api/admin/github-sync', adminAuth, async (req, res) => {
+  try {
+    if (!githubDB.isEnabled()) {
+      return res.status(400).json({ error: 'GITHUB_TOKEN не задан в переменных окружения' });
+    }
+    const fresh = await githubDB.loadFromGitHub();
+    inMemoryDB = fresh;
+    try {
+      fs.writeFileSync(DB_PATH, JSON.stringify(fresh, null, 2), 'utf8');
+    } catch (e) {}
+    res.json({ ok: true, message: 'Данные успешно загружены из GitHub', status: githubDB.getStatus() });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
+});
+
 app.get('/api/db/export', adminAuth, (req, res) => {
   const db = readDB();
   res.setHeader('Content-Disposition', 'attachment; filename="db.json"');
@@ -333,7 +412,7 @@ app.post('/api/db/import', adminAuth, (req, res) => {
     if (!data.club || !data.prices || !data.reviews) {
       return res.status(400).json({ error: 'Неверная структура базы данных' });
     }
-    writeDB(data);
+    writeDB(data, 'Импорт базы данных из JSON');
     res.json({ ok: true, message: 'База данных успешно загружена' });
   } catch (e) {
     res.status(400).json({ error: e.message });
@@ -343,8 +422,8 @@ app.post('/api/db/import', adminAuth, (req, res) => {
 app.post('/api/db/reset-to-default', adminAuth, (req, res) => {
   try {
     const defaultData = getFallbackDB();
-    writeDB(defaultData);
-    res.json({ ok: true, message: 'База данных Vercel KV успешно обновлена из файла db.json' });
+    writeDB(defaultData, 'Сброс базы данных к начальному состоянию');
+    res.json({ ok: true, message: 'База данных успешно обновлена из файла db.json' });
   } catch (e) {
     res.status(400).json({ error: e.message });
   }
@@ -361,6 +440,7 @@ app.get('/news', (req, res) => res.sendFile(path.join(__dirname, 'public', 'news
 app.get('/news-item', (req, res) => res.sendFile(path.join(__dirname, 'public', 'news-item.html')));
 app.get('/news/:id', (req, res) => res.sendFile(path.join(__dirname, 'public', 'news-item.html')));
 app.get('/contacts', (req, res) => res.sendFile(path.join(__dirname, 'public', 'contacts.html')));
+app.get('/privacy', (req, res) => res.sendFile(path.join(__dirname, 'public', 'privacy.html')));
 app.get('/aura-control-7739', (req, res) => res.sendFile(path.join(__dirname, 'public', 'admin.html')));
 app.get('/admin', (req, res) => res.redirect('/'));
 

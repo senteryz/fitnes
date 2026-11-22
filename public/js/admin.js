@@ -114,6 +114,8 @@ async function loadDB() {
   renderGalleryAdmin();
   renderScheduleAdmin();
   renderDBPreview();
+  renderPromoAdmin();
+  checkGitHubStatus();
 }
 
 // ─── Navigation ─────────────────────────────────────────────────
@@ -125,6 +127,7 @@ const panelTitles = {
   news: 'Новости',
   reviews: 'Отзывы',
   gallery: 'Галерея',
+  promo: 'Всплывающая акция (Pop-up)',
   schedule: 'Расписание',
   database: 'База данных'
 };
@@ -1043,6 +1046,104 @@ async function resetDBFromCode() {
     }
   } catch (e) {
     toast('Ошибка: ' + e.message, 'error');
+  }
+}
+
+// ─── Promo Popup Admin ──────────────────────────────────────
+function renderPromoAdmin() {
+  const promo = (db && db.settings && db.settings.promoPopup) || {};
+  const enabledEl = document.getElementById('promo-enabled');
+  const badgeEl = document.getElementById('promo-badge');
+  const serviceEl = document.getElementById('promo-service');
+  const titleEl = document.getElementById('promo-title');
+  const descEl = document.getElementById('promo-desc');
+  const buttonTextEl = document.getElementById('promo-button-text');
+  const noteEl = document.getElementById('promo-note');
+
+  if (enabledEl) enabledEl.checked = promo.enabled !== false;
+  if (badgeEl) badgeEl.value = promo.badge || 'СПЕЦИАЛЬНОЕ ПРЕДЛОЖЕНИЕ';
+  if (serviceEl) serviceEl.value = promo.buttonService || 'Бесплатный первый визит';
+  if (titleEl) titleEl.value = promo.title || 'Первая тренировка — бесплатно!';
+  if (descEl) descEl.value = promo.desc || 'Запишитесь на ознакомительное занятие в фитнес-центр «Аура» или получите персональную консультацию тренера.';
+  if (buttonTextEl) buttonTextEl.value = promo.buttonText || 'Записаться на бесплатный визит';
+  if (noteEl) noteEl.value = promo.note || 'Акция действует для новых гостей клуба';
+}
+
+async function savePromoSettings() {
+  const promo = {
+    enabled: document.getElementById('promo-enabled').checked,
+    badge: document.getElementById('promo-badge').value.trim(),
+    buttonService: document.getElementById('promo-service').value.trim(),
+    title: document.getElementById('promo-title').value.trim(),
+    desc: document.getElementById('promo-desc').value.trim(),
+    buttonText: document.getElementById('promo-button-text').value.trim(),
+    note: document.getElementById('promo-note').value.trim()
+  };
+
+  const newSettings = {
+    ...(db.settings || {}),
+    promoPopup: promo
+  };
+
+  try {
+    const res = await apiPut('/api/settings', newSettings);
+    if (res) {
+      db.settings = res;
+      toast('Настройки акции успешно сохранены!', 'success');
+    }
+  } catch (err) {
+    toast('Ошибка сохранения: ' + err.message, 'error');
+  }
+}
+
+// ─── GitHub API DB Admin ────────────────────────────────────
+async function checkGitHubStatus() {
+  const descEl = document.getElementById('gh-status-desc');
+  if (!descEl) return;
+
+  try {
+    const res = await fetch('/api/admin/github-status', {
+      headers: { 'x-admin-token': token }
+    });
+    if (!res.ok) return;
+    const st = await res.json();
+    if (st.enabled) {
+      descEl.innerHTML = `
+        <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#22c55e; margin-right:6px;"></span>
+        <strong>GitHub API активен</strong>: Репозиторий <code>${st.repo}</code>, ветка <code>${st.branch}</code>.
+        <br><span style="color:var(--gray); font-size:0.8rem;">Файл: <code>${st.path}</code> | Последний SHA: <code>${st.lastSha || 'нет'}</code></span>
+        ${st.lastError ? `<br><span style="color:var(--danger); font-size:0.8rem;">Ошибка: ${st.lastError}</span>` : ''}
+      `;
+    } else {
+      descEl.innerHTML = `
+        <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#eab308; margin-right:6px;"></span>
+        <strong>Локальная база данных</strong> (<code>data/db.json</code>).
+        <br><span style="color:var(--gray); font-size:0.8rem;">Для авто-коммитов в GitHub укажите <code>GITHUB_TOKEN</code> в переменных окружения на Vercel или в <code>.env</code> файле.</span>
+      `;
+    }
+  } catch (err) {
+    descEl.textContent = 'Не удалось проверить статус GitHub: ' + err.message;
+  }
+}
+
+async function syncWithGitHub() {
+  const btn = document.getElementById('gh-sync-btn');
+  if (btn) btn.disabled = true;
+  toast('Синхронизация с GitHub...', 'info');
+
+  try {
+    const res = await apiPost('/api/admin/github-sync', {});
+    if (res.ok) {
+      toast('Данные успешно загружены из GitHub!', 'success');
+      await loadDB();
+      checkGitHubStatus();
+    } else {
+      toast('Ошибка: ' + (res.error || 'не удалось синхронизировать'), 'error');
+    }
+  } catch (err) {
+    toast('Ошибка связи с GitHub: ' + err.message, 'error');
+  } finally {
+    if (btn) btn.disabled = false;
   }
 }
 
